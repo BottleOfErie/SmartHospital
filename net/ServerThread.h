@@ -8,6 +8,7 @@
 #include "ServerSocketThread.h"
 
 class ServerThread:public QThread{
+    Q_OBJECT
 public:
     ServerThread(int port);
     ~ServerThread();
