@@ -11,14 +11,15 @@ CONFIG += c++11
 SOURCES += \
     main.cpp \
     cpp/mainwindow.cpp \
+    net/ClientSocketThread.cpp \
     net/ServerSocketThread.cpp \
     net/ServerThread.cpp
 
 HEADERS += \
     h/mainwindow.h \
+    net/ClientSocketThread.h \
     net/ServerSocketThread.h \
     net/NetUtils.h \
-    net/ClientSocketThread.h \
     net/ServerThread.h
 
 FORMS += \
