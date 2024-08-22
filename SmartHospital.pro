@@ -1,6 +1,4 @@
-QT       += core gui network \
-            core gui sql \
-            widgets
+QT       += core gui network sql widgets
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++11
@@ -15,6 +13,8 @@ SOURCES += \
     cpp/patient.cpp \
     cpp/mainwindow.cpp \
     cpp/register.cpp \
+    net/ClientSocket.cpp \
+    net/NetUtils.cpp \
     net/ServerSocketThread.cpp \
     net/ServerThread.cpp \
 
@@ -23,10 +23,10 @@ HEADERS += \
     h/mainwindow.h \
     h/register.h \
     h/patient.h \
-    net/ServerSocketThread.h \
     net/NetUtils.h \
-    net/ClientSocketThread.h \
-    net/ServerThread.h \
+    net/ClientSocket.h \
+    net/ServerSocketThread.h \
+    net/ServerThread.h
 
 FORMS += \
     ui/patient.ui \
