@@ -22,10 +22,21 @@ HEADERS += \
     net/ServerThread.h
 
 FORMS += \
+    ui/ChecktheRegistration information.ui \
+    ui/ChecktheRegistration information.ui \
+    ui/ChecktheRegistration information.ui \
+    ui/Doctor-patientCommunicationPlatform.ui \
+    ui/Doctor.ui \
+    ui/DoctorEditPersonalInformation.ui \
+    ui/HealthAssesment.ui \
+    ui/Patient.ui \
+    ui/PatientEditPersonalInformation.ui \
+    ui/Register.ui \
+    ui/ViewCase.ui \
+    ui/ViewDoctorInformations.ui \
+    ui/ViewPrescriptionsAndContributions.ui \
     ui/mainwindow.ui \
-    ui/yisheng.ui \
     ui/zhuce.ui \
-    ui/查看挂号信息.ui \
     ui/编辑处方和缴费单.ui \
     ui/编辑病例.ui
 
