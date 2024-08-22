@@ -16,9 +16,16 @@ HEADERS += \
     h/mainwindow.h
 
 FORMS += \
-    ui/mainwindow.ui
+    ui/mainwindow.ui \
+    ui/yisheng.ui \
+    ui/zhuce.ui \
+    ui/查看挂号信息.ui \
+    ui/编辑处方和缴费单.ui \
+    ui/编辑病例.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES +=
