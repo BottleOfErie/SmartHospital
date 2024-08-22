@@ -2,14 +2,14 @@
 #define SERVERSOCKETTHREAD_H
 
 #include <QTcpSocket>
+#include <QTcpServer>
 #include <QThread>
 
 class ServerSocketThread : public QThread{
     Q_OBJECT
 public:
     bool alive;
-    long waitTime = 1000;
-    ServerSocketThread(QTcpSocket *socket);
+    ServerSocketThread(qintptr descriptor);
     ~ServerSocketThread();
     void run();
     void doCommand(QString str);
@@ -19,8 +19,12 @@ private:
     QTcpSocket *socket;
     QString buffer;
     bool hasReply;
+    qintptr socketDescripter;
 private slots:
     void readyRead_slot();
+    void doPing_slot();
+signals:
+    void toDoPing();
 };
 
 #endif

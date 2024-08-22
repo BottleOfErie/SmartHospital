@@ -12,6 +12,7 @@ SOURCES += \
     main.cpp \
     cpp/mainwindow.cpp \
     net/ClientSocket.cpp \
+    net/NetUtils.cpp \
     net/ServerSocketThread.cpp \
     net/ServerThread.cpp
 

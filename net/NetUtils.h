@@ -1,11 +1,14 @@
+#ifndef NETUTILS_H
+#define NETUTILS_H
+
 #include <QString>
 
 namespace NetUtils {
-    QString messagePrefix="=<GeNsHiN>=";
-    QString messageSuffix="=<IMpAct>=";
+    extern const QString messagePrefix;
+    extern const QString messageSuffix;
+    extern const long waitTime;
 
-    inline QByteArray wrapMessage(QString message){
-        auto str=messagePrefix+message+messageSuffix;
-        return str.toUtf8();
-    }
+    const QByteArray wrapMessage(const QString& message);
 }
+
+#endif
