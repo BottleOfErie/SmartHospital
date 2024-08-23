@@ -17,7 +17,7 @@ SOURCES += \
     net/ClientSocket.cpp \
     net/NetUtils.cpp \
     net/ServerSocketThread.cpp \
-    net/ServerThread.cpp \
+    net/ServerThread.cpp
 
 HEADERS += \
     h/PatientEditPersonalInformation.h \
@@ -29,7 +29,6 @@ HEADERS += \
     net/ServerSocketThread.h \
     net/NetUtils.h \
     net/ServerThread.h \
-
 
 FORMS += \
     ui/Doctor.ui \
@@ -45,7 +44,7 @@ FORMS += \
     ui/ViewPrescriptionsAndContributions.ui \
     ui/mainwindow.ui \
     ui/编辑处方和缴费单.ui \
-    ui/编辑病例.ui \
+    ui/编辑病例.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
