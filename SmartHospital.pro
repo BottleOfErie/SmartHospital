@@ -9,40 +9,40 @@ CONFIG += c++11
 
 SOURCES += \
     main.cpp \
-    cpp/doctor.cpp \
-    cpp/patient.cpp \
+    cpp/PatientEditPersonalInformation.cpp \
+    cpp/Doctor.cpp \
+    cpp/Patient.cpp \
     cpp/mainwindow.cpp \
-    cpp/register.cpp \
+    cpp/Register.cpp \
     net/ClientSocket.cpp \
     net/NetUtils.cpp \
     net/ServerSocketThread.cpp \
     net/ServerThread.cpp \
 
 HEADERS += \
-    h/doctor.h \
+    h/PatientEditPersonalInformation.h \
+    h/Doctor.h \
     h/mainwindow.h \
+    h/Register.h \
+    h/Patient.h \
     net/ClientSocket.h \
     net/ServerSocketThread.h \
     net/NetUtils.h \
-    net/ServerThread.h
-    h/register.h \
-    h/patient.h \
+    net/ServerThread.h \
+
 
 FORMS += \
-    ui/Check_the_registration.ui \
-    ui/Doctor-patientCommunicationPlatform.ui \
     ui/Doctor.ui \
-    ui/DoctorEditPersonalInformation.ui \
-    ui/HealthAssesment.ui \
     ui/Patient.ui \
     ui/PatientEditPersonalInformation.ui \
+    ui/Check_the_registration.ui \
+    ui/Doctor-patientCommunicationPlatform.ui \
+    ui/DoctorEditPersonalInformation.ui \
+    ui/HealthAssesment.ui \
     ui/Register.ui \
     ui/ViewCase.ui \
     ui/ViewDoctorInformations.ui \
     ui/ViewPrescriptionsAndContributions.ui \
-    ui/mainwindow.ui \
-    ui/zhuce.ui \
-    ui/register.ui \
     ui/mainwindow.ui \
     ui/编辑处方和缴费单.ui \
     ui/编辑病例.ui \

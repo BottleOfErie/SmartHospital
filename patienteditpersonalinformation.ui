@@ -2,8 +2,8 @@
  <author/>
  <comment/>
  <exportmacro/>
- <class>Patient</class>
- <widget name="Patient" class="QWidget">
+ <class>PatientEditPersonalInformation</class>
+ <widget class="QWidget" name="PatientEditPersonalInformation">
   <property name="geometry">
    <rect>
     <x>0</x>

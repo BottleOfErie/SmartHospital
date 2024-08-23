@@ -3,9 +3,9 @@
 
 
 #include <h/mainwindow.h>
-#include <h/register.h>
-#include <h/patient.h>
-#include <h/doctor.h>
+#include <h/Register.h>
+#include <h/Patient.h>
+#include <h/Doctor.h>
 #include <QMessageBox>
 #include <QSqlQuery>
 #include <QSqlError>
@@ -15,8 +15,9 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    connect(ui->LoginButton, &QPushButton::clicked, this, &MainWindow::on_LoginButton_clicked);
+    /*connect(ui->LoginButton, &QPushButton::clicked, this, &MainWindow::on_LoginButton_clicked);
     connect(ui->RegisterButton, &QPushButton::clicked, this, &MainWindow::on_RegisterButton_clicked);
+*/
 }
 
 MainWindow::~MainWindow()
@@ -53,6 +54,11 @@ void MainWindow::on_LoginButton_clicked()
 
 void MainWindow::on_RegisterButton_clicked()
 {
+    /*this->hide();//当前窗体隐藏
+    Register *registerWindow = new Register();//新建子窗体
+    connect(registerWindow,&Register::BacktoMainWindow,this,&QWidget::show);//关联子窗体关闭信号与父窗体显示事件
+    registerWindow->setAttribute(Qt::WA_DeleteOnClose);//设置子窗体属性：关闭即销毁
+    registerWindow->show();//显示子窗体*/
     // 关闭登录界面
     this->close();
     // 创建注册界面对象
