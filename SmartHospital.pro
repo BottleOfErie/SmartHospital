@@ -11,20 +11,20 @@ CONFIG += c++11
 SOURCES += \
     main.cpp \
     cpp/mainwindow.cpp \
+    net/ClientSocket.cpp \
+    net/NetUtils.cpp \
     net/ServerSocketThread.cpp \
     net/ServerThread.cpp
 
 HEADERS += \
     h/mainwindow.h \
+    net/ClientSocket.h \
     net/ServerSocketThread.h \
     net/NetUtils.h \
-    net/ClientSocketThread.h \
     net/ServerThread.h
 
 FORMS += \
-    ui/ChecktheRegistration information.ui \
-    ui/ChecktheRegistration information.ui \
-    ui/ChecktheRegistration information.ui \
+    ui/Check_the_registration.ui \
     ui/Doctor-patientCommunicationPlatform.ui \
     ui/Doctor.ui \
     ui/DoctorEditPersonalInformation.ui \
@@ -45,4 +45,5 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-RESOURCES +=
+RESOURCES += \
+    B_I.qrc

@@ -3,20 +3,17 @@
 
 #include<QTcpServer>
 #include<QTcpSocket>
-#include<QThread>
 
 #include "ServerSocketThread.h"
 
-class ServerThread:public QThread{
+class ServerThread:public QTcpServer{
+    Q_OBJECT
 public:
     ServerThread(int port);
     ~ServerThread();
-    void run();
 private:
-    QTcpServer * server;
-    QList<ServerSocketThread*> threads;
-private slots:
-    void newConnection_slot();
+    QList<ServerSocketThread*>threads;
+    virtual void incomingConnection(qintptr handle);
 };
 
 #endif // SERVERTHREAD_H

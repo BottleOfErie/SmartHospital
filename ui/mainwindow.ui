@@ -6,14 +6,20 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>937</width>
+    <height>619</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="styleSheet">
+    <string notr="true">#centralwidget{background-image: url(:/images/01.jpg);}</string>
+   </property>
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
@@ -92,91 +98,13 @@
      <string>mima</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label">
-    <property name="geometry">
-     <rect>
-      <x>340</x>
-      <y>100</y>
-      <width>67</width>
-      <height>17</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QComboBox" name="comboBox">
-    <property name="geometry">
-     <rect>
-      <x>260</x>
-      <y>80</y>
-      <width>171</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <item>
-     <property name="text">
-      <string>请选择就诊科室</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>骨科</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>皮肤科</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>内科</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>外科</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>眼科</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>耳鼻喉科</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>心脑血管科</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>儿科</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>急诊</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>胸痛外科</string>
-     </property>
-    </item>
-   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>937</width>
      <height>28</height>
     </rect>
    </property>
