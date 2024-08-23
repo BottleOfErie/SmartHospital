@@ -1,5 +1,4 @@
-QT       += core gui network
-
+QT       += core gui network sql widgets
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++11
@@ -10,18 +9,24 @@ CONFIG += c++11
 
 SOURCES += \
     main.cpp \
+    cpp/doctor.cpp \
+    cpp/patient.cpp \
     cpp/mainwindow.cpp \
+    cpp/register.cpp \
     net/ClientSocket.cpp \
     net/NetUtils.cpp \
     net/ServerSocketThread.cpp \
-    net/ServerThread.cpp
+    net/ServerThread.cpp \
 
 HEADERS += \
+    h/doctor.h \
     h/mainwindow.h \
     net/ClientSocket.h \
     net/ServerSocketThread.h \
     net/NetUtils.h \
     net/ServerThread.h
+    h/register.h \
+    h/patient.h \
 
 FORMS += \
     ui/Check_the_registration.ui \
@@ -37,8 +42,10 @@ FORMS += \
     ui/ViewPrescriptionsAndContributions.ui \
     ui/mainwindow.ui \
     ui/zhuce.ui \
+    ui/register.ui \
+    ui/mainwindow.ui \
     ui/编辑处方和缴费单.ui \
-    ui/编辑病例.ui
+    ui/编辑病例.ui \
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
