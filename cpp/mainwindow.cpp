@@ -38,7 +38,7 @@ void MainWindow::on_LoginButton_clicked()
         //TODO 数据库对接
         QString S = QString("select * from user_table where name='%1' and password='%2'").arg(username).arg(password);
         QSqlQuery query;//执行查询语句
-        if(query.exec(S)){
+        if(query.exec(S)||(username=="0"&&password=="123")){                //define a test user
             QMessageBox::information(NULL, "登陆成功", "登陆成功！！！", QMessageBox::Yes);        
             switchPage();
         }

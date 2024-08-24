@@ -16,13 +16,6 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_pushButton_clicked();
-
-    void on_pushButton_2_clicked();
-
-    void on_Sign_inButton_clicked();
-
-    void on_Sign_upButton_clicked();
 
     void on_LoginButton_clicked();
 

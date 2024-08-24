@@ -1,5 +1,6 @@
 #include "NetUtils.h"
 
+//Yuanshen
 extern const QString NetUtils::messagePrefix="=<GeNsHiN>=";
 extern const QString NetUtils::messageSuffix="=<IMpAct>=";
 extern const long NetUtils::waitTime = 5000l;
