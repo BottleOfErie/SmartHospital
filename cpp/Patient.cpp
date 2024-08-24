@@ -54,6 +54,7 @@ void Patient::on_pushButton_8_clicked()
 void Patient::on_pushButton_5_clicked()
 {
     this->close();
-    auto healthAssesment=new Doctor_patientCommunicationPlatform;
-    healthAssesment->show();
+    auto doctor_patientCommunicationPlatform=new Doctor_patientCommunicationPlatform;
+    doctor_patientCommunicationPlatform->identity="patient";
+    doctor_patientCommunicationPlatform->show();
 }
