@@ -33,6 +33,8 @@ FORMS += \
     ui/Doctor-patientCommunicationPlatform.ui \
     ui/Doctor.ui \
     ui/DoctorEditPersonalInformation.ui \
+    ui/EditMedicalRecord.ui \
+    ui/EditRecipeAndPaymentOrder.ui \
     ui/HealthAssesment.ui \
     ui/Patient.ui \
     ui/PatientEditPersonalInformation.ui \
@@ -41,11 +43,8 @@ FORMS += \
     ui/ViewDoctorInformations.ui \
     ui/ViewPrescriptionsAndContributions.ui \
     ui/mainwindow.ui \
-    ui/zhuce.ui \
     ui/register.ui \
-    ui/mainwindow.ui \
-    ui/编辑处方和缴费单.ui \
-    ui/编辑病例.ui
+    ui/mainwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
