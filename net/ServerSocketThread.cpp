@@ -61,14 +61,30 @@ void ServerSocketThread::doCommand(QString str){
     qDebug("Server Taken:%s",str.toStdString().data());
     auto arr=str.split(NetUtils::messagePartition);
     if(str.startsWith("login")){
-        loginCMD(arr[1],arr[2],std::stoi(arr[3].toStdString()));
+        loginCMD(arr[1],arr[2],arr[3].toInt());
+    }else if(str.startsWith("GPatId")){
+        getPatientDataById(arr[1].toLong());
+    }else if(!str.startsWith("ping")){
+        qDebug("Unknown Command:%s",str.toStdString().data());
     }
 }
 
+//login <true|false>
 void ServerSocketThread::loginCMD(QString id,QString passwd,int type){
     qDebug("Trying Login:Id[%s],Pass[%s]Type[%d]",id.toStdString().data(),
            passwd.toStdString().data(),type);
     //Connect DB
     bool result=true;
     socket->write(NetUtils::wrapStrings({"login",result?"true":"false"}));
+}
+
+//pat <id> <name> <nationalId> <sex> <birthday> <phoneNumber> <history>
+void ServerSocketThread::getPatientDataById(long id){
+    //Connect DB
+    NetUtils::PatientData result={114,"Firefly","514",1,"114","514","1919810"};
+    socket->write(NetUtils::wrapStrings({"pat",
+        std::to_string(result.id),result.name.toStdString(),result.nationId.toStdString(),
+        std::to_string(result.sex),result.birthday.toStdString(),
+        result.phoneNumber.toStdString(),result.history.toStdString()
+    }));
 }
