@@ -8,6 +8,10 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    cpp/chufanghebingli.cpp \
+    cpp/doctoreditpersonalinformation.cpp \
+    cpp/editbingli.cpp \
+    cpp/guahaoinformation.cpp \
     main.cpp \
     cpp/PatientEditPersonalInformation.cpp \
     cpp/Doctor.cpp \
@@ -20,6 +24,10 @@ SOURCES += \
     net/ServerThread.cpp
 
 HEADERS += \
+    h/DoctorEditPersonalInformation.h \
+    h/chufanghebingli.h \
+    h/editbingli.h \
+    h/guahaoinformation.h \
     h/PatientEditPersonalInformation.h \
     h/Doctor.h \
     h/mainwindow.h \
@@ -34,7 +42,6 @@ FORMS += \
     ui/Doctor.ui \
     ui/Patient.ui \
     ui/PatientEditPersonalInformation.ui \
-    ui/Check_the_registration.ui \
     ui/Doctor-patientCommunicationPlatform.ui \
     ui/DoctorEditPersonalInformation.ui \
     ui/HealthAssesment.ui \
@@ -42,9 +49,10 @@ FORMS += \
     ui/ViewCase.ui \
     ui/ViewDoctorInformations.ui \
     ui/ViewPrescriptionsAndContributions.ui \
+    ui/edit_medical_record.ui \
     ui/mainwindow.ui \
-    ui/编辑处方和缴费单.ui \
-    ui/编辑病例.ui
+    ui/prescription.ui \
+    ui/registrationinformation.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
