@@ -5,6 +5,8 @@
 #include <h/EditRecipeAndPaymentOrder.h>
 #include <h/EditMedicalRecord.h>
 #include <h/DoctorEditPersonalInformation.h>
+#include <h/Doctor_patientCommunicationPlatform.h>
+
 Doctor::Doctor(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Doctor)
@@ -53,3 +55,11 @@ void Doctor::on_pushButton_clicked()
     doctoreditpersonalinformation->show();
 }
 
+
+void Doctor::on_pushButton_5_clicked()
+{
+    this->close();
+    auto doctor_patientCommunicationPlatform=new Doctor_patientCommunicationPlatform;
+    doctor_patientCommunicationPlatform->identity="patient";
+    doctor_patientCommunicationPlatform->show();
+}
