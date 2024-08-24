@@ -25,9 +25,9 @@ void PatientEditPersonalInformation::on_pushButton_3_clicked()
 }
 
 void PatientEditPersonalInformation::on_pushButton_2_clicked()
-{
-    /*QString username=ui->username->text();//获取输入的信息
-    QString password=ui->password->text();
+{/*
+    QString name=ui->name->text();//获取输入的信息
+//    QString age=ui->age->text();
     if(username=="")//判断用户名和密码是否为空
         QMessageBox::warning(this,"","用户名不能为空");
     else if (password=="")
