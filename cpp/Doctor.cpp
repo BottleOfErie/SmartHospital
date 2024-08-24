@@ -1,9 +1,9 @@
 #include "h/Doctor.h"
 #include "ui_Doctor.h"
 #include <h/mainwindow.h>
-#include <h/guahaoinformation.h>
-#include <h/chufanghebingli.h>
-#include <h/editbingli.h>
+#include <h/Registration.h>
+#include <h/EditRecipeAndPaymentOrder.h>
+#include <h/EditMedicalRecord.h>
 #include <h/DoctorEditPersonalInformation.h>
 Doctor::Doctor(QWidget *parent) :
     QWidget(parent),
@@ -31,20 +31,20 @@ void Doctor::on_pushButton_4_clicked()
 {
     //qDebug("1");
     this->close();
-    auto guahaoInformation = new GuaHaoInformation;
-    guahaoInformation->show();
+    auto registrationWindow = new Registration;
+    registrationWindow->show();
 }
 void Doctor::on_pushButton_2_clicked()
 {
     this->close();
-    auto editbingli = new Editbingli;
-    editbingli->show();
+    auto editMedicalRecord = new EditMedicalRecord;
+    editMedicalRecord->show();
 }
 void Doctor::on_pushButton_3_clicked()
 {
     this->close();
-    auto chufanghebingli = new Chufanghebingli;
-    chufanghebingli->show();
+    auto editRecipeAndPaymentOrder = new EditRecipeAndPaymentOrder;
+    editRecipeAndPaymentOrder->show();
 }
 void Doctor::on_pushButton_clicked()
 {

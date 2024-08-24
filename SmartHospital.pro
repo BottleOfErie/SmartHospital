@@ -9,6 +9,10 @@ CONFIG += c++11
 
 SOURCES += \
     main.cpp \
+    cpp/DoctorEditPersonalInformation.cpp \
+    cpp/EditRecipeAndPaymentOrder.cpp \
+    cpp/EditMedicalRecord.cpp \
+    cpp/Registration.cpp \
     cpp/PatientEditPersonalInformation.cpp \
     cpp/Doctor.cpp \
     cpp/Patient.cpp \
@@ -20,6 +24,10 @@ SOURCES += \
     net/ServerThread.cpp
 
 HEADERS += \
+    h/DoctorEditPersonalInformation.h \
+    h/EditRecipeAndPaymentOrder.h \
+    h/EditMedicalRecord.h \
+    h/Registration.h \
     h/PatientEditPersonalInformation.h \
     h/Doctor.h \
     h/mainwindow.h \
@@ -31,20 +39,21 @@ HEADERS += \
     net/ServerThread.h \
 
 FORMS += \
+    ui/DoctorEditPersonalInformation.ui \
     ui/Doctor.ui \
-    ui/Patient.ui \
-    ui/PatientEditPersonalInformation.ui \
-    ui/Check_the_registration.ui \
-    ui/Doctor-patientCommunicationPlatform.ui \
     ui/DoctorEditPersonalInformation.ui \
     ui/EditMedicalRecord.ui \
+    ui/Patient.ui \
+    ui/PatientEditPersonalInformation.ui \
+    ui/Doctor-patientCommunicationPlatform.ui \
     ui/EditRecipeAndPaymentOrder.ui \
     ui/HealthAssesment.ui \
     ui/Register.ui \
+    ui/Registration.ui \
     ui/ViewCase.ui \
     ui/ViewDoctorInformations.ui \
     ui/ViewPrescriptionsAndContributions.ui \
-    ui/mainwindow.ui 
+    ui/mainwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
