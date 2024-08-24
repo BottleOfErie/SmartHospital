@@ -1,3 +1,4 @@
+#include <string>
 #include<QHostAddress>
 
 #include "ClientSocket.h"
@@ -59,7 +60,15 @@ void ClientSocket::error_slot(QAbstractSocket::SocketError socketError){
 
 void ClientSocket::doCommand(QString command){
     qDebug("Client Taken:%s",command.toStdString().data());
+    auto arr=command.split(NetUtils::messagePartition);
     if(command.startsWith("ping")){
         socket->write(NetUtils::wrapMessage("ping"));
+    }else if(command.startsWith("login")){
+        emit login_callback(arr[1].compare("true")==0);
     }
+}
+
+void ClientSocket::loginC(QString id, QString passwd,int type){
+    auto typestr=std::to_string(type);
+    socket->write(NetUtils::wrapStrings({"login",id.toStdString(),passwd.toStdString(),typestr}));
 }

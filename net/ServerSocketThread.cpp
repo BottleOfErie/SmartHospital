@@ -59,4 +59,16 @@ void ServerSocketThread::readyRead_slot(){
 void ServerSocketThread::doCommand(QString str){
     hasReply=true;
     qDebug("Server Taken:%s",str.toStdString().data());
+    auto arr=str.split(NetUtils::messagePartition);
+    if(str.startsWith("login")){
+        loginCMD(arr[1],arr[2],std::stoi(arr[3].toStdString()));
+    }
+}
+
+void ServerSocketThread::loginCMD(QString id,QString passwd,int type){
+    qDebug("Trying Login:Id[%s],Pass[%s]Type[%d]",id.toStdString().data(),
+           passwd.toStdString().data(),type);
+    //Connect DB
+    bool result=true;
+    socket->write(NetUtils::wrapStrings({"login",result?"true":"false"}));
 }
