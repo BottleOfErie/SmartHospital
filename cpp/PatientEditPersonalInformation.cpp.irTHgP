@@ -4,6 +4,7 @@
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QMessageBox>
+#include "h/Patient.h"
 
 PatientEditPersonalInformation::PatientEditPersonalInformation(QWidget *parent) :
     QWidget(parent),
@@ -25,9 +26,9 @@ void PatientEditPersonalInformation::on_pushButton_3_clicked()
 }
 
 void PatientEditPersonalInformation::on_pushButton_2_clicked()
-{/*
-    QString name=ui->name->text();//获取输入的信息
-//    QString age=ui->age->text();
+{
+    QString username=ui->username->text();//获取输入的信息
+    QString password=ui->password->text();
     if(username=="")//判断用户名和密码是否为空
         QMessageBox::warning(this,"","用户名不能为空");
     else if (password=="")
@@ -48,5 +49,5 @@ void PatientEditPersonalInformation::on_pushButton_2_clicked()
         }
         else
             QMessageBox::warning(this,"ERROR","注册失败，请重试！！");
-    }*/
+    }
 }

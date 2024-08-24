@@ -13,6 +13,10 @@ SOURCES += \
     cpp/editbingli.cpp \
     cpp/guahaoinformation.cpp \
     main.cpp \
+    cpp/DoctorEditPersonalInformation.cpp \
+    cpp/EditRecipeAndPaymentOrder.cpp \
+    cpp/EditMedicalRecord.cpp \
+    cpp/Registration.cpp \
     cpp/PatientEditPersonalInformation.cpp \
     cpp/Doctor.cpp \
     cpp/Patient.cpp \
@@ -25,9 +29,9 @@ SOURCES += \
 
 HEADERS += \
     h/DoctorEditPersonalInformation.h \
-    h/chufanghebingli.h \
-    h/editbingli.h \
-    h/guahaoinformation.h \
+    h/EditRecipeAndPaymentOrder.h \
+    h/EditMedicalRecord.h \
+    h/Registration.h \
     h/PatientEditPersonalInformation.h \
     h/Doctor.h \
     h/mainwindow.h \
@@ -39,20 +43,21 @@ HEADERS += \
     net/ServerThread.h \
 
 FORMS += \
+    ui/DoctorEditPersonalInformation.ui \
     ui/Doctor.ui \
+    ui/DoctorEditPersonalInformation.ui \
+    ui/EditMedicalRecord.ui \
     ui/Patient.ui \
     ui/PatientEditPersonalInformation.ui \
     ui/Doctor-patientCommunicationPlatform.ui \
-    ui/DoctorEditPersonalInformation.ui \
+    ui/EditRecipeAndPaymentOrder.ui \
     ui/HealthAssesment.ui \
     ui/Register.ui \
+    ui/Registration.ui \
     ui/ViewCase.ui \
     ui/ViewDoctorInformations.ui \
     ui/ViewPrescriptionsAndContributions.ui \
-    ui/edit_medical_record.ui \
-    ui/mainwindow.ui \
-    ui/prescription.ui \
-    ui/registrationinformation.ui
+    ui/mainwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
