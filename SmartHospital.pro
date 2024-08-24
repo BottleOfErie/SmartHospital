@@ -9,6 +9,11 @@ CONFIG += c++11
 
 SOURCES += \
     main.cpp \
+    cpp/HealthAssesment.cpp \
+    cpp/ViewDoctorInformations.cpp \
+    cpp/ViewPrescriptionsAndContributions.cpp \
+    cpp/ViewCase.cpp \
+    cpp/Doctor_patientCommunicationPlatform.cpp \
     cpp/DoctorEditPersonalInformation.cpp \
     cpp/EditRecipeAndPaymentOrder.cpp \
     cpp/EditMedicalRecord.cpp \
@@ -24,6 +29,11 @@ SOURCES += \
     net/ServerThread.cpp
 
 HEADERS += \
+    h/HealthAssesment.h \
+    h/ViewDoctorInformations.h \
+    h/ViewPrescriptionsAndContributions.h \
+    h/ViewCase.h \
+    h/Doctor_patientCommunicationPlatform.h \
     h/DoctorEditPersonalInformation.h \
     h/EditRecipeAndPaymentOrder.h \
     h/EditMedicalRecord.h \
@@ -39,13 +49,17 @@ HEADERS += \
     net/ServerThread.h \
 
 FORMS += \
+    ui/HealthAssesment.ui \
+    ui/ViewDoctorInformations.ui \
+    ui/ViewCase.ui \
+    ui/Doctor_patientCommunicationPlatform.ui \
     ui/DoctorEditPersonalInformation.ui \
     ui/Doctor.ui \
     ui/DoctorEditPersonalInformation.ui \
+    ui/Doctor_patientCommunicationPlatform.ui \
     ui/EditMedicalRecord.ui \
     ui/Patient.ui \
     ui/PatientEditPersonalInformation.ui \
-    ui/Doctor-patientCommunicationPlatform.ui \
     ui/EditRecipeAndPaymentOrder.ui \
     ui/HealthAssesment.ui \
     ui/Register.ui \
