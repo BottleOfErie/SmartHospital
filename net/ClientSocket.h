@@ -8,6 +8,8 @@ class ClientSocket : public QObject{
 public:
     static ClientSocket& getInstance();
     void connectToIP(QString ip,int port);
+
+    void loginC(QString id,QString passwd,int type);
 private:
     ClientSocket();
     ~ClientSocket();
@@ -25,6 +27,8 @@ signals:
     void connected();
     void disconnected();
     void recived_ping();
+
+    void login_callback(bool result);
 };
 
 #endif // CLIENTSOCKET_H
