@@ -15,6 +15,8 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    ui->checkBox->setChecked(false);
+    ui->checkBox_2->setChecked(false);
     /*connect(ui->LoginButton, &QPushButton::clicked, this, &MainWindow::on_LoginButton_clicked);
     connect(ui->RegisterButton, &QPushButton::clicked, this, &MainWindow::on_RegisterButton_clicked);
 */
@@ -34,7 +36,7 @@ void MainWindow::on_LoginButton_clicked()
         QMessageBox::warning(this,"","用户名不能为空");
     else if (password=="")
         QMessageBox::warning(this,"","密码不能为空");
-    else {
+    else {/*
         //TODO 数据库对接
         QString S = QString("select * from user_table where name='%1' and password='%2'").arg(username).arg(password);
         QSqlQuery query;//执行查询语句
@@ -44,7 +46,9 @@ void MainWindow::on_LoginButton_clicked()
         }
         else
             QMessageBox::warning(this,"error","用户名或者密码错误！！");
-            // 清空内容并定位光标
+            // 清空内容并定位光标*/
+
+        switchPage();
         ui->username->clear();
         ui->password->clear();
         ui->username->setFocus();//将光标定位到用户名输入框
@@ -83,15 +87,22 @@ void MainWindow::on_checkBox_2_toggled(bool checked)
 
 void MainWindow::switchPage()
 {
-    this->close();
-    if(ui->checkBox->isChecked()==true){
-        // 进入医生主界面
-        Doctor *doctorWidget = new Doctor();
-        doctorWidget->show();
+    if(ui->checkBox->isChecked()==false && ui->checkBox_2->isChecked()==false){
+        QMessageBox::warning(this,"","请选择你的身份！");
+
     }
-    else{
+    else if (ui->checkBox_2->isChecked()==true){
         // 进入患者主界面
+        this->close();
+        QMessageBox::information(NULL, "登陆成功", "登陆成功！！！", QMessageBox::Yes);
         Patient *patientWidget = new Patient();
         patientWidget->show();
+    }
+    else{
+        // 进入医生主界面
+        this->close();
+        QMessageBox::information(NULL, "登陆成功", "登陆成功！！！", QMessageBox::Yes);
+        Doctor *doctorWidget = new Doctor();
+        doctorWidget->show();
     }
 }

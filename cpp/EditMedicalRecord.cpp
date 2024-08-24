@@ -1,6 +1,6 @@
 #include "h/EditMedicalRecord.h"
 #include "ui_EditMedicalRecord.h"
-
+#include "h/Doctor.h"
 EditMedicalRecord::EditMedicalRecord(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::EditMedicalRecord)
@@ -11,4 +11,11 @@ EditMedicalRecord::EditMedicalRecord(QWidget *parent) :
 EditMedicalRecord::~EditMedicalRecord()
 {
     delete ui;
+}
+
+void EditMedicalRecord::on_pushButton_2_clicked()
+{
+    this->close();
+    auto doctor = new Doctor;
+    doctor->show();
 }

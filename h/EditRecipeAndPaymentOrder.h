@@ -15,6 +15,9 @@ public:
     explicit EditRecipeAndPaymentOrder(QMainWindow *parent = nullptr);
     ~EditRecipeAndPaymentOrder();
 
+private slots:
+    void on_pushButton_2_clicked();
+
 private:
     Ui::EditRecipeAndPaymentOrder *ui;
 };
