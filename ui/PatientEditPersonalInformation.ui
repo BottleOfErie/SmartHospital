@@ -33,7 +33,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="lineEdit"/>
+       <widget class="QLineEdit" name="name"/>
       </item>
      </layout>
     </item>
@@ -47,7 +47,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="lineEdit_2"/>
+       <widget class="QLineEdit" name="age"/>
       </item>
      </layout>
     </item>
@@ -61,7 +61,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="lineEdit_3"/>
+       <widget class="QLineEdit" name="gender"/>
       </item>
      </layout>
     </item>
@@ -75,7 +75,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="lineEdit_4"/>
+       <widget class="QLineEdit" name="IDnumber"/>
       </item>
      </layout>
     </item>
@@ -89,7 +89,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="lineEdit_5"/>
+       <widget class="QLineEdit" name="phone"/>
       </item>
      </layout>
     </item>
