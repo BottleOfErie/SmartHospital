@@ -10,13 +10,10 @@ class SqliteOperator
 {
 public:
     SqliteOperator();
-    //
-    bool connect(const QString &dbName);
+
 
     // 打开数据库
     bool openDb(void);
-    // 创建数据表
-    bool createTable(void);
     // 判断数据表是否存在
     bool isTableExist(QString& tableName);
     //whether username matches password
@@ -24,8 +21,8 @@ public:
 
     // 查询全部数据
     void queryTable();
-    // 插入数据
-    bool singleInsertData(QVariant userName, QVariant Password); // 插入单条数据
+    // function of logging in
+    bool Login(QString userName, QString Password); 
     void moreInsertData(); // 插入多条数据
     // 修改数据
     void modifyData(int id, QString name, int age);
@@ -39,8 +36,12 @@ public:
 private:
     // 用于建立和数据库的连接
     QSqlDatabase database;
-    //the account database to be establish
-    QSqlDatabase accountDb;
+    //the general database to be establish
+    QSqlDatabase Db;
+    //
+    bool connect(const QString &dbName);
+    //create all tables needed
+    bool createTables();
 };
 
 
