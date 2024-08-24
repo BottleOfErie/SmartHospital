@@ -34,13 +34,13 @@ FORMS += \
     ui/Doctor.ui \
     ui/Patient.ui \
     ui/PatientEditPersonalInformation.ui \
-    ui/Check_the_registration.ui \
     ui/Doctor-patientCommunicationPlatform.ui \
     ui/DoctorEditPersonalInformation.ui \
     ui/EditMedicalRecord.ui \
     ui/EditRecipeAndPaymentOrder.ui \
     ui/HealthAssesment.ui \
     ui/Register.ui \
+    ui/Registration.ui\
     ui/ViewCase.ui \
     ui/ViewDoctorInformations.ui \
     ui/ViewPrescriptionsAndContributions.ui \
