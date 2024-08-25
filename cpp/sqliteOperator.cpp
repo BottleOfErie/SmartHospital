@@ -1,4 +1,4 @@
-#include "sqliteOperator.h"
+#include "h/sqliteOperator.h"
 #include <QSqlDatabase>
 #include <QSqlError>
 #include <QSqlQuery>

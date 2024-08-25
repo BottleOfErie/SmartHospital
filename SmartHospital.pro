@@ -23,6 +23,7 @@ SOURCES += \
     cpp/Patient.cpp \
     cpp/mainwindow.cpp \
     cpp/Register.cpp \
+    cpp/sqliteOperator.cpp \
     net/ClientSocket.cpp \
     net/NetUtils.cpp \
     net/ServerSocketThread.cpp \
@@ -40,6 +41,8 @@ HEADERS += \
     h/Registration.h \
     h/PatientEditPersonalInformation.h \
     h/Doctor.h \
+    h/extern_variable.h \
+    h/sqliteOperator.h \
     h/mainwindow.h \
     h/Register.h \
     h/Patient.h \

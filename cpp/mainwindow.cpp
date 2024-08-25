@@ -1,7 +1,7 @@
 
 #include "ui_mainwindow.h"
 
-
+#include<h/extern_variable.h>
 #include <h/mainwindow.h>
 #include <h/Register.h>
 #include <h/Patient.h>
@@ -47,11 +47,12 @@ void MainWindow::on_LoginButton_clicked()
         else
             QMessageBox::warning(this,"error","用户名或者密码错误！！");
             // 清空内容并定位光标*/
-
+       // id = username;
         switchPage();
         ui->username->clear();
         ui->password->clear();
         ui->username->setFocus();//将光标定位到用户名输入框
+
     }
 }
 
