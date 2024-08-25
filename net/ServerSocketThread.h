@@ -20,6 +20,8 @@ private:
     QString buffer;
     bool hasReply;
     qintptr socketDescripter;
+    void loginCMD(QString id,QString passwd,int type);
+    void getPatientDataById(long id);
 private slots:
     void readyRead_slot();
     void doPing_slot();

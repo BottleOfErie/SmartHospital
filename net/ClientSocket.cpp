@@ -1,7 +1,7 @@
+#include <string>
 #include<QHostAddress>
 
 #include "ClientSocket.h"
-#include "NetUtils.h"
 
 ClientSocket::ClientSocket(){
     socket=new QTcpSocket(this);
@@ -59,7 +59,32 @@ void ClientSocket::error_slot(QAbstractSocket::SocketError socketError){
 
 void ClientSocket::doCommand(QString command){
     qDebug("Client Taken:%s",command.toStdString().data());
+    auto arr=command.split(NetUtils::messagePartition);
     if(command.startsWith("ping")){
         socket->write(NetUtils::wrapMessage("ping"));
+    }else if(command.startsWith("login")){
+        emit login_callback(arr[1].compare("true")==0);
+    }else if(command.startsWith("pat")){
+        //pat <id> <name> <nationalId> <sex> <birthday> <phoneNumber> <history>
+        NetUtils::PatientData ret;
+        ret.id=arr[1].toLong();
+        ret.name=arr[2];
+        ret.nationId=arr[3];
+        ret.sex=arr[4].toInt();
+        ret.birthday=arr[5];
+        ret.phoneNumber=arr[6];
+        ret.history=arr[7];
+        emit patient_callback(ret);
     }
+}
+
+//login <id> <passwd> <type>
+void ClientSocket::loginC(QString id, QString passwd,int type){
+    auto typestr=std::to_string(type);
+    socket->write(NetUtils::wrapStrings({"login",id.toStdString(),passwd.toStdString(),typestr}));
+}
+
+//GPatId <id>
+void ClientSocket::getPatientById(long id){
+    socket->write(NetUtils::wrapStrings({"GPatId",std::to_string(id)}));
 }
