@@ -9,7 +9,7 @@
 #include <QMessageBox>
 #include <QSqlQuery>
 #include <QSqlError>
-
+#include <h/usernow.h>
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -47,7 +47,7 @@ void MainWindow::on_LoginButton_clicked()
         else
             QMessageBox::warning(this,"error","用户名或者密码错误！！");
             // 清空内容并定位光标*/
-       // id = username;
+        usernow::id = username;
         switchPage();
         ui->username->clear();
         ui->password->clear();
