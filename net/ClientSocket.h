@@ -12,6 +12,10 @@ public:
 
     void loginC(QString id,QString passwd,int type);
     void getPatientById(long id);
+    void getPatientByNationalId(QString nationalId);
+    void getDoctorDataById(long id);
+    void getDoctorByNationalId(QString nationalId);
+    void getDoctorsBySection(QString section);
 private:
     ClientSocket();
     ~ClientSocket();
@@ -32,6 +36,7 @@ signals:
 
     void login_callback(bool result);
     void patient_callback(NetUtils::PatientData data);
+    void doctor_callback(NetUtils::DoctorData data);
 };
 
 #endif // CLIENTSOCKET_H

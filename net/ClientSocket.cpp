@@ -75,6 +75,19 @@ void ClientSocket::doCommand(QString command){
         ret.phoneNumber=arr[6];
         ret.history=arr[7];
         emit patient_callback(ret);
+    }else if(command.startsWith("doc")){
+        //doc <id> <name> <nationalId> <sex> <birthday> <phoneNumber> <jobTitle> <organization> <section>
+        NetUtils::DoctorData ret;
+        ret.id=arr[1].toLong();
+        ret.name=arr[2];
+        ret.nationId=arr[3];
+        ret.sex=arr[4].toInt();
+        ret.birthday=arr[5];
+        ret.phoneNumber=arr[6];
+        ret.jobTitle=arr[7];
+        ret.organization=arr[8];
+        ret.section=arr[9];
+        emit doctor_callback(ret);
     }
 }
 
@@ -87,4 +100,24 @@ void ClientSocket::loginC(QString id, QString passwd,int type){
 //GPatId <id>
 void ClientSocket::getPatientById(long id){
     socket->write(NetUtils::wrapStrings({"GPatId",std::to_string(id)}));
+}
+
+//GPatNm <id>
+void ClientSocket::getPatientByNationalId(QString nationalId){
+    socket->write(NetUtils::wrapStrings({"GPatNm",nationalId.toStdString()}));
+}
+
+//GDocId <id>
+void ClientSocket::getDoctorDataById(long id){
+    socket->write(NetUtils::wrapStrings({"GDocId",std::to_string(id)}));
+}
+
+//GDocNm <name>
+void ClientSocket::getDoctorByNationalId(QString nationalId){
+    socket->write(NetUtils::wrapStrings({"GDocNm",nationalId.toStdString()}));
+}
+
+//GDosSt <section>
+void ClientSocket::getDoctorsBySection(QString section){
+    socket->write(NetUtils::wrapStrings({"GDosSt",section.toStdString()}));
 }

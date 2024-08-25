@@ -22,11 +22,17 @@ private:
     qintptr socketDescripter;
     void loginCMD(QString id,QString passwd,int type);
     void getPatientDataById(long id);
+    void getPatientDataByNationalId(QString name);
+    void getDoctorDataById(long id);
+    void getDoctorDataByNationalId(QString name);
+    void getDoctorDatasBySection(QString section);
 private slots:
     void readyRead_slot();
     void doPing_slot();
+    void doDisconnect_slot();
 signals:
     void toDoPing();
+    void toDoDisconnect();
 };
 
 #endif

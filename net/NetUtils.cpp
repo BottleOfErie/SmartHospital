@@ -13,7 +13,7 @@ const QByteArray NetUtils::wrapMessage(const QString& message){
 
 const QString NetUtils::combineStrings(const std::initializer_list<std::string>& args){
     QString ret=messagePrefix;
-    for(auto x:args){
+    for(const std::string& x:args){
         ret.append(x.data());
         ret.append(messagePartition);
     }

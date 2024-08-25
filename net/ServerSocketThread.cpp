@@ -15,6 +15,7 @@ ServerSocketThread::ServerSocketThread(qintptr descriptor){
 
     connect(socket,SIGNAL(readyRead()),this,SLOT(readyRead_slot()));
     connect(this,SIGNAL(toDoPing()),this,SLOT(doPing_slot()));
+    connect(this,SIGNAL(toDoDisconnect()),this,SLOT(doDisconnect_slot()));
 }
 
 ServerSocketThread::~ServerSocketThread(){
@@ -24,20 +25,26 @@ ServerSocketThread::~ServerSocketThread(){
 
 void ServerSocketThread::run(){
     while (true) {
-        msleep(NetUtils::waitTime);
+        emit toDoPing();
+        msleep(NetUtils::waitTime/2);
+        emit toDoPing();
+        msleep(NetUtils::waitTime/2);
         if(!hasReply){
             qDebug("Client No-reply For more than %ld ms,disconnected!",NetUtils::waitTime);
-            socket->disconnectFromHost();
-            socket->waitForDisconnected();
+            emit toDoDisconnect();
             alive=false;
+            return;
         }
-        emit toDoPing();
         hasReply=false;
     }
 }
 
 void ServerSocketThread::doPing_slot(){
     socket->write(NetUtils::wrapMessage("ping"));
+}
+
+void ServerSocketThread::doDisconnect_slot(){
+    socket->disconnectFromHost();
 }
 
 void ServerSocketThread::readyRead_slot(){
@@ -64,6 +71,14 @@ void ServerSocketThread::doCommand(QString str){
         loginCMD(arr[1],arr[2],arr[3].toInt());
     }else if(str.startsWith("GPatId")){
         getPatientDataById(arr[1].toLong());
+    }else if(str.startsWith("GPatNm")){
+        getPatientDataByNationalId(arr[1]);
+    }else if(str.startsWith("GDocId")){
+        getDoctorDataById(arr[1].toLong());
+    }else if(str.startsWith("GDocNm")){
+        getDoctorDataByNationalId(arr[1]);
+    }else if(str.startsWith("GDosSt")){
+        getDoctorDatasBySection(arr[1]);
     }else if(!str.startsWith("ping")){
         qDebug("Unknown Command:%s",str.toStdString().data());
     }
@@ -86,5 +101,49 @@ void ServerSocketThread::getPatientDataById(long id){
         std::to_string(result.id),result.name.toStdString(),result.nationId.toStdString(),
         std::to_string(result.sex),result.birthday.toStdString(),
         result.phoneNumber.toStdString(),result.history.toStdString()
+    }));
+}
+void ServerSocketThread::getPatientDataByNationalId(QString name){
+    //Connect DB
+    NetUtils::PatientData result={114,"Firefly","514",1,"114","514","1919810"};
+    socket->write(NetUtils::wrapStrings({"pat",
+        std::to_string(result.id),result.name.toStdString(),result.nationId.toStdString(),
+        std::to_string(result.sex),result.birthday.toStdString(),
+        result.phoneNumber.toStdString(),result.history.toStdString()
+    }));
+}
+
+//doc <id> <name> <nationalId> <sex> <birthday> <phoneNumber> <jobTitle> <organization> <section>
+void ServerSocketThread::getDoctorDataById(long id){
+    //Connect DB
+    NetUtils::DoctorData result={114,"Kaltsit","Mon3tr",1,"114","514","主任医师","RhodesIsland","111"};
+    socket->write(NetUtils::wrapStrings({"doc",
+        std::to_string(result.id),result.name.toStdString(),result.nationId.toStdString(),
+        std::to_string(result.sex),result.birthday.toStdString(),result.phoneNumber.toStdString(),
+        result.jobTitle.toStdString(),result.organization.toStdString(),result.section.toStdString()
+    }));
+}
+void ServerSocketThread::getDoctorDataByNationalId(QString name){
+    //Connect DB
+    NetUtils::DoctorData result={114,"Kaltsit","Mon3tr",1,"114","514","主任医师","RhodesIsland","111"};
+    socket->write(NetUtils::wrapStrings({"doc",
+        std::to_string(result.id),result.name.toStdString(),result.nationId.toStdString(),
+        std::to_string(result.sex),result.birthday.toStdString(),result.phoneNumber.toStdString(),
+        result.jobTitle.toStdString(),result.organization.toStdString(),result.section.toStdString()
+    }));
+}
+void ServerSocketThread::getDoctorDatasBySection(QString section){
+    //Connect DB
+    NetUtils::DoctorData result={114,"Kaltsit","Mon3tr",1,"114","514","主任医师","RhodesIsland","111"};
+    socket->write(NetUtils::wrapStrings({"doc",
+        std::to_string(result.id),result.name.toStdString(),result.nationId.toStdString(),
+        std::to_string(result.sex),result.birthday.toStdString(),result.phoneNumber.toStdString(),
+        result.jobTitle.toStdString(),result.organization.toStdString(),result.section.toStdString()
+    }));
+    result={514,"Ptilopsis","Silence",1,"1919","810","副主任医师","RhineLab","111"};
+    socket->write(NetUtils::wrapStrings({"doc",
+        std::to_string(result.id),result.name.toStdString(),result.nationId.toStdString(),
+        std::to_string(result.sex),result.birthday.toStdString(),result.phoneNumber.toStdString(),
+        result.jobTitle.toStdString(),result.organization.toStdString(),result.section.toStdString()
     }));
 }
