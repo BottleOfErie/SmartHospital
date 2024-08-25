@@ -2,6 +2,7 @@
 #include "ui_Doctor_patientCommunicationPlatform.h"
 #include <h/Doctor.h>
 #include <h/Patient.h>
+#include "h/usernow.h"
 Doctor_patientCommunicationPlatform::Doctor_patientCommunicationPlatform(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Doctor_patientCommunicationPlatform)

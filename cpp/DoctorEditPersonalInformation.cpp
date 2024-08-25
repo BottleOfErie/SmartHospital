@@ -1,6 +1,7 @@
 #include "h/DoctorEditPersonalInformation.h"
 #include "ui_DoctorEditPersonalInformation.h"
 #include <h/Doctor.h>
+#include "h/usernow.h"
 DoctorEditPersonalInformation::DoctorEditPersonalInformation(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::DoctorEditPersonalInformation)

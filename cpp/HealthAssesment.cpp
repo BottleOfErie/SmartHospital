@@ -1,7 +1,7 @@
 #include "h/HealthAssesment.h"
 #include "ui_HealthAssesment.h"
 #include <h/Patient.h>
-
+#include "h/usernow.h"
 HealthAssesment::HealthAssesment(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::HealthAssesment)

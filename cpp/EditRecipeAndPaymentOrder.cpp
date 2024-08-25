@@ -1,6 +1,7 @@
 #include "h/EditRecipeAndPaymentOrder.h"
 #include "ui_EditRecipeAndPaymentOrder.h"
 #include "h/Doctor.h"
+#include "h/usernow.h"
 EditRecipeAndPaymentOrder::EditRecipeAndPaymentOrder(QMainWindow *parent) :
     QMainWindow(parent),
     ui(new Ui::EditRecipeAndPaymentOrder)
