@@ -13,19 +13,6 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QLabel" name="label">
-   <property name="geometry">
-    <rect>
-     <x>70</x>
-     <y>60</y>
-     <width>161</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>TextLabel</string>
-   </property>
-  </widget>
   <widget class="QLabel" name="label_2">
    <property name="geometry">
     <rect>
@@ -36,20 +23,20 @@
     </rect>
    </property>
    <property name="text">
-    <string>username</string>
+    <string>身份证号*</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_3">
    <property name="geometry">
     <rect>
      <x>70</x>
-     <y>200</y>
+     <y>190</y>
      <width>67</width>
      <height>17</height>
     </rect>
    </property>
    <property name="text">
-    <string>password</string>
+    <string>密码*</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_4">
@@ -62,72 +49,59 @@
     </rect>
    </property>
    <property name="text">
-    <string>identity</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_5">
-   <property name="geometry">
-    <rect>
-     <x>70</x>
-     <y>370</y>
-     <width>131</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>TextLabel</string>
+    <string/>
    </property>
   </widget>
   <widget class="QLabel" name="label_6">
    <property name="geometry">
     <rect>
      <x>70</x>
-     <y>450</y>
+     <y>310</y>
      <width>67</width>
      <height>17</height>
     </rect>
    </property>
    <property name="text">
-    <string>age</string>
+    <string>出生日期</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_7">
    <property name="geometry">
     <rect>
-     <x>70</x>
-     <y>500</y>
+     <x>60</x>
+     <y>460</y>
      <width>67</width>
      <height>17</height>
     </rect>
    </property>
    <property name="text">
-    <string>gender</string>
+    <string>性别</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_8">
    <property name="geometry">
     <rect>
-     <x>70</x>
-     <y>550</y>
+     <x>50</x>
+     <y>510</y>
      <width>67</width>
      <height>17</height>
     </rect>
    </property>
    <property name="text">
-    <string>phone</string>
+    <string>联系电话</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_9">
    <property name="geometry">
     <rect>
-     <x>70</x>
-     <y>610</y>
+     <x>440</x>
+     <y>80</y>
      <width>67</width>
      <height>17</height>
     </rect>
    </property>
    <property name="text">
-    <string>organization</string>
+    <string>所属单位</string>
    </property>
   </widget>
   <widget class="QLineEdit" name="username">
@@ -143,7 +117,7 @@
   <widget class="QLineEdit" name="password">
    <property name="geometry">
     <rect>
-     <x>160</x>
+     <x>150</x>
      <y>190</y>
      <width>113</width>
      <height>25</height>
@@ -153,54 +127,34 @@
   <widget class="QCheckBox" name="checkBox">
    <property name="geometry">
     <rect>
-     <x>160</x>
-     <y>280</y>
+     <x>140</x>
+     <y>390</y>
      <width>92</width>
      <height>23</height>
     </rect>
    </property>
    <property name="text">
-    <string>doctor</string>
+    <string>医生</string>
    </property>
   </widget>
   <widget class="QCheckBox" name="checkBox_2">
    <property name="geometry">
     <rect>
-     <x>310</x>
-     <y>280</y>
+     <x>240</x>
+     <y>390</y>
      <width>92</width>
      <height>23</height>
     </rect>
    </property>
    <property name="text">
-    <string>patient</string>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="age">
-   <property name="geometry">
-    <rect>
-     <x>160</x>
-     <y>440</y>
-     <width>113</width>
-     <height>25</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="gender">
-   <property name="geometry">
-    <rect>
-     <x>160</x>
-     <y>500</y>
-     <width>113</width>
-     <height>25</height>
-    </rect>
+    <string>患者</string>
    </property>
   </widget>
   <widget class="QLineEdit" name="phone">
    <property name="geometry">
     <rect>
-     <x>160</x>
-     <y>550</y>
+     <x>140</x>
+     <y>510</y>
      <width>113</width>
      <height>25</height>
     </rect>
@@ -209,8 +163,8 @@
   <widget class="QLineEdit" name="organization">
    <property name="geometry">
     <rect>
-     <x>160</x>
-     <y>610</y>
+     <x>530</x>
+     <y>80</y>
      <width>113</width>
      <height>25</height>
     </rect>
@@ -240,6 +194,154 @@
    </property>
    <property name="text">
     <string>back</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>70</x>
+     <y>240</y>
+     <width>67</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>确认密码*</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEdit">
+   <property name="geometry">
+    <rect>
+     <x>160</x>
+     <y>240</y>
+     <width>113</width>
+     <height>25</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QDateEdit" name="dateEdit">
+   <property name="geometry">
+    <rect>
+     <x>160</x>
+     <y>300</y>
+     <width>110</width>
+     <height>26</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_5">
+   <property name="geometry">
+    <rect>
+     <x>70</x>
+     <y>80</y>
+     <width>82</width>
+     <height>29</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>姓名*</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEdit_2">
+   <property name="geometry">
+    <rect>
+     <x>160</x>
+     <y>80</y>
+     <width>113</width>
+     <height>25</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QRadioButton" name="radioButton">
+   <property name="geometry">
+    <rect>
+     <x>150</x>
+     <y>460</y>
+     <width>112</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>男</string>
+   </property>
+  </widget>
+  <widget class="QRadioButton" name="radioButton_2">
+   <property name="geometry">
+    <rect>
+     <x>230</x>
+     <y>460</y>
+     <width>112</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>女</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_10">
+   <property name="geometry">
+    <rect>
+     <x>450</x>
+     <y>150</y>
+     <width>82</width>
+     <height>29</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>职称</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="comboBox">
+   <property name="geometry">
+    <rect>
+     <x>550</x>
+     <y>150</y>
+     <width>86</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <item>
+    <property name="text">
+     <string>新建项目</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>新建项目</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>新建项目</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>新建项目</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>新建项目</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>新建项目</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QLabel" name="label_11">
+   <property name="geometry">
+    <rect>
+     <x>440</x>
+     <y>220</y>
+     <width>82</width>
+     <height>29</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>TextLabel</string>
    </property>
   </widget>
  </widget>
