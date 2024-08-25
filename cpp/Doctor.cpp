@@ -60,6 +60,6 @@ void Doctor::on_pushButton_5_clicked()
 {
     this->close();
     auto doctor_patientCommunicationPlatform=new Doctor_patientCommunicationPlatform;
-    doctor_patientCommunicationPlatform->identity="patient";
+    doctor_patientCommunicationPlatform->identity="doctor";
     doctor_patientCommunicationPlatform->show();
 }
