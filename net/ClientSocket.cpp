@@ -88,6 +88,14 @@ void ClientSocket::doCommand(QString command){
         ret.organization=arr[8];
         ret.section=arr[9];
         emit doctor_callback(ret);
+    }else if(command.startsWith("app")){
+        //app <patid> <docid> <date> <state>
+        NetUtils::Appointment ret;
+        ret.patientId=arr[1].toLong();
+        ret.doctorId=arr[2].toLong();
+        ret.time=arr[3];
+        ret.state=arr[4].toUInt();
+        emit appointment_callback(ret);
     }
 }
 
@@ -120,4 +128,14 @@ void ClientSocket::getDoctorByNationalId(QString nationalId){
 //GDosSt <section>
 void ClientSocket::getDoctorsBySection(QString section){
     socket->write(NetUtils::wrapStrings({"GDosSt",section.toStdString()}));
+}
+
+//GAppPat <id>
+void ClientSocket::getAppointmentsByPatient(long id){
+    socket->write(NetUtils::wrapStrings({"GAppPat",std::to_string(id)}));
+}
+
+//GAppDoc <id>
+void ClientSocket::getAppointmentsByDoctor(long id){
+    socket->write(NetUtils::wrapStrings({"GAppDoc",std::to_string(id)}));
 }

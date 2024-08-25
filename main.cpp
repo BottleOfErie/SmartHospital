@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
     auto server = new ServerThread(34569);
     ClientSocket::getInstance().connectToIP("127.0.0.1",34569);
 
-    ClientSocket::getInstance().getDoctorsBySection("123");
+    ClientSocket::getInstance().getAppointmentsByDoctor(111);
 
     return a.exec();
 

@@ -79,6 +79,10 @@ void ServerSocketThread::doCommand(QString str){
         getDoctorDataByNationalId(arr[1]);
     }else if(str.startsWith("GDosSt")){
         getDoctorDatasBySection(arr[1]);
+    }else if(str.startsWith("GAppPat")){
+        getAppointmentsByPatientId(arr[1].toLong());
+    }else if(str.startsWith("GAppDoc")){
+        getAppointmentsByDoctorId(arr[1].toLong());
     }else if(!str.startsWith("ping")){
         qDebug("Unknown Command:%s",str.toStdString().data());
     }
@@ -146,4 +150,19 @@ void ServerSocketThread::getDoctorDatasBySection(QString section){
         std::to_string(result.sex),result.birthday.toStdString(),result.phoneNumber.toStdString(),
         result.jobTitle.toStdString(),result.organization.toStdString(),result.section.toStdString()
     }));
+}
+//app <patid> <docid> <date> <state>
+void ServerSocketThread::getAppointmentsByDoctorId(long id){
+    //Connect DB
+    NetUtils::Appointment result={114,514,"191981",0};
+    socket->write(NetUtils::wrapStrings({"app",
+        std::to_string(result.patientId),std::to_string(result.doctorId),
+        result.time.toStdString(),std::to_string(result.state)}));
+}
+void ServerSocketThread::getAppointmentsByPatientId(long id){
+    //Connect DB
+    NetUtils::Appointment result={114,514,"191981",0};
+    socket->write(NetUtils::wrapStrings({"app",
+        std::to_string(result.patientId),std::to_string(result.doctorId),
+        result.time.toStdString(),std::to_string(result.state)}));
 }

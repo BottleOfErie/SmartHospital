@@ -16,6 +16,8 @@ public:
     void getDoctorDataById(long id);
     void getDoctorByNationalId(QString nationalId);
     void getDoctorsBySection(QString section);
+    void getAppointmentsByPatient(long id);
+    void getAppointmentsByDoctor(long id);
 private:
     ClientSocket();
     ~ClientSocket();
@@ -37,6 +39,7 @@ signals:
     void login_callback(bool result);
     void patient_callback(NetUtils::PatientData data);
     void doctor_callback(NetUtils::DoctorData data);
+    void appointment_callback(NetUtils::Appointment data);
 };
 
 #endif // CLIENTSOCKET_H
