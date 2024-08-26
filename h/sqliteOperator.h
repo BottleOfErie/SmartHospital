@@ -5,6 +5,7 @@
 #include <QSqlError>
 #include <QDebug>
 #include <string>
+#include "NetUtils.h"  // 包含 NetUtils 结构体的定义
 
 class SqliteOperator
 {
@@ -60,6 +61,30 @@ public:
     bool updateMedicine(int medicineId, const QString &medicineName, double medicinePrice, int medicineStock, const QString &manufacturer, const QString &batchNumber);
     // 查询全部数据
     void queryTable();
+    // 查询函数声明
+    QList<NetUtils::PatientData> queryPatientByNationId(const QString& nationId);
+    QList<NetUtils::PatientData> queryPatientById(int id);
+
+    QList<NetUtils::DoctorData> queryDoctorByNationId(const QString& nationId);
+    QList<NetUtils::DoctorData> queryDoctorById(int id);
+    QList<NetUtils::DoctorData> queryDoctorBySection(const QString& section);
+
+    QList<NetUtils::Appointment> queryAppointmentByPatientId(int patientId);
+    QList<NetUtils::Appointment> queryAppointmentByDoctorId(int doctorId);
+
+    QList<NetUtils::MedicalRecord> queryMedicalRecordByPatientId(int patientId);
+    QList<NetUtils::MedicalRecord> queryMedicalRecordByDoctorId(int doctorId);
+
+    QList<NetUtils::Prescription> queryPrescriptionByPatientId(int patientId);
+    QList<NetUtils::Prescription> queryPrescriptionByDoctorId(int doctorId);
+
+    QList<NetUtils::TestResult> queryHealthAssessmentByPatientId(int patientId);
+
+    QList<NetUtils::Message> queryChatRecordByPatientId(int patientId);
+    QList<NetUtils::Message> queryChatRecordByDoctorId(int doctorId);
+
+    QList<NetUtils::Medicine> queryMedicineById(int medicineId);
+    QList<NetUtils::Medicine> queryMedicineByName(const QString& name);
     // function of logging in
     bool Login(QString userName, QString Password);
     void moreInsertData(); // 插入多条数据
