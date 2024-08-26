@@ -17,9 +17,6 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     ui->checkBox->setChecked(false);
     ui->checkBox_2->setChecked(false);
-    /*connect(ui->LoginButton, &QPushButton::clicked, this, &MainWindow::on_LoginButton_clicked);
-    connect(ui->RegisterButton, &QPushButton::clicked, this, &MainWindow::on_RegisterButton_clicked);
-*/
 }
 
 MainWindow::~MainWindow()
@@ -47,7 +44,7 @@ void MainWindow::on_LoginButton_clicked()
         else
             QMessageBox::warning(this,"error","用户名或者密码错误！！");
             // 清空内容并定位光标*/
-        usernow::id = username;
+        usernow::setId(username);
         switchPage();
         ui->username->clear();
         ui->password->clear();

@@ -13,7 +13,7 @@ Doctor::Doctor(QWidget *parent) :
     ui(new Ui::Doctor)
 {
     ui->setupUi(this);
-    qDebug() << usernow::id;
+    qDebug() << usernow::getId();
     //connect(ui->pushButton_6, &QPushButton::clicked, this, &Doctor::on_pushButton6_clicked);
     //connect(ui->pushButton_4, &QPushButton::clicked, this, &Doctor::on_pushButton4_clicked);
     //connect(ui->pushButton_2, &QPushButton::clicked, this, &Doctor::on_pushButton2_clicked);
