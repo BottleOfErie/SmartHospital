@@ -1,7 +1,7 @@
 #include "h/ViewPrescriptionsAndContributions.h"
 #include "ui_ViewPrescriptionsAndContributions.h"
 #include <h/Patient.h>
-
+#include "h/usernow.h"
 ViewPrescriptionsAndContributions::ViewPrescriptionsAndContributions(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::ViewPrescriptionsAndContributions)

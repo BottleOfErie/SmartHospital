@@ -1,7 +1,7 @@
 #include "h/ViewDoctorInformations.h"
 #include "ui_ViewDoctorInformations.h"
 #include <h/Patient.h>
-
+#include "h/usernow.h"
 ViewDoctorInformations::ViewDoctorInformations(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::ViewDoctorInformations)

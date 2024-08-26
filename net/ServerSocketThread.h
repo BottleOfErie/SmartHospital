@@ -21,11 +21,29 @@ private:
     bool hasReply;
     qintptr socketDescripter;
     void loginCMD(QString id,QString passwd,int type);
+    void getPatientDataById(long id);
+    void getPatientDataByNationalId(QString name);
+    void getDoctorDataById(long id);
+    void getDoctorDataByNationalId(QString name);
+    void getDoctorDatasBySection(QString section);
+    void getAppointmentsByDoctorId(long id);
+    void getAppointmentsByPatientId(long id);
+    void getMedicalRecordsByDoctorId(long id);
+    void getMedicalRecordsByPatientId(long id);
+    void getPrescriptionsByPatient(long id);
+    void getPrescriptionsByDoctor(long id);
+    void getTestResultsByPatient(long id);
+    void getMessageAsPatient(long id);
+    void getMessageAsDoctor(long id);
+    void getMedicineById(long id);
+    void getMedicineByName(QString name);
 private slots:
     void readyRead_slot();
     void doPing_slot();
+    void doDisconnect_slot();
 signals:
     void toDoPing();
+    void toDoDisconnect();
 };
 
 #endif

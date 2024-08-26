@@ -5,7 +5,8 @@
 #include<h/ViewDoctorInformations.h>
 #include<h/HealthAssesment.h>
 #include<h/Doctor_patientCommunicationPlatform.h>
-
+#include<h/mainwindow.h>
+#include "h/usernow.h"
 Patient::Patient(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Patient)
@@ -58,3 +59,11 @@ void Patient::on_pushButton_5_clicked()
     doctor_patientCommunicationPlatform->identity="patient";
     doctor_patientCommunicationPlatform->show();
 }
+
+void Patient::on_pushButton_6_clicked()
+{
+    this->close();
+    auto mainwindow=new MainWindow;
+    mainwindow->show();
+}
+

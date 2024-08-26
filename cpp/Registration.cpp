@@ -1,6 +1,7 @@
 #include "h/Registration.h"
 #include "ui_Registration.h"
 #include "h/Doctor.h"
+
 Registration::Registration(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Registration)
