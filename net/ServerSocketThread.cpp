@@ -91,6 +91,14 @@ void ServerSocketThread::doCommand(QString str){
     }else if(str.startsWith("GMrcDoc")){
         getMedicalRecordsByDoctorId(arr[1].toLong());
     }
+    else if(str.startsWith("GPstPat")){
+        getPrescriptionsByPatient(arr[1].toLong());
+    }else if(str.startsWith("GPstDoc")){
+        getPrescriptionsByDoctor(arr[1].toLong());
+    }
+    else if(str.startsWith("GTrs")){
+        getTestResultsByPatient(arr[1].toLong());
+    }
 
     else if(!str.startsWith("ping")){
         qDebug("Unknown Command:%s",str.toStdString().data());
@@ -191,4 +199,31 @@ void ServerSocketThread::getMedicalRecordsByDoctorId(long id){
     socket->write(NetUtils::wrapStrings({"mrc",
         std::to_string(result.patientId),std::to_string(result.doctorId),result.date.toStdString(),
         result.diagnosis.toStdString(),result.advice.toStdString()}));
+}
+
+//pst <patid> <docid> <date> <medid> <cnt> <advc>
+void ServerSocketThread::getPrescriptionsByPatient(long id){
+    //Connect DB
+    NetUtils::Prescription result={114,514,"19",1,2,"11"};
+    socket->write(NetUtils::wrapStrings({"pst",
+        std::to_string(result.patientId),std::to_string(result.doctorId),result.date.toStdString(),
+        std::to_string(result.medicineId),std::to_string(result.count),result.advice.toStdString()}));
+}
+void ServerSocketThread::getPrescriptionsByDoctor(long id){
+    //Connect DB
+    NetUtils::Prescription result={114,514,"19",1,2,"11"};
+    socket->write(NetUtils::wrapStrings({"pst",
+        std::to_string(result.patientId),std::to_string(result.doctorId),result.date.toStdString(),
+        std::to_string(result.medicineId),std::to_string(result.count),result.advice.toStdString()}));
+}
+
+//trs <patid> <date> <height> <weight> <HR> <hBP> <lBP> <VC>
+void ServerSocketThread::getTestResultsByPatient(long id){
+    //Connect DB
+    NetUtils::TestResult result={123,"456",1,1,4,5,1,4};
+    socket->write(NetUtils::wrapStrings({"pst",
+        std::to_string(result.patientId),result.date.toStdString(),
+        std::to_string(result.height),std::to_string(result.weight),
+        std::to_string(result.heartRate),std::to_string(result.highBP),
+        std::to_string(result.lowBP),std::to_string(result.vitalCapacity)}));
 }

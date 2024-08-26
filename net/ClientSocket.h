@@ -20,6 +20,9 @@ public:
     void getAppointmentsByDoctor(long id);
     void getMedicalRecordsByPatient(long id);
     void getMedicalRecordsByDoctor(long id);
+    void getPrescriptionsByPatient(long id);
+    void getPrescriptionsByDoctor(long id);
+    void getTestResultsByPatient(long id);
 private:
     ClientSocket();
     ~ClientSocket();
@@ -43,6 +46,8 @@ signals:
     void doctor_callback(NetUtils::DoctorData data);
     void appointment_callback(NetUtils::Appointment data);
     void medicalRecord_callback(NetUtils::MedicalRecord data);
+    void prescription_callback(NetUtils::Prescription data);
+    void testResult_callback(NetUtils::TestResult data);
 };
 
 #endif // CLIENTSOCKET_H

@@ -105,6 +105,28 @@ void ClientSocket::doCommand(QString command){
         ret.diagnosis=arr[4];
         ret.advice=arr[5];
         emit medicalRecord_callback(ret);
+    }else if(command.startsWith("pst")){
+        //pst <patid> <docid> <date> <medid> <cnt> <advc>
+        NetUtils::Prescription ret;
+        ret.patientId=arr[1].toLong();
+        ret.doctorId=arr[2].toLong();
+        ret.date=arr[3];
+        ret.medicineId=arr[4].toLong();
+        ret.count=arr[5].toInt();
+        ret.advice=arr[6];
+        emit prescription_callback(ret);
+    }else if(command.startsWith("trs")){
+        //trs <patid> <date> <height> <weight> <HR> <hBP> <lBP> <VC>
+        NetUtils::TestResult ret;
+        ret.patientId=arr[1].toLong();
+        ret.date=arr[2];
+        ret.height=arr[3].toFloat();
+        ret.weight=arr[4].toFloat();
+        ret.heartRate=arr[5].toInt();
+        ret.highBP=arr[6].toFloat();
+        ret.lowBP=arr[7].toFloat();
+        ret.vitalCapacity=arr[8].toInt();
+        emit testResult_callback(ret);
     }
 }
 
@@ -157,4 +179,19 @@ void ClientSocket::getMedicalRecordsByPatient(long id){
 //GMrcDoc <id>
 void ClientSocket::getMedicalRecordsByDoctor(long id){
     socket->write(NetUtils::wrapStrings({"GMrcDoc",std::to_string(id)}));
+}
+
+//GPstPat <id>
+void ClientSocket::getPrescriptionsByPatient(long id){
+    socket->write(NetUtils::wrapStrings({"GPstPat",std::to_string(id)}));
+}
+
+//GPstDoc <id>
+void ClientSocket::getPrescriptionsByDoctor(long id){
+    socket->write(NetUtils::wrapStrings({"GPstDoc",std::to_string(id)}));
+}
+
+//GTrs <id>
+void ClientSocket::getTestResultsByPatient(long id){
+    socket->write(NetUtils::wrapStrings({"GTrs",std::to_string(id)}));
 }

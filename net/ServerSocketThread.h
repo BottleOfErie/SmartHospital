@@ -30,6 +30,9 @@ private:
     void getAppointmentsByPatientId(long id);
     void getMedicalRecordsByDoctorId(long id);
     void getMedicalRecordsByPatientId(long id);
+    void getPrescriptionsByPatient(long id);
+    void getPrescriptionsByDoctor(long id);
+    void getTestResultsByPatient(long id);
 private slots:
     void readyRead_slot();
     void doPing_slot();
