@@ -14,7 +14,7 @@ public:
     ~ServerThread();
     const SqliteOperator* getDB();
 private:
-    const SqliteOperator* dbOp;
+    SqliteOperator* dbOp;
     QList<ServerSocketThread*>threads;
     virtual void incomingConnection(qintptr handle);
 };
