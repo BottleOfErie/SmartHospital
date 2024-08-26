@@ -6,6 +6,10 @@ class usernow
 {
 public:
     usernow();
+    static QString getId();
+    static void setId(const QString &value);
+
+private:
     static QString id;
 };
 

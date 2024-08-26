@@ -66,4 +66,3 @@ void Patient::on_pushButton_6_clicked()
     auto mainwindow=new MainWindow;
     mainwindow->show();
 }
-
