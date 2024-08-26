@@ -9,6 +9,7 @@ CONFIG += c++11
 
 SOURCES += \
     main.cpp \
+    cpp/sqliteOperator.cpp \
     cpp/HealthAssesment.cpp \
     cpp/ViewDoctorInformations.cpp \
     cpp/ViewPrescriptionsAndContributions.cpp \
@@ -29,6 +30,7 @@ SOURCES += \
     net/ServerThread.cpp
 
 HEADERS += \
+    h/sqliteOperator.h \
     h/HealthAssesment.h \
     h/ViewDoctorInformations.h \
     h/ViewPrescriptionsAndContributions.h \
