@@ -8,6 +8,7 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    cpp/ViewRegistration.cpp \
     cpp/usernow.cpp \
     main.cpp \
     cpp/HealthAssesment.cpp \
@@ -31,6 +32,7 @@ SOURCES += \
     net/ServerThread.cpp
 
 HEADERS += \
+    h/ViewRegistration.h \
     h/usernow.h \
     h/HealthAssesment.h \
     h/ViewDoctorInformations.h \
@@ -50,10 +52,11 @@ HEADERS += \
     net/ClientSocket.h \
     net/ServerSocketThread.h \
     net/NetUtils.h \
-    net/ServerThread.h \
+    net/ServerThread.h
 
 FORMS += \
     ui/HealthAssesment.ui \
+    ui/Register_copy.ui \
     ui/ViewDoctorInformations.ui \
     ui/ViewCase.ui \
     ui/Doctor_patientCommunicationPlatform.ui \
@@ -71,6 +74,7 @@ FORMS += \
     ui/ViewCase.ui \
     ui/ViewDoctorInformations.ui \
     ui/ViewPrescriptionsAndContributions.ui \
+    ui/ViewRegistration.ui \
     ui/mainwindow.ui
 
 # Default rules for deployment.

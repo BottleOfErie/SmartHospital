@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>ViewPrescriptionsAndContributions</class>
- <widget class="QWidget" name="ViewPrescriptionsAndContributions">
+ <class>ViewRegistration</class>
+ <widget class="QWidget" name="ViewRegistration">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1045</width>
-    <height>890</height>
+    <width>875</width>
+    <height>691</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,48 +16,58 @@
   <widget class="QTableWidget" name="tableWidget">
    <property name="geometry">
     <rect>
-     <x>130</x>
-     <y>130</y>
-     <width>461</width>
-     <height>381</height>
+     <x>60</x>
+     <y>40</y>
+     <width>551</width>
+     <height>571</height>
     </rect>
    </property>
    <row>
     <property name="text">
-     <string>药品1</string>
+     <string>新建行</string>
     </property>
    </row>
    <row>
     <property name="text">
-     <string>药品2</string>
+     <string>新建行</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>新建行</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>新建行</string>
     </property>
    </row>
    <column>
     <property name="text">
-     <string>药品名</string>
+     <string>患者Id</string>
     </property>
    </column>
    <column>
     <property name="text">
-     <string>数量</string>
+     <string>医生Id</string>
     </property>
    </column>
    <column>
     <property name="text">
-     <string>用量</string>
+     <string>就诊日期时间</string>
     </property>
    </column>
    <column>
     <property name="text">
-     <string>价格</string>
+     <string>就诊状态</string>
     </property>
    </column>
   </widget>
   <widget class="QPushButton" name="pushButton">
    <property name="geometry">
     <rect>
-     <x>750</x>
-     <y>230</y>
+     <x>710</x>
+     <y>130</y>
      <width>89</width>
      <height>25</height>
     </rect>

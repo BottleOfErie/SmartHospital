@@ -1,4 +1,5 @@
 #include "h/sqliteOperator.h"
+#include "net/NetUtils.h"
 #include <QSqlDatabase>
 #include <QSqlError>
 #include <QSqlQuery>
@@ -120,8 +121,8 @@ bool SqliteOperator::createTables()
     query.prepare("CREATE TABLE IF NOT EXISTS Appointment ("
                   "patientId INTEGER,"
                   "doctorId INTEGER,"
-                  "dateTime DATETIME,"
-                  "status TEXT,"
+                  "dateTime TEXT,"
+                  "status INTEGER,"
                   "PRIMARY KEY (patientId, doctorId, dateTime),"
                   "FOREIGN KEY (patientId) REFERENCES Patient(id),"
                   "FOREIGN KEY (doctorId) REFERENCES Doctor(id))");
@@ -169,9 +170,9 @@ bool SqliteOperator::createTables()
                   "height REAL,"
                   "weight REAL,"
                   "heartRate INTEGER,"
-                  "bloodPressureHigh INTEGER,"
-                  "bloodPressureLow INTEGER,"
-                  "lungCapacity REAL,"
+                  "bloodPressureHigh REAL,"
+                  "bloodPressureLow REAL,"
+                  "lungCapacity INTEGER,"
                   "PRIMARY KEY (patientId, dateTime),"
                   "FOREIGN KEY (patientId) REFERENCES Patient(id))");
     if (!query.exec()) {
@@ -184,7 +185,7 @@ bool SqliteOperator::createTables()
                   "patientId INTEGER,"
                   "doctorId INTEGER,"
                   "timestamp TEXT,"
-                  "direction TEXT,"  // "patient_to_doctor" or "doctor_to_patient"
+                  "direction INTEGER,"  // "patient_to_doctor" or "doctor_to_patient"
                   "message TEXT,"
                   "isRead BOOLEAN,"
                   "PRIMARY KEY (patientId, doctorId, timestamp),"
@@ -212,7 +213,7 @@ bool SqliteOperator::createTables()
     return true;
 }
 
-bool SqliteOperator::insertPatient(const QString &name, const QString &idCard, const QString &password, const QString &gender, const QString &birthdate, const QString &phone, const QString &medicalHistory)
+bool SqliteOperator::insertPatient(const QString &name, const QString &idCard, const QString &password, int gender, const QString &birthdate, const QString &phone, const QString &medicalHistory)
 {
     QSqlQuery query(this->Db);
     //check if there is a same patient
@@ -245,7 +246,7 @@ bool SqliteOperator::deletePatient(int patientId)
     return query.exec();
 }
 
-bool SqliteOperator::updatePatient(int patientId, const QString &name, const QString &idCard, const QString &password, const QString &gender, const QString &birthdate, const QString &phone, const QString &medicalHistory)
+bool SqliteOperator::updatePatient(int patientId, const QString &name, const QString &idCard, const QString &password, int gender, const QString &birthdate, const QString &phone, const QString &medicalHistory)
 {
     QSqlQuery query(this->Db);
     query.prepare("UPDATE Patient SET name = ?, idCard = ?, password = ?, gender = ?, birthdate = ?, phone = ?, medicalHistory = ? "
@@ -261,7 +262,7 @@ bool SqliteOperator::updatePatient(int patientId, const QString &name, const QSt
     return query.exec();
 }
 
-bool SqliteOperator::insertDoctor(const QString &name, const QString& workNumber, const QString &idCard, const QString &password, const QString &gender, const QString &birthdate, const QString &phone, const QString &title, const QString &hospital, const QString &department)
+bool SqliteOperator::insertDoctor(const QString &name, const QString& workNumber, const QString &idCard, const QString &password, int gender, const QString &birthdate, const QString &phone, const QString &title, const QString &hospital, const QString &department)
 {
     QSqlQuery query(this->Db);
     // 检查医生是否已存在
@@ -296,7 +297,7 @@ bool SqliteOperator::deleteDoctor(int doctorId)
     return query.exec();
 }
 
-bool SqliteOperator::updateDoctor(int doctorId, const QString& workNumber = " ", const QString &name = " ", const QString &idCard = " ", const QString &password = " ", const QString &gender = " ", const QString &birthdate = " ", const QString &phone = " ", const QString &title = " ", const QString &hospital = " ", const QString &department = " ")
+bool SqliteOperator::updateDoctor(int doctorId, const QString& workNumber = " ", const QString &name = " ", const QString &idCard = " ", const QString &password = " ", int gender = 1, const QString &birthdate = " ", const QString &phone = " ", const QString &title = " ", const QString &hospital = " ", const QString &department = " ")
 {
     QSqlQuery query(this->Db);
     query.prepare("UPDATE Doctor SET name = ?, workNumber = ?, idCard = ?, password = ?, gender = ?, birthdate = ?, phone = ?, title = ?, hospital = ?, department = ? "
@@ -315,7 +316,7 @@ bool SqliteOperator::updateDoctor(int doctorId, const QString& workNumber = " ",
     return query.exec();
 }
 
-bool SqliteOperator::insertAppointment(int patientId, int doctorId, const QString &dateTime, const QString &status)
+bool SqliteOperator::insertAppointment(int patientId, int doctorId, const QString &dateTime, const int &status)
 {
     QSqlQuery query(this->Db);
     // 检查是否已有相同的预约
@@ -348,7 +349,7 @@ bool SqliteOperator::deleteAppointment(int patientId, int doctorId, const QStrin
     return query.exec();
 }
 
-bool SqliteOperator::updateAppointment(int patientId, int doctorId, const QString &dateTime, const QString &status)
+bool SqliteOperator::updateAppointment(int patientId, int doctorId, const QString &dateTime, const int &status)
 {
     QSqlQuery query(this->Db);
     query.prepare("UPDATE Appointment SET status = ? WHERE patientId = ? AND doctorId = ? AND dateTime = ?");
@@ -456,7 +457,7 @@ bool SqliteOperator::updatePrescription(int patientId, int doctorId, const QStri
     query.addBindValue(medicineId);
     return query.exec();
 }
-bool SqliteOperator::insertHealthAssessment(int patientId, const QString &dateTime, double height, double weight, int heartRate, int bloodPressureHigh, int bloodPressureLow, double lungCapacity)
+bool SqliteOperator::insertHealthAssessment(int patientId, const QString &dateTime, double height, double weight, int heartRate, double bloodPressureHigh, double bloodPressureLow, int lungCapacity)
 {
     QSqlQuery query(this->Db);
     //check if there is a same health assessment
@@ -492,7 +493,7 @@ bool SqliteOperator::deleteHealthAssessment(int patientId, const QString &dateTi
     return query.exec();
 }
 
-bool SqliteOperator::updateHealthAssessment(int patientId, const QString &dateTime, double height, double weight, int heartRate, int bloodPressureHigh, int bloodPressureLow, double lungCapacity)
+bool SqliteOperator::updateHealthAssessment(int patientId, const QString &dateTime, double height, double weight, int heartRate, double bloodPressureHigh, double bloodPressureLow, int lungCapacity)
 {
     QSqlQuery query(this->Db);
     query.prepare("UPDATE HealthAssessment SET height = ?, weight = ?, heartRate = ?, bloodPressureHigh = ?, bloodPressureLow = ?, lungCapacity = ? WHERE patientId = ? AND dateTime = ?");
@@ -506,7 +507,7 @@ bool SqliteOperator::updateHealthAssessment(int patientId, const QString &dateTi
     query.addBindValue(dateTime);
     return query.exec();
 }
-bool SqliteOperator::insertChatRecord(int patientId, int doctorId, const QString &timestamp, const QString &direction, const QString &message, bool isRead)
+bool SqliteOperator::insertChatRecord(int patientId, int doctorId, const QString &timestamp, const int &direction, const QString &message, bool isRead)
 {
     QSqlQuery query(this->Db);
     // 检查是否已有相同聊天记录
@@ -596,5 +597,453 @@ bool SqliteOperator::updateMedicine(int medicineId, const QString &medicineName,
     query.addBindValue(medicineId);
     return query.exec();
 }
+
+//查询病人信息
+QList<NetUtils::PatientData> SqliteOperator::queryPatientByNationId(const QString& nationId)
+{
+    QList<NetUtils::PatientData> result;
+    QSqlQuery query(this->Db);
+
+    query.prepare("SELECT * FROM Patient WHERE idCard = ?");
+    query.addBindValue(nationId);
+
+    if (!query.exec()) {
+        qDebug() << "Error querying patients:" << query.lastError().text();
+        return result;
+    }
+
+    while (query.next()) {
+        NetUtils::PatientData patient;
+        patient.id = query.value("id").toLongLong();
+        patient.name = query.value("name").toString();
+        patient.nationId = query.value("idCard").toString();
+        patient.sex = query.value("gender").toInt();
+        patient.birthday = query.value("birthdate").toString();
+        patient.phoneNumber = query.value("phone").toString();
+        patient.history = query.value("medicalHistory").toString();
+        result.append(patient);
+    }
+
+    return result;
+}
+
+QList<NetUtils::PatientData> SqliteOperator::queryPatientById(int id)
+{
+    QList<NetUtils::PatientData> result;
+    QSqlQuery query(this->Db);
+
+    query.prepare("SELECT * FROM Patient WHERE id = ?");
+    query.addBindValue(id);
+
+    if (!query.exec()) {
+        qDebug() << "Error querying patients:" << query.lastError().text();
+        return result;
+    }
+
+    while (query.next()) {
+        NetUtils::PatientData patient;
+        patient.id = query.value("id").toLongLong();
+        patient.name = query.value("name").toString();
+        patient.nationId = query.value("idCard").toString();
+        patient.sex = query.value("gender").toInt();
+        patient.birthday = query.value("birthdate").toString();
+        patient.phoneNumber = query.value("phone").toString();
+        patient.history = query.value("medicalHistory").toString();
+        result.append(patient);
+    }
+
+    return result;
+}
+
+//查询医生信息
+QList<NetUtils::DoctorData> SqliteOperator::queryDoctorByNationId(const QString& nationId)
+{
+    QList<NetUtils::DoctorData> result;
+    QSqlQuery query(this->Db);
+
+    query.prepare("SELECT * FROM Doctor WHERE idCard = ?");
+    query.addBindValue(nationId);
+
+    if (!query.exec()) {
+        qDebug() << "Error querying doctors:" << query.lastError().text();
+        return result;
+    }
+
+    while (query.next()) {
+        NetUtils::DoctorData doctor;
+        doctor.id = query.value("id").toLongLong();
+        doctor.name = query.value("name").toString();
+        doctor.nationId = query.value("idCard").toString();
+        doctor.sex = query.value("gender").toInt();
+        doctor.birthday = query.value("birthdate").toString();
+        doctor.phoneNumber = query.value("phone").toString();
+        doctor.jobTitle = query.value("title").toString();
+        doctor.organization = query.value("hospital").toString();
+        doctor.section = query.value("department").toString();
+        result.append(doctor);
+    }
+
+    return result;
+}
+
+QList<NetUtils::DoctorData> SqliteOperator::queryDoctorById(int id)
+{
+    QList<NetUtils::DoctorData> result;
+    QSqlQuery query(this->Db);
+
+    query.prepare("SELECT * FROM Doctor WHERE id = ?");
+    query.addBindValue(id);
+
+    if (!query.exec()) {
+        qDebug() << "Error querying doctors:" << query.lastError().text();
+        return result;
+    }
+
+    while (query.next()) {
+        NetUtils::DoctorData doctor;
+        doctor.id = query.value("id").toLongLong();
+        doctor.name = query.value("name").toString();
+        doctor.nationId = query.value("idCard").toString();
+        doctor.sex = query.value("gender").toInt();
+        doctor.birthday = query.value("birthdate").toString();
+        doctor.phoneNumber = query.value("phone").toString();
+        doctor.jobTitle = query.value("title").toString();
+        doctor.organization = query.value("hospital").toString();
+        doctor.section = query.value("department").toString();
+        result.append(doctor);
+    }
+
+    return result;
+}
+
+QList<NetUtils::DoctorData> SqliteOperator::queryDoctorBySection(const QString& section)
+{
+    QList<NetUtils::DoctorData> result;
+    QSqlQuery query(this->Db);
+
+    query.prepare("SELECT * FROM Doctor WHERE department = ?");
+    query.addBindValue(section);
+
+    if (!query.exec()) {
+        qDebug() << "Error querying doctors:" << query.lastError().text();
+        return result;
+    }
+
+    while (query.next()) {
+        NetUtils::DoctorData doctor;
+        doctor.id = query.value("id").toLongLong();
+        doctor.name = query.value("name").toString();
+        doctor.nationId = query.value("idCard").toString();
+        doctor.sex = query.value("gender").toInt();
+        doctor.birthday = query.value("birthdate").toString();
+        doctor.phoneNumber = query.value("phone").toString();
+        doctor.jobTitle = query.value("title").toString();
+        doctor.organization = query.value("hospital").toString();
+        doctor.section = query.value("department").toString();
+        result.append(doctor);
+    }
+
+    return result;
+}
+
+//查询预约信息
+QList<NetUtils::Appointment> SqliteOperator::queryAppointmentByPatientId(int patientId)
+{
+    QList<NetUtils::Appointment> result;
+    QSqlQuery query(this->Db);
+
+    query.prepare("SELECT * FROM Appointment WHERE patientId = ?");
+    query.addBindValue(patientId);
+
+    if (!query.exec()) {
+        qDebug() << "Error querying appointments:" << query.lastError().text();
+        return result;
+    }
+
+    while (query.next()) {
+        NetUtils::Appointment appointment;
+        appointment.patientId = query.value("patientId").toLongLong();
+        appointment.doctorId = query.value("doctorId").toLongLong();
+        appointment.time = query.value("dateTime").toString();
+        appointment.state = query.value("status").toInt();
+        result.append(appointment);
+    }
+
+    return result;
+}
+
+QList<NetUtils::Appointment> SqliteOperator::queryAppointmentByDoctorId(int doctorId)
+{
+    QList<NetUtils::Appointment> result;
+    QSqlQuery query(this->Db);
+
+    query.prepare("SELECT * FROM Appointment WHERE doctorId = ?");
+    query.addBindValue(doctorId);
+
+    if (!query.exec()) {
+        qDebug() << "Error querying appointments:" << query.lastError().text();
+        return result;
+    }
+
+    while (query.next()) {
+        NetUtils::Appointment appointment;
+        appointment.patientId = query.value("patientId").toLongLong();
+        appointment.doctorId = query.value("doctorId").toLongLong();
+        appointment.time = query.value("dateTime").toString();
+        appointment.state = query.value("status").toInt();
+        result.append(appointment);
+    }
+
+    return result;
+}
+
+//查询病历信息
+QList<NetUtils::MedicalRecord> SqliteOperator::queryMedicalRecordByPatientId(int patientId)
+{
+    QList<NetUtils::MedicalRecord> result;
+    QSqlQuery query(this->Db);
+
+    query.prepare("SELECT * FROM MedicalRecord WHERE patientId = ?");
+    query.addBindValue(patientId);
+
+    if (!query.exec()) {
+        qDebug() << "Error querying medical records:" << query.lastError().text();
+        return result;
+    }
+
+    while (query.next()) {
+        NetUtils::MedicalRecord record;
+        record.patientId = query.value("patientId").toLongLong();
+        record.doctorId = query.value("doctorId").toLongLong();
+        record.date = query.value("dateTime").toString();
+        record.diagnosis = query.value("diagnosisDetails").toString();
+        record.advice = query.value("medicalAdvice").toString();
+        result.append(record);
+    }
+
+    return result;
+}
+
+QList<NetUtils::MedicalRecord> SqliteOperator::queryMedicalRecordByDoctorId(int doctorId)
+{
+    QList<NetUtils::MedicalRecord> result;
+    QSqlQuery query(this->Db);
+
+    query.prepare("SELECT * FROM MedicalRecord WHERE doctorId = ?");
+    query.addBindValue(doctorId);
+
+    if (!query.exec()) {
+        qDebug() << "Error querying medical records:" << query.lastError().text();
+        return result;
+    }
+
+    while (query.next()) {
+        NetUtils::MedicalRecord record;
+        record.patientId = query.value("patientId").toLongLong();
+        record.doctorId = query.value("doctorId").toLongLong();
+        record.date = query.value("dateTime").toString();
+        record.diagnosis = query.value("diagnosisDetails").toString();
+        record.advice = query.value("medicalAdvice").toString();
+        result.append(record);
+    }
+
+    return result;
+}
+
+//查询处方信息
+QList<NetUtils::Prescription> SqliteOperator::queryPrescriptionByPatientId(int patientId)
+{
+    QList<NetUtils::Prescription> result;
+    QSqlQuery query(this->Db);
+
+    query.prepare("SELECT * FROM Prescription WHERE patientId = ?");
+    query.addBindValue(patientId);
+
+    if (!query.exec()) {
+        qDebug() << "Error querying prescriptions:" << query.lastError().text();
+        return result;
+    }
+
+    while (query.next()) {
+        NetUtils::Prescription prescription;
+        prescription.patientId = query.value("patientId").toLongLong();
+        prescription.doctorId = query.value("doctorId").toLongLong();
+        prescription.date = query.value("dateTime").toString();
+        prescription.medicineId = query.value("medicineId").toLongLong();
+        prescription.count = query.value("medicineQuantity").toInt();
+        prescription.advice = query.value("usageAdvice").toString();
+        result.append(prescription);
+    }
+
+    return result;
+}
+
+QList<NetUtils::Prescription> SqliteOperator::queryPrescriptionByDoctorId(int doctorId)
+{
+    QList<NetUtils::Prescription> result;
+    QSqlQuery query(this->Db);
+
+    query.prepare("SELECT * FROM Prescription WHERE doctorId = ?");
+    query.addBindValue(doctorId);
+
+    if (!query.exec()) {
+        qDebug() << "Error querying prescriptions:" << query.lastError().text();
+        return result;
+    }
+
+    while (query.next()) {
+        NetUtils::Prescription prescription;
+        prescription.patientId = query.value("patientId").toLongLong();
+        prescription.doctorId = query.value("doctorId").toLongLong();
+        prescription.date = query.value("dateTime").toString();
+        prescription.medicineId = query.value("medicineId").toLongLong();
+        prescription.count = query.value("medicineQuantity").toInt();
+        prescription.advice = query.value("usageAdvice").toString();
+        result.append(prescription);
+    }
+
+    return result;
+}
+
+//查询健康评估信息
+QList<NetUtils::TestResult> SqliteOperator::queryHealthAssessmentByPatientId(int patientId)
+{
+    QList<NetUtils::TestResult> result;
+    QSqlQuery query(this->Db);
+
+    query.prepare("SELECT * FROM HealthAssessment WHERE patientId = ?");
+    query.addBindValue(patientId);
+
+    if (!query.exec()) {
+        qDebug() << "Error querying health assessments:" << query.lastError().text();
+        return result;
+    }
+
+    while (query.next()) {
+        NetUtils::TestResult assessment;
+        assessment.patientId = query.value("patientId").toLongLong();
+        assessment.date = query.value("dateTime").toString();
+        assessment.height = query.value("height").toFloat();
+        assessment.weight = query.value("weight").toFloat();
+        assessment.heartRate = query.value("heartRate").toInt();
+        assessment.highBP = query.value("bloodPressureHigh").toFloat();
+        assessment.lowBP = query.value("bloodPressureLow").toFloat();
+        assessment.vitalCapacity = query.value("lungCapacity").toInt();
+        result.append(assessment);
+    }
+
+    return result;
+}
+
+//查询聊天记录信息
+QList<NetUtils::Message> SqliteOperator::queryChatRecordByPatientId(int patientId)
+{
+    QList<NetUtils::Message> result;
+    QSqlQuery query(this->Db);
+
+    query.prepare("SELECT * FROM ChatRecord WHERE patientId = ?");
+    query.addBindValue(patientId);
+
+    if (!query.exec()) {
+        qDebug() << "Error querying chat records:" << query.lastError().text();
+        return result;
+    }
+
+    while (query.next()) {
+        NetUtils::Message message;
+        message.patientId = query.value("patientId").toLongLong();
+        message.doctorId = query.value("doctorId").toLongLong();
+        message.timeStamp = query.value("timestamp").toLongLong();
+        message.sendDirection = query.value("direction").toInt();
+        message.message = query.value("message").toString();
+        message.isRead = query.value("isRead").toBool();
+        result.append(message);
+    }
+
+    return result;
+}
+
+QList<NetUtils::Message> SqliteOperator::queryChatRecordByDoctorId(int doctorId)
+{
+    QList<NetUtils::Message> result;
+    QSqlQuery query(this->Db);
+
+    query.prepare("SELECT * FROM ChatRecord WHERE patientId = ? OR doctorId = ?");
+    query.addBindValue(doctorId);
+
+    if (!query.exec()) {
+        qDebug() << "Error querying chat records:" << query.lastError().text();
+        return result;
+    }
+
+    while (query.next()) {
+        NetUtils::Message message;
+        message.patientId = query.value("patientId").toLongLong();
+        message.doctorId = query.value("doctorId").toLongLong();
+        message.timeStamp = query.value("timeStamp").toLongLong();
+        message.sendDirection = query.value("sendDirection").toInt();
+        message.message = query.value("message").toString();
+        message.isRead = query.value("isRead").toBool();
+        result.append(message);
+    }
+
+    return result;
+}
+
+//查询药品信息
+QList<NetUtils::Medicine> SqliteOperator::queryMedicineById(int medicineId)
+{
+    QList<NetUtils::Medicine> result;
+    QSqlQuery query(this->Db);
+
+    query.prepare("SELECT * FROM Medicine WHERE medicineId = ?");
+    query.addBindValue(medicineId);
+
+    if (!query.exec()) {
+        qDebug() << "Error querying medicines:" << query.lastError().text();
+        return result;
+    }
+
+    while (query.next()) {
+        NetUtils::Medicine medicine;
+        medicine.medicineId = query.value("medicineId").toLongLong();
+        medicine.name = query.value("medicineName").toString();
+        medicine.price = query.value("medicinePrice").toFloat();
+        medicine.count = query.value("medicineStock").toLongLong();
+        medicine.manufactuer = query.value("manufacturer").toString();
+        medicine.batch = query.value("batchNumber").toString();
+        result.append(medicine);
+    }
+
+    return result;
+}
+
+QList<NetUtils::Medicine> SqliteOperator::queryMedicineByName(const QString& name)
+{
+    QList<NetUtils::Medicine> result;
+    QSqlQuery query(this->Db);
+
+    query.prepare("SELECT * FROM Medicine WHERE name = ?");
+    query.addBindValue(name);
+
+    if (!query.exec()) {
+        qDebug() << "Error querying medicines:" << query.lastError().text();
+        return result;
+    }
+
+    while (query.next()) {
+        NetUtils::Medicine medicine;
+        medicine.medicineId = query.value("medicineId").toLongLong();
+        medicine.name = query.value("medicineName").toString();
+        medicine.price = query.value("medicinePrice").toFloat();
+        medicine.count = query.value("medicineStock").toLongLong();
+        medicine.manufactuer = query.value("manufacturer").toString();
+        medicine.batch = query.value("batchNumber").toString();
+        result.append(medicine);
+    }
+
+    return result;
+}
+
 
 

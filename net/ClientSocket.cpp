@@ -46,8 +46,8 @@ void ClientSocket::readyRead_slot(){
     }
 }
 
-void ClientSocket::login_slot(bool state){
-    qDebug("ClientSocket Login:%s",state?"Succeed":"Failed");
+void ClientSocket::login_slot(bool result){
+    qDebug("ClientLogin:%s",result?"Success":"Failure");
 }
 
 void ClientSocket::connected_slot(){
@@ -101,7 +101,7 @@ void ClientSocket::doCommand(QString command){
         ret.patientId=arr[1].toLong();
         ret.doctorId=arr[2].toLong();
         ret.time=arr[3];
-        ret.state=arr[4].toUInt();
+        ret.state=arr[4].toInt();
         emit appointment_callback(ret);
     }else if(command.startsWith("mrc")){
         //mrc <patid> <docid> <time> <diag> <advc>
@@ -241,4 +241,68 @@ void ClientSocket::getMedicineById(long id){
 //GMedNm <name>
 void ClientSocket::getMedicineByName(QString name){
     socket->write(NetUtils::wrapStrings({"GMedNm",name.toStdString()}));
+}
+
+//SPat <id> <name> <nationalId> <sex> <birthday> <phoneNumber> <history>
+void ClientSocket::submitPatientData(NetUtils::PatientData data){
+    socket->write(NetUtils::wrapStrings({"SPat",
+        std::to_string(data.id),data.name.toStdString(),data.nationId.toStdString(),
+        std::to_string(data.sex),data.birthday.toStdString(),
+        data.phoneNumber.toStdString(),data.history.toStdString()
+    }));
+}
+
+//SDoc <id> <name> <nationalId> <sex> <birthday> <phoneNumber> <jobTitle> <organization> <section>
+void ClientSocket::submitDoctorData(NetUtils::DoctorData data){
+    socket->write(NetUtils::wrapStrings({"SDoc",
+        std::to_string(data.id),data.name.toStdString(),data.nationId.toStdString(),
+        std::to_string(data.sex),data.birthday.toStdString(),data.phoneNumber.toStdString(),
+        data.jobTitle.toStdString(),data.organization.toStdString(),data.section.toStdString()
+    }));
+}
+
+//SApp <patid> <docid> <date> <state>
+void ClientSocket::submitAppointment(NetUtils::Appointment data){
+    socket->write(NetUtils::wrapStrings({"SApp",
+        std::to_string(data.patientId),std::to_string(data.doctorId),
+        data.time.toStdString(),std::to_string(data.state)}));
+}
+
+//SMrc <patid> <docid> <time> <diag> <advc>
+void ClientSocket::submitMedicalRecord(NetUtils::MedicalRecord data){
+    socket->write(NetUtils::wrapStrings({"SMrc",
+        std::to_string(data.patientId),std::to_string(data.doctorId),data.date.toStdString(),
+        data.diagnosis.toStdString(),data.advice.toStdString()}));
+}
+
+//SPst <patid> <docid> <date> <medid> <cnt> <advc>
+void ClientSocket::submitPrescription(NetUtils::Prescription data){
+    socket->write(NetUtils::wrapStrings({"SPst",
+        std::to_string(data.patientId),std::to_string(data.doctorId),data.date.toStdString(),
+        std::to_string(data.medicineId),std::to_string(data.count),data.advice.toStdString()}));
+}
+
+//STrs <patid> <date> <height> <weight> <HR> <hBP> <lBP> <VC>
+void ClientSocket::submitTestResult(NetUtils::TestResult data){
+    socket->write(NetUtils::wrapStrings({"STrs",
+        std::to_string(data.patientId),data.date.toStdString(),
+        std::to_string(data.height),std::to_string(data.weight),
+        std::to_string(data.heartRate),std::to_string(data.highBP),
+        std::to_string(data.lowBP),std::to_string(data.vitalCapacity)}));
+}
+
+//SMsg <patid> <docid> <time> <dir> <text> <read>
+void ClientSocket::submitMessage(NetUtils::Message data){
+    socket->write(NetUtils::wrapStrings({"SMsg",
+        std::to_string(data.patientId),std::to_string(data.doctorId),
+        std::to_string(data.timeStamp),std::to_string(data.sendDirection),
+        data.message.toStdString(),data.isRead?"true":"false"}));
+}
+
+//SMed <id> <name> <price> <cnt> <manu> <batch>
+void ClientSocket::submitMedicine(NetUtils::Medicine data){
+    socket->write(NetUtils::wrapStrings({"SMed",
+        std::to_string(data.medicineId),data.name.toStdString(),
+        std::to_string(data.price),std::to_string(data.count),
+        data.manufactuer.toStdString(),data.batch.toStdString()}));
 }

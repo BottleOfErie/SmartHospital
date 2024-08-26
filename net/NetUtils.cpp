@@ -4,7 +4,7 @@
 extern const QString NetUtils::messagePrefix="=<GeNsHiN>=";
 extern const QString NetUtils::messageSuffix="=<IMpAct>=";
 extern const QString NetUtils::messagePartition="|miD|";
-extern const long NetUtils::waitTime = 5000l;
+extern const long NetUtils::waitTime = 2000l;
 
 const QByteArray NetUtils::wrapMessage(const QString& message){
     auto str=NetUtils::messagePrefix+message+NetUtils::messageSuffix;
