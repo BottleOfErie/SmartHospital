@@ -6,6 +6,7 @@
 #include<h/HealthAssesment.h>
 #include<h/Doctor_patientCommunicationPlatform.h>
 #include<h/mainwindow.h>
+#include "h/usernow.h"
 Patient::Patient(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Patient)
@@ -65,4 +66,3 @@ void Patient::on_pushButton_6_clicked()
     auto mainwindow=new MainWindow;
     mainwindow->show();
 }
-

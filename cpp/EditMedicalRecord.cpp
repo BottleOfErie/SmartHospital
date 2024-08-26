@@ -1,6 +1,7 @@
 #include "h/EditMedicalRecord.h"
 #include "ui_EditMedicalRecord.h"
 #include "h/Doctor.h"
+#include "h/usernow.h"
 EditMedicalRecord::EditMedicalRecord(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::EditMedicalRecord)

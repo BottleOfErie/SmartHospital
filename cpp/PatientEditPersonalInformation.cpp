@@ -4,7 +4,7 @@
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QMessageBox>
-
+#include "h/usernow.h"
 PatientEditPersonalInformation::PatientEditPersonalInformation(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::PatientEditPersonalInformation)

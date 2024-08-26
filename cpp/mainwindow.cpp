@@ -1,7 +1,7 @@
 
 #include "ui_mainwindow.h"
 
-
+#include<h/extern_variable.h>
 #include <h/mainwindow.h>
 #include <h/Register.h>
 #include <h/Patient.h>
@@ -9,7 +9,7 @@
 #include <QMessageBox>
 #include <QSqlQuery>
 #include <QSqlError>
-
+#include <h/usernow.h>
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -17,9 +17,6 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     ui->checkBox->setChecked(false);
     ui->checkBox_2->setChecked(false);
-    /*connect(ui->LoginButton, &QPushButton::clicked, this, &MainWindow::on_LoginButton_clicked);
-    connect(ui->RegisterButton, &QPushButton::clicked, this, &MainWindow::on_RegisterButton_clicked);
-*/
 }
 
 MainWindow::~MainWindow()
@@ -47,11 +44,12 @@ void MainWindow::on_LoginButton_clicked()
         else
             QMessageBox::warning(this,"error","用户名或者密码错误！！");
             // 清空内容并定位光标*/
-
+        usernow::setId(username);
         switchPage();
         ui->username->clear();
         ui->password->clear();
         ui->username->setFocus();//将光标定位到用户名输入框
+
     }
 }
 

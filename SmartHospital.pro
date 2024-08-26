@@ -8,6 +8,7 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    cpp/usernow.cpp \
     main.cpp \
     cpp/HealthAssesment.cpp \
     cpp/ViewDoctorInformations.cpp \
@@ -23,12 +24,14 @@ SOURCES += \
     cpp/Patient.cpp \
     cpp/mainwindow.cpp \
     cpp/Register.cpp \
+    cpp/sqliteOperator.cpp \
     net/ClientSocket.cpp \
     net/NetUtils.cpp \
     net/ServerSocketThread.cpp \
     net/ServerThread.cpp
 
 HEADERS += \
+    h/usernow.h \
     h/HealthAssesment.h \
     h/ViewDoctorInformations.h \
     h/ViewPrescriptionsAndContributions.h \
@@ -40,6 +43,7 @@ HEADERS += \
     h/Registration.h \
     h/PatientEditPersonalInformation.h \
     h/Doctor.h \
+    h/sqliteOperator.h \
     h/mainwindow.h \
     h/Register.h \
     h/Patient.h \

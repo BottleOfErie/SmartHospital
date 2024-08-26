@@ -6,12 +6,14 @@
 #include <h/EditMedicalRecord.h>
 #include <h/DoctorEditPersonalInformation.h>
 #include <h/Doctor_patientCommunicationPlatform.h>
-
+#include <QDebug>
+#include "h/usernow.h"
 Doctor::Doctor(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Doctor)
 {
     ui->setupUi(this);
+    qDebug() << usernow::getId();
     //connect(ui->pushButton_6, &QPushButton::clicked, this, &Doctor::on_pushButton6_clicked);
     //connect(ui->pushButton_4, &QPushButton::clicked, this, &Doctor::on_pushButton4_clicked);
     //connect(ui->pushButton_2, &QPushButton::clicked, this, &Doctor::on_pushButton2_clicked);
@@ -60,6 +62,6 @@ void Doctor::on_pushButton_5_clicked()
 {
     this->close();
     auto doctor_patientCommunicationPlatform=new Doctor_patientCommunicationPlatform;
-    doctor_patientCommunicationPlatform->identity="patient";
+    doctor_patientCommunicationPlatform->identity="doctor";
     doctor_patientCommunicationPlatform->show();
 }
