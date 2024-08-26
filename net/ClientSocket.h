@@ -40,6 +40,7 @@ private slots:
     void connected_slot();
     void disconnected_slot();
     void error_slot(QAbstractSocket::SocketError socketError);
+    void login_slot(bool);
 signals:
     void connected();
     void disconnected();

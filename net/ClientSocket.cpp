@@ -11,6 +11,8 @@ ClientSocket::ClientSocket(){
     connect(socket,SIGNAL(disconnected()),this,SLOT(disconnected_slot()));
     connect(socket,SIGNAL(error(QAbstractSocket::SocketError)),
         this,SLOT(error_slot(QAbstractSocket::SocketError)));
+
+    connect(this,SIGNAL(login_callback(bool)),this,SLOT(login_slot(bool)));
 }
 
 ClientSocket::~ClientSocket(){
@@ -41,6 +43,10 @@ void ClientSocket::readyRead_slot(){
             buffer=buffer.mid(suff);
         }
     }
+}
+
+void ClientSocket::login_slot(bool state){
+    qDebug("ClientSocket Login:%s",state?"Succeed":"Failed");
 }
 
 void ClientSocket::connected_slot(){
