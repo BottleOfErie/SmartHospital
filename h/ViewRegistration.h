@@ -4,19 +4,19 @@
 #include <QWidget>
 
 namespace Ui {
-class Form;
+class ViewRegistration;
 }
 
-class Form : public QWidget
+class ViewRegistration : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit Form(QWidget *parent = nullptr);
-    ~Form();
+    explicit ViewRegistration(QWidget *parent = nullptr);
+    ~ViewRegistration();
 
 private:
-    Ui::Form *ui;
+    Ui::ViewRegistration *ui;
 };
 
 #endif // VIEWREGISTRATION_H

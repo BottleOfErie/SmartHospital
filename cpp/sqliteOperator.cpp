@@ -1,5 +1,5 @@
-#include "sqliteOperator.h"
-#include "NetUtils.h"
+#include "h/sqliteOperator.h"
+#include "net/NetUtils.h"
 #include <QSqlDatabase>
 #include <QSqlError>
 #include <QSqlQuery>

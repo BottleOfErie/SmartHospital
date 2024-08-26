@@ -6,12 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1070</width>
+    <width>1505</width>
     <height>843</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>个人信息</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">#DoctorEditPersonalInformation{border-image: url(:/images/06.jpg);}</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
@@ -29,7 +32,7 @@
       <number>200</number>
      </property>
      <property name="rightMargin">
-      <number>100</number>
+      <number>600</number>
      </property>
      <property name="bottomMargin">
       <number>0</number>

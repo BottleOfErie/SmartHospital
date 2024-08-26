@@ -1,14 +1,14 @@
-#include "ViewRegistration.h"
+#include "h/ViewRegistration.h"
 #include "ui_ViewRegistration.h"
 
-Form::Form(QWidget *parent) :
+ViewRegistration::ViewRegistration(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::Form)
+    ui(new Ui::ViewRegistration)
 {
     ui->setupUi(this);
 }
 
-Form::~Form()
+ViewRegistration::~ViewRegistration()
 {
     delete ui;
 }

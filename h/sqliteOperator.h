@@ -5,7 +5,7 @@
 #include <QSqlError>
 #include <QDebug>
 #include <string>
-#include "NetUtils.h"  // 包含 NetUtils 结构体的定义
+#include "net/NetUtils.h"  // 包含 NetUtils 结构体的定义
 
 class SqliteOperator
 {
