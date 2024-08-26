@@ -23,6 +23,10 @@ public:
     void getPrescriptionsByPatient(long id);
     void getPrescriptionsByDoctor(long id);
     void getTestResultsByPatient(long id);
+    void getMessageAsPatient(long id);
+    void getMessageAsDoctor(long id);
+    void getMedicineById(long id);
+    void getMedicineByName(QString name);
 private:
     ClientSocket();
     ~ClientSocket();
@@ -48,6 +52,8 @@ signals:
     void medicalRecord_callback(NetUtils::MedicalRecord data);
     void prescription_callback(NetUtils::Prescription data);
     void testResult_callback(NetUtils::TestResult data);
+    void message_callback(NetUtils::Message data);
+    void medicine_callback(NetUtils::Medicine data);
 };
 
 #endif // CLIENTSOCKET_H

@@ -127,6 +127,26 @@ void ClientSocket::doCommand(QString command){
         ret.lowBP=arr[7].toFloat();
         ret.vitalCapacity=arr[8].toInt();
         emit testResult_callback(ret);
+    }else if(command.startsWith("msg")){
+        //msg <patid> <docid> <time> <dir> <text> <read>
+        NetUtils::Message ret;
+        ret.patientId=arr[1].toLong();
+        ret.doctorId=arr[2].toLong();
+        ret.timeStamp=arr[3].toLongLong();
+        ret.sendDirection=arr[4].toInt();
+        ret.message=arr[5];
+        ret.isRead=arr[6].compare("true")==0;
+        emit testResult_callback(ret);
+    }else if(command.startsWith("med")){
+        //med <id> <name> <price> <cnt> <manu> <batch>
+        NetUtils::Medicine ret;
+        ret.medicineId = arr[1].toLong();
+        ret.name=arr[2];
+        ret.price=arr[3].toFloat();
+        ret.count=arr[4].toLong();
+        ret.manufactuer=arr[5];
+        ret.batch=arr[6];
+        emit medicine_callback(ret);
     }
 }
 
@@ -194,4 +214,24 @@ void ClientSocket::getPrescriptionsByDoctor(long id){
 //GTrs <id>
 void ClientSocket::getTestResultsByPatient(long id){
     socket->write(NetUtils::wrapStrings({"GTrs",std::to_string(id)}));
+}
+
+//GMsgDoc <id>
+void ClientSocket::getMessageAsDoctor(long id){
+    socket->write(NetUtils::wrapStrings({"GMsgDoc",std::to_string(id)}));
+}
+
+//GMsgPat <id>
+void ClientSocket::getMessageAsPatient(long id){
+    socket->write(NetUtils::wrapStrings({"GMsgPat",std::to_string(id)}));
+}
+
+//GMedId <id>
+void ClientSocket::getMedicineById(long id){
+    socket->write(NetUtils::wrapStrings({"GMedId",std::to_string(id)}));
+}
+
+//GMedNm <name>
+void ClientSocket::getMedicineById(QString name){
+    socket->write(NetUtils::wrapStrings({"GMedNm",name.toStdString()}));
 }

@@ -99,6 +99,16 @@ void ServerSocketThread::doCommand(QString str){
     else if(str.startsWith("GTrs")){
         getTestResultsByPatient(arr[1].toLong());
     }
+    else if(str.startsWith("GMsgPat")){
+        getMessageAsPatient(arr[1].toLong());
+    }else if(str.startsWith("GMsgDoc")){
+        getMessageAsDoctor(arr[1].toLong());
+    }
+    else if(str.startsWith("GMedId")){
+        getMedicineById(arr[1].toLong());
+    }else if(str.startsWith("GMsgNm")){
+        getMedicineByName(arr[1]);
+    }
 
     else if(!str.startsWith("ping")){
         qDebug("Unknown Command:%s",str.toStdString().data());
@@ -226,4 +236,40 @@ void ServerSocketThread::getTestResultsByPatient(long id){
         std::to_string(result.height),std::to_string(result.weight),
         std::to_string(result.heartRate),std::to_string(result.highBP),
         std::to_string(result.lowBP),std::to_string(result.vitalCapacity)}));
+}
+
+//msg <patid> <docid> <time> <dir> <text> <read>
+void ServerSocketThread::getMessageAsPatient(long id){
+    //Connect DB
+    NetUtils::Message result={123,456,114514,0,"1919810",false};
+    socket->write(NetUtils::wrapStrings({"msg",
+        std::to_string(result.patientId),std::to_string(result.doctorId),
+        std::to_string(result.timeStamp),std::to_string(result.sendDirection),
+        result.message.toStdString(),result.isRead?"true":"false"}));
+}
+void ServerSocketThread::getMessageAsDoctor(long id){
+    //Connect DB
+    NetUtils::Message result={123,456,114514,0,"1919810",false};
+    socket->write(NetUtils::wrapStrings({"msg",
+        std::to_string(result.patientId),std::to_string(result.doctorId),
+        std::to_string(result.timeStamp),std::to_string(result.sendDirection),
+        result.message.toStdString(),result.isRead?"true":"false"}));
+}
+
+//med <id> <name> <price> <cnt> <manu> <batch>
+void ServerSocketThread::getMedicineById(long id){
+    //Connect DB
+    NetUtils::Medicine result={114,"RedTea",5,14,"123","456"};
+    socket->write(NetUtils::wrapStrings({"med",
+        std::to_string(result.medicineId),result.name.toStdString(),
+        std::to_string(result.price),std::to_string(result.count),
+        result.manufactuer.toStdString(),result.batch.toStdString()}));
+}
+void ServerSocketThread::getMedicineByName(QString name){
+    //Connect DB
+    NetUtils::Medicine result={114,"RedTea",5,14,"123","456"};
+    socket->write(NetUtils::wrapStrings({"med",
+        std::to_string(result.medicineId),result.name.toStdString(),
+        std::to_string(result.price),std::to_string(result.count),
+        result.manufactuer.toStdString(),result.batch.toStdString()}));
 }
