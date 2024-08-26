@@ -136,7 +136,7 @@ void ClientSocket::doCommand(QString command){
         ret.sendDirection=arr[4].toInt();
         ret.message=arr[5];
         ret.isRead=arr[6].compare("true")==0;
-        emit testResult_callback(ret);
+        emit message_callback(ret);
     }else if(command.startsWith("med")){
         //med <id> <name> <price> <cnt> <manu> <batch>
         NetUtils::Medicine ret;
@@ -232,6 +232,6 @@ void ClientSocket::getMedicineById(long id){
 }
 
 //GMedNm <name>
-void ClientSocket::getMedicineById(QString name){
+void ClientSocket::getMedicineByName(QString name){
     socket->write(NetUtils::wrapStrings({"GMedNm",name.toStdString()}));
 }
