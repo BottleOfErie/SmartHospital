@@ -6,12 +6,13 @@
 #include <QThread>
 
 #include "NetUtils.h"
+#include "h/sqliteOperator.h"
 
 class ServerSocketThread : public QThread{
     Q_OBJECT
 public:
     bool alive;
-    ServerSocketThread(qintptr descriptor);
+    ServerSocketThread(qintptr descriptor,SqliteOperator*dbop);
     ~ServerSocketThread();
     void run();
     void doCommand(QString str);
@@ -20,8 +21,9 @@ private:
     long id = -1;
     QTcpSocket *socket;
     QString buffer;
-    bool hasReply;
+    int noReplyCount;
     qintptr socketDescripter;
+    SqliteOperator* dbop;
     void loginCMD(QString id,QString passwd,int type);
     void getPatientDataById(long id);
     void getPatientDataByNationalId(QString name);

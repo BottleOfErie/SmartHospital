@@ -2,8 +2,9 @@
 
 #include "ServerSocketThread.h"
 
-ServerSocketThread::ServerSocketThread(qintptr descriptor){
+ServerSocketThread::ServerSocketThread(qintptr descriptor,SqliteOperator*db){
     socketDescripter=descriptor;
+    dbop=db;
     buffer = QString();
     alive=true;
 
@@ -15,6 +16,7 @@ ServerSocketThread::ServerSocketThread(qintptr descriptor){
     connect(socket,SIGNAL(readyRead()),this,SLOT(readyRead_slot()));
     connect(this,SIGNAL(toDoPing()),this,SLOT(doPing_slot()));
     connect(this,SIGNAL(toDoDisconnect()),this,SLOT(doDisconnect_slot()));
+    noReplyCount=0;
 }
 
 ServerSocketThread::~ServerSocketThread(){
@@ -25,16 +27,17 @@ ServerSocketThread::~ServerSocketThread(){
 void ServerSocketThread::run(){
     while (true) {
         emit toDoPing();
+        noReplyCount++;
         this->msleep(NetUtils::waitTime/2);
         emit toDoPing();
+        noReplyCount++;
         this->msleep(NetUtils::waitTime/2);
-        if(!hasReply){
+        if(noReplyCount>5){
             qDebug("Client No-reply For more than %ld ms,disconnected!",NetUtils::waitTime);
             emit toDoDisconnect();
             alive=false;
             return;
         }
-        hasReply=false;
     }
 }
 
@@ -63,7 +66,7 @@ void ServerSocketThread::readyRead_slot(){
 }
 
 void ServerSocketThread::doCommand(QString str){
-    hasReply=true;
+    if(noReplyCount>0) noReplyCount--;
     qDebug("Server Taken:%s",str.toStdString().data());
     auto arr=str.split(NetUtils::messagePartition);
     if(str.startsWith("login")){
@@ -356,20 +359,33 @@ void ServerSocketThread::setDoctor(NetUtils::DoctorData data){
     //CDB
 }
 void ServerSocketThread::setAppointment(NetUtils::Appointment data){
-    //CDB
+    //optimize data structure
+    /*if(!dbop->insertAppointment(data.patientId,data.doctorId,data.time,QString(data.state))){
+        dbop->updateAppointment(data.patientId,data.doctorId,data.time,QString(data.state));
+    }*/
 }
 void ServerSocketThread::setMedicalRecord(NetUtils::MedicalRecord data){
-    //CDB
+    if(!dbop->insertMedicalRecord(data.patientId,data.doctorId,data.date,data.diagnosis,data.advice)){
+        dbop->updateMedicalRecord(data.patientId,data.doctorId,data.date,data.diagnosis,data.advice);
+    }
 }
 void ServerSocketThread::setPrescription(NetUtils::Prescription data){
-    //CDB
+    //optimize data structure
+    //if(!dbop->insertPrescription(data.patientId,data.doctorId,data.date,))
 }
 void ServerSocketThread::setTestResult(NetUtils::TestResult data){
     //CDB
+    if(!dbop->insertHealthAssessment(data.patientId,data.date,data.height,data.weight,
+        data.heartRate,data.highBP,data.lowBP,data.vitalCapacity)){
+        dbop->updateHealthAssessment(data.patientId,data.date,data.height,data.weight,
+                data.heartRate,data.highBP,data.lowBP,data.vitalCapacity);
+    }
 }
 void ServerSocketThread::setMessage(NetUtils::Message data){
-    //CDB
+    //data structure
+    //if(!dbop->insertChatRecord(data.patientId,data.doctorId,data.timeStamp))
 }
 void ServerSocketThread::setMedicine(NetUtils::Medicine data){
-    //CDB
+    //data structure
+    //(!dbop->insertMedicine(data.))
 }
