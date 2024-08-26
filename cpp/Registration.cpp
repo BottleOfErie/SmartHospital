@@ -20,3 +20,8 @@ void Registration::on_pushButton_2_clicked()
     auto doctor = new Doctor;
     doctor->show();
 }
+
+void Registration::on_pushButton_clicked()
+{
+
+}

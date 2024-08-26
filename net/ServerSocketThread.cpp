@@ -130,7 +130,7 @@ void ServerSocketThread::getPatientDataById(long id){
     NetUtils::PatientData result={114,"Firefly","514",1,"114","514","1919810"};
     socket->write(NetUtils::wrapStrings({"pat",
         std::to_string(result.id),result.name.toStdString(),result.nationId.toStdString(),
-        std::to_string(result.sex),result.birthday.toStdString(),
+        std::to_string(result.gender),result.birthday.toStdString(),
         result.phoneNumber.toStdString(),result.history.toStdString()
     }));
 }
@@ -139,7 +139,7 @@ void ServerSocketThread::getPatientDataByNationalId(QString name){
     NetUtils::PatientData result={114,"Firefly","514",1,"114","514","1919810"};
     socket->write(NetUtils::wrapStrings({"pat",
         std::to_string(result.id),result.name.toStdString(),result.nationId.toStdString(),
-        std::to_string(result.sex),result.birthday.toStdString(),
+        std::to_string(result.gender),result.birthday.toStdString(),
         result.phoneNumber.toStdString(),result.history.toStdString()
     }));
 }
@@ -150,7 +150,7 @@ void ServerSocketThread::getDoctorDataById(long id){
     NetUtils::DoctorData result={114,"Kaltsit","Mon3tr",1,"114","514","主任医师","RhodesIsland","111"};
     socket->write(NetUtils::wrapStrings({"doc",
         std::to_string(result.id),result.name.toStdString(),result.nationId.toStdString(),
-        std::to_string(result.sex),result.birthday.toStdString(),result.phoneNumber.toStdString(),
+        std::to_string(result.gender),result.birthday.toStdString(),result.phoneNumber.toStdString(),
         result.jobTitle.toStdString(),result.organization.toStdString(),result.section.toStdString()
     }));
 }
@@ -159,7 +159,7 @@ void ServerSocketThread::getDoctorDataByNationalId(QString name){
     NetUtils::DoctorData result={114,"Kaltsit","Mon3tr",1,"114","514","主任医师","RhodesIsland","111"};
     socket->write(NetUtils::wrapStrings({"doc",
         std::to_string(result.id),result.name.toStdString(),result.nationId.toStdString(),
-        std::to_string(result.sex),result.birthday.toStdString(),result.phoneNumber.toStdString(),
+        std::to_string(result.gender),result.birthday.toStdString(),result.phoneNumber.toStdString(),
         result.jobTitle.toStdString(),result.organization.toStdString(),result.section.toStdString()
     }));
 }
@@ -168,13 +168,13 @@ void ServerSocketThread::getDoctorDatasBySection(QString section){
     NetUtils::DoctorData result={114,"Kaltsit","Mon3tr",1,"114","514","主任医师","RhodesIsland","111"};
     socket->write(NetUtils::wrapStrings({"doc",
         std::to_string(result.id),result.name.toStdString(),result.nationId.toStdString(),
-        std::to_string(result.sex),result.birthday.toStdString(),result.phoneNumber.toStdString(),
+        std::to_string(result.gender),result.birthday.toStdString(),result.phoneNumber.toStdString(),
         result.jobTitle.toStdString(),result.organization.toStdString(),result.section.toStdString()
     }));
     result={514,"Ptilopsis","Silence",1,"1919","810","副主任医师","RhineLab","111"};
     socket->write(NetUtils::wrapStrings({"doc",
         std::to_string(result.id),result.name.toStdString(),result.nationId.toStdString(),
-        std::to_string(result.sex),result.birthday.toStdString(),result.phoneNumber.toStdString(),
+        std::to_string(result.gender),result.birthday.toStdString(),result.phoneNumber.toStdString(),
         result.jobTitle.toStdString(),result.organization.toStdString(),result.section.toStdString()
     }));
 }
