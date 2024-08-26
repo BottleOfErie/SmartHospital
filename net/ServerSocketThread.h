@@ -28,6 +28,8 @@ private:
     void getDoctorDatasBySection(QString section);
     void getAppointmentsByDoctorId(long id);
     void getAppointmentsByPatientId(long id);
+    void getMedicalRecordsByDoctorId(long id);
+    void getMedicalRecordsByPatientId(long id);
 private slots:
     void readyRead_slot();
     void doPing_slot();

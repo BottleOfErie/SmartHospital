@@ -73,17 +73,26 @@ void ServerSocketThread::doCommand(QString str){
         getPatientDataById(arr[1].toLong());
     }else if(str.startsWith("GPatNm")){
         getPatientDataByNationalId(arr[1]);
-    }else if(str.startsWith("GDocId")){
+    }
+    else if(str.startsWith("GDocId")){
         getDoctorDataById(arr[1].toLong());
     }else if(str.startsWith("GDocNm")){
         getDoctorDataByNationalId(arr[1]);
     }else if(str.startsWith("GDosSt")){
         getDoctorDatasBySection(arr[1]);
-    }else if(str.startsWith("GAppPat")){
+    }
+    else if(str.startsWith("GAppPat")){
         getAppointmentsByPatientId(arr[1].toLong());
     }else if(str.startsWith("GAppDoc")){
         getAppointmentsByDoctorId(arr[1].toLong());
-    }else if(!str.startsWith("ping")){
+    }
+    else if(str.startsWith("GMrcPat")){
+        getMedicalRecordsByPatientId(arr[1].toLong());
+    }else if(str.startsWith("GMrcDoc")){
+        getMedicalRecordsByDoctorId(arr[1].toLong());
+    }
+
+    else if(!str.startsWith("ping")){
         qDebug("Unknown Command:%s",str.toStdString().data());
     }
 }
@@ -151,6 +160,7 @@ void ServerSocketThread::getDoctorDatasBySection(QString section){
         result.jobTitle.toStdString(),result.organization.toStdString(),result.section.toStdString()
     }));
 }
+
 //app <patid> <docid> <date> <state>
 void ServerSocketThread::getAppointmentsByDoctorId(long id){
     //Connect DB
@@ -165,4 +175,20 @@ void ServerSocketThread::getAppointmentsByPatientId(long id){
     socket->write(NetUtils::wrapStrings({"app",
         std::to_string(result.patientId),std::to_string(result.doctorId),
         result.time.toStdString(),std::to_string(result.state)}));
+}
+
+//mrc <patid> <docid> <time> <diag> <advc>
+void ServerSocketThread::getMedicalRecordsByPatientId(long id){
+    //Connect DB
+    NetUtils::MedicalRecord result={114,514,"19","19","810"};
+    socket->write(NetUtils::wrapStrings({"mrc",
+        std::to_string(result.patientId),std::to_string(result.doctorId),result.date.toStdString(),
+        result.diagnosis.toStdString(),result.advice.toStdString()}));
+}
+void ServerSocketThread::getMedicalRecordsByDoctorId(long id){
+    //Connect DB
+    NetUtils::MedicalRecord result={114,514,"19","19","810"};
+    socket->write(NetUtils::wrapStrings({"mrc",
+        std::to_string(result.patientId),std::to_string(result.doctorId),result.date.toStdString(),
+        result.diagnosis.toStdString(),result.advice.toStdString()}));
 }

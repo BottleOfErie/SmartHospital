@@ -96,6 +96,15 @@ void ClientSocket::doCommand(QString command){
         ret.time=arr[3];
         ret.state=arr[4].toUInt();
         emit appointment_callback(ret);
+    }else if(command.startsWith("mrc")){
+        //mrc <patid> <docid> <time> <diag> <advc>
+        NetUtils::MedicalRecord ret;
+        ret.patientId=arr[1].toLong();
+        ret.doctorId=arr[2].toLong();
+        ret.date=arr[3];
+        ret.diagnosis=arr[4];
+        ret.advice=arr[5];
+        emit medicalRecord_callback(ret);
     }
 }
 
@@ -138,4 +147,14 @@ void ClientSocket::getAppointmentsByPatient(long id){
 //GAppDoc <id>
 void ClientSocket::getAppointmentsByDoctor(long id){
     socket->write(NetUtils::wrapStrings({"GAppDoc",std::to_string(id)}));
+}
+
+//GMrcPat <id>
+void ClientSocket::getMedicalRecordsByPatient(long id){
+    socket->write(NetUtils::wrapStrings({"GMrcPat",std::to_string(id)}));
+}
+
+//GMrcDoc <id>
+void ClientSocket::getMedicalRecordsByDoctor(long id){
+    socket->write(NetUtils::wrapStrings({"GMrcDoc",std::to_string(id)}));
 }
