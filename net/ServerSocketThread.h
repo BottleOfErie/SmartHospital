@@ -5,6 +5,8 @@
 #include <QTcpServer>
 #include <QThread>
 
+#include "NetUtils.h"
+
 class ServerSocketThread : public QThread{
     Q_OBJECT
 public:
@@ -37,6 +39,15 @@ private:
     void getMessageAsDoctor(long id);
     void getMedicineById(long id);
     void getMedicineByName(QString name);
+
+    void setPatient(NetUtils::PatientData data);
+    void setDoctor(NetUtils::DoctorData data);
+    void setAppointment(NetUtils::Appointment data);
+    void setMedicalRecord(NetUtils::MedicalRecord data);
+    void setPrescription(NetUtils::Prescription data);
+    void setTestResult(NetUtils::TestResult data);
+    void setMessage(NetUtils::Message data);
+    void setMedicine(NetUtils::Medicine data);
 private slots:
     void readyRead_slot();
     void doPing_slot();

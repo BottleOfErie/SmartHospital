@@ -27,6 +27,16 @@ public:
     void getMessageAsDoctor(long id);
     void getMedicineById(long id);
     void getMedicineByName(QString name);
+
+    //id<=0 equals NONE
+    void submitPatientData(NetUtils::PatientData data);
+    void submitDoctorData(NetUtils::DoctorData data);
+    void submitAppointment(NetUtils::Appointment data);
+    void submitMedicalRecord(NetUtils::MedicalRecord data);
+    void submitPrescription(NetUtils::Prescription data);
+    void submitTestResult(NetUtils::TestResult data);
+    void submitMessage(NetUtils::Message data);
+    void submitMedicine(NetUtils::Medicine data);
 private:
     ClientSocket();
     ~ClientSocket();
