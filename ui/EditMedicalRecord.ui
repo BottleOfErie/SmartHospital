@@ -13,6 +13,9 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">#EditMedicalRecord{border-image: url(:/images/02.jpg);}</string>
+  </property>
   <widget class="QPushButton" name="pushButton">
    <property name="geometry">
     <rect>
@@ -44,7 +47,7 @@
     <rect>
      <x>71</x>
      <y>81</y>
-     <width>281</width>
+     <width>302</width>
      <height>331</height>
     </rect>
    </property>
@@ -64,27 +67,30 @@
      </layout>
     </item>
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <layout class="QHBoxLayout" name="horizontalLayout_7">
       <item>
-       <widget class="QLabel" name="label_2">
+       <widget class="QLabel" name="label_7">
         <property name="text">
-         <string>性别</string>
+         <string>患者id</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QCheckBox" name="checkBox">
+       <widget class="QLineEdit" name="lineEdit_5"/>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_8">
+      <item>
+       <widget class="QLabel" name="label_8">
         <property name="text">
-         <string>男</string>
+         <string>医生id</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QCheckBox" name="checkBox_2">
-        <property name="text">
-         <string>女</string>
-        </property>
-       </widget>
+       <widget class="QLineEdit" name="lineEdit_6"/>
       </item>
      </layout>
     </item>
@@ -93,7 +99,7 @@
       <item>
        <widget class="QLabel" name="label_3">
         <property name="text">
-         <string>年龄</string>
+         <string>日期时间</string>
         </property>
        </widget>
       </item>
@@ -127,31 +133,6 @@
       </item>
       <item>
        <widget class="QLineEdit" name="lineEdit_4"/>
-      </item>
-     </layout>
-    </item>
-    <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_6">
-      <item>
-       <widget class="QLabel" name="label_6">
-        <property name="text">
-         <string>是否需要复诊</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QCheckBox" name="checkBox_3">
-        <property name="text">
-         <string>是</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QCheckBox" name="checkBox_4">
-        <property name="text">
-         <string>否</string>
-        </property>
-       </widget>
       </item>
      </layout>
     </item>

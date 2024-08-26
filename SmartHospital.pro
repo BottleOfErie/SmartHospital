@@ -46,10 +46,11 @@ HEADERS += \
     net/ClientSocket.h \
     net/ServerSocketThread.h \
     net/NetUtils.h \
-    net/ServerThread.h \
+    net/ServerThread.h
 
 FORMS += \
     ui/HealthAssesment.ui \
+    ui/Register_copy.ui \
     ui/ViewDoctorInformations.ui \
     ui/ViewCase.ui \
     ui/Doctor_patientCommunicationPlatform.ui \
@@ -67,6 +68,7 @@ FORMS += \
     ui/ViewCase.ui \
     ui/ViewDoctorInformations.ui \
     ui/ViewPrescriptionsAndContributions.ui \
+    ui/ViewRegistration.ui \
     ui/mainwindow.ui
 
 # Default rules for deployment.

@@ -13,6 +13,7 @@ class Register : public QWidget
 
 public:
     explicit Register(QWidget *parent = nullptr);
+    void paintEvent(QPaintEvent *e);
     ~Register();
 
 private slots:

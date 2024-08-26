@@ -1,9 +1,11 @@
-#include "ui_Register.h"
+#include "ui_Register_copy.h"
 #include <h/Register.h>
 #include <h/mainwindow.h>
 #include <QMessageBox>
 #include <QSqlQuery>
 #include <QSqlError>
+#include <QPainter>
+
 
 Register::Register(QWidget *parent) :
     QWidget(parent),
@@ -63,4 +65,12 @@ void Register::on_registerButton_clicked()
         else
             QMessageBox::warning(this,"ERROR","注册失败，请重试！！");
     }
+}
+
+void Register::paintEvent(QPaintEvent *e)
+{
+    QStyleOption opt;
+    opt.init(this);
+    QPainter p(this);
+    style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
 }
