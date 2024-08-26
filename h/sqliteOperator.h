@@ -21,19 +21,19 @@ public:
     bool validateLogin(QString username, QString InputPassword);
     // 数据库表操作函数
     // Patient methods
-    bool insertPatient(const QString &name, const QString &idCard, const QString &password, const QString &gender, const QString &birthdate, const QString &phone, const QString &medicalHistory);
+    bool insertPatient(const QString &name, const QString &idCard, const QString &password, int gender, const QString &birthdate, const QString &phone, const QString &medicalHistory);
     bool deletePatient(int patientId);
-    bool updatePatient(int patientId, const QString &name, const QString &idCard, const QString &password, const QString &gender, const QString &birthdate, const QString &phone, const QString &medicalHistory);
+    bool updatePatient(int patientId, const QString &name, const QString &idCard, const QString &password, int gender, const QString &birthdate, const QString &phone, const QString &medicalHistory);
 
     // Doctor methods
-    bool insertDoctor(const QString &name, const QString& workNumber, const QString &idCard, const QString &password, const QString &gender, const QString &birthdate, const QString &phone, const QString &title, const QString &hospital, const QString &department);
+    bool insertDoctor(const QString &name, const QString& workNumber, const QString &idCard, const QString &password, int gender, const QString &birthdate, const QString &phone, const QString &title, const QString &hospital, const QString &department);
     bool deleteDoctor(int doctorId);
-    bool updateDoctor(int doctorId, const QString& workNumber, const QString &name, const QString &idCard, const QString &password, const QString &gender, const QString &birthdate, const QString &phone, const QString &title, const QString &hospital, const QString &department);
+    bool updateDoctor(int doctorId, const QString& workNumber, const QString &name, const QString &idCard, const QString &password, int gender, const QString &birthdate, const QString &phone, const QString &title, const QString &hospital, const QString &department);
 
     // Appointment methods
-    bool insertAppointment(int patientId, int doctorId, const QString &dateTime, const QString &status);
+    bool insertAppointment(int patientId, int doctorId, const QString &dateTime, const int &status);
     bool deleteAppointment(int patientId, int doctorId, const QString &dateTime);
-    bool updateAppointment(int patientId, int doctorId, const QString &dateTime, const QString &status);
+    bool updateAppointment(int patientId, int doctorId, const QString &dateTime, const int &status);
 
     // MedicalRecord methods
     bool insertMedicalRecord(int patientId, int doctorId, const QString &dateTime, const QString &diagnosisDetails, const QString &medicalAdvice);
@@ -46,12 +46,12 @@ public:
     bool updatePrescription(int patientId, int doctorId, const QString &dateTime, int medicineId, int medicineQuantity, const QString &usageAdvice);
 
     // HealthAssessment methods
-    bool insertHealthAssessment(int patientId, const QString &dateTime, double height, double weight, int heartRate, int bloodPressureHigh, int bloodPressureLow, double lungCapacity);
+    bool insertHealthAssessment(int patientId, const QString &dateTime, double height, double weight, int heartRate, double bloodPressureHigh, double bloodPressureLow, int lungCapacity);
     bool deleteHealthAssessment(int patientId, const QString &dateTime);
-    bool updateHealthAssessment(int patientId, const QString &dateTime, double height, double weight, int heartRate, int bloodPressureHigh, int bloodPressureLow, double lungCapacity);
+    bool updateHealthAssessment(int patientId, const QString &dateTime, double height, double weight, int heartRate, double bloodPressureHigh, double bloodPressureLow, int lungCapacity);
 
     // ChatRecord methods
-    bool insertChatRecord(int patientId, int doctorId, const QString &timestamp, const QString &direction, const QString &message, bool isRead);
+    bool insertChatRecord(int patientId, int doctorId, const QString &timestamp, const int &direction, const QString &message, bool isRead);
     bool deleteChatRecord(int patientId, int doctorId, const QString &timestamp);
     bool updateChatRecord(int patientId, int doctorId, const QString &timestamp, const QString &message, bool isRead);
 
@@ -60,7 +60,6 @@ public:
     bool deleteMedicine(int medicineId);
     bool updateMedicine(int medicineId, const QString &medicineName, double medicinePrice, int medicineStock, const QString &manufacturer, const QString &batchNumber);
     // 查询全部数据
-    void queryTable();
     // 查询函数声明
     QList<NetUtils::PatientData> queryPatientByNationId(const QString& nationId);
     QList<NetUtils::PatientData> queryPatientById(int id);
