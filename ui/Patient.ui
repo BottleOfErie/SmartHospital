@@ -89,13 +89,6 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_8">
-       <property name="text">
-        <string>健康评估</string>
-       </property>
-      </widget>
-     </item>
-     <item>
       <widget class="QPushButton" name="pushButton_5">
        <property name="text">
         <string>医患沟通平台</string>
