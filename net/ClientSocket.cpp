@@ -1,6 +1,6 @@
 #include <string>
 #include<QHostAddress>
-
+#include"h/usernow.h"
 #include "ClientSocket.h"
 
 ClientSocket::ClientSocket(){
@@ -13,6 +13,7 @@ ClientSocket::ClientSocket(){
         this,SLOT(error_slot(QAbstractSocket::SocketError)));
 
     connect(this,SIGNAL(login_callback(bool)),this,SLOT(login_slot(bool)));
+
     //connect(&ClientSocket::getInstance(),SIGNAL(login_callback(bool)),this,SLOT(login_slot(bool)));
 }
 
@@ -47,7 +48,10 @@ void ClientSocket::readyRead_slot(){
 }
 
 void ClientSocket::login_slot(bool result){
-    qDebug("ClientLogin:%s",result?"Success":"Failure");
+    if(result){
+           usernow::setlogined(1);
+       }
+       qDebug("ClientLogin:%s",result?"Success":"Failure");
 }
 
 void ClientSocket::connected_slot(){

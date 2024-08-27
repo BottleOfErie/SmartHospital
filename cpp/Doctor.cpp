@@ -8,6 +8,7 @@
 #include <h/Doctor_patientCommunicationPlatform.h>
 #include <QDebug>
 #include "h/usernow.h"
+#include "h/ViewRegistration.h"
 Doctor::Doctor(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Doctor)
@@ -35,7 +36,7 @@ void Doctor::on_pushButton_4_clicked()
 {
     //qDebug("1");
     this->close();
-    auto registrationWindow = new Registration;
+    auto registrationWindow = new ViewRegistration;
     registrationWindow->show();
 }
 void Doctor::on_pushButton_2_clicked()
