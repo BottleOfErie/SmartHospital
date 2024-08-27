@@ -11,71 +11,92 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>查看挂号信息</string>
   </property>
-  <widget class="QTableWidget" name="tableWidget">
-   <property name="geometry">
-    <rect>
-     <x>60</x>
-     <y>40</y>
-     <width>551</width>
-     <height>571</height>
-    </rect>
-   </property>
-   <row>
-    <property name="text">
-     <string>新建行</string>
-    </property>
-   </row>
-   <row>
-    <property name="text">
-     <string>新建行</string>
-    </property>
-   </row>
-   <row>
-    <property name="text">
-     <string>新建行</string>
-    </property>
-   </row>
-   <row>
-    <property name="text">
-     <string>新建行</string>
-    </property>
-   </row>
-   <column>
-    <property name="text">
-     <string>患者Id</string>
-    </property>
-   </column>
-   <column>
-    <property name="text">
-     <string>医生Id</string>
-    </property>
-   </column>
-   <column>
-    <property name="text">
-     <string>就诊日期时间</string>
-    </property>
-   </column>
-   <column>
-    <property name="text">
-     <string>就诊状态</string>
-    </property>
-   </column>
-  </widget>
-  <widget class="QPushButton" name="pushButton">
-   <property name="geometry">
-    <rect>
-     <x>710</x>
-     <y>130</y>
-     <width>89</width>
-     <height>25</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>返回</string>
-   </property>
-  </widget>
+  <property name="styleSheet">
+   <string notr="true">#ViewRegistration{border-image: url(:/images/06.jpg);}</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <property name="leftMargin">
+      <number>100</number>
+     </property>
+     <property name="topMargin">
+      <number>100</number>
+     </property>
+     <property name="rightMargin">
+      <number>301</number>
+     </property>
+     <property name="bottomMargin">
+      <number>167</number>
+     </property>
+     <item>
+      <widget class="QTableWidget" name="tableWidget">
+       <column>
+        <property name="text">
+         <string>患者姓名</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>医生姓名</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>就诊日期时间</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>就诊状态</string>
+        </property>
+       </column>
+      </widget>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <widget class="QLabel" name="label_4">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton">
+         <property name="text">
+          <string>返回</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_3">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+  </layout>
  </widget>
  <resources/>
  <connections/>

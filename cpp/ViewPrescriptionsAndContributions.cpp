@@ -20,3 +20,10 @@ void ViewPrescriptionsAndContributions::on_pushButton_clicked()
     auto patientWindow=new Patient;
     patientWindow->show();
 }
+void ViewPrescriptionsAndContributions::paintEvent(QPaintEvent *e)
+{
+    QStyleOption opt;
+    opt.init(this);
+    QPainter p(this);
+    style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
+}

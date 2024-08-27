@@ -7,11 +7,11 @@
     <x>0</x>
     <y>0</y>
     <width>1193</width>
-    <height>889</height>
+    <height>907</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>个人信息</string>
   </property>
   <property name="styleSheet">
    <string notr="true">#PatientEditPersonalInformation{border-image: url(:/images/06.jpg);}</string>

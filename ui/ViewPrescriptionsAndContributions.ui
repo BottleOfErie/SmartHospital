@@ -6,66 +6,110 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1045</width>
+    <width>1248</width>
     <height>890</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>查看缴费单</string>
   </property>
-  <widget class="QTableWidget" name="tableWidget">
-   <property name="geometry">
-    <rect>
-     <x>130</x>
-     <y>130</y>
-     <width>461</width>
-     <height>381</height>
-    </rect>
-   </property>
-   <row>
-    <property name="text">
-     <string>药品1</string>
-    </property>
-   </row>
-   <row>
-    <property name="text">
-     <string>药品2</string>
-    </property>
-   </row>
-   <column>
-    <property name="text">
-     <string>药品名</string>
-    </property>
-   </column>
-   <column>
-    <property name="text">
-     <string>数量</string>
-    </property>
-   </column>
-   <column>
-    <property name="text">
-     <string>用量</string>
-    </property>
-   </column>
-   <column>
-    <property name="text">
-     <string>价格</string>
-    </property>
-   </column>
-  </widget>
-  <widget class="QPushButton" name="pushButton">
-   <property name="geometry">
-    <rect>
-     <x>750</x>
-     <y>230</y>
-     <width>89</width>
-     <height>25</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>返回</string>
-   </property>
-  </widget>
+  <property name="styleSheet">
+   <string notr="true">#ViewPrescriptionsAndContributions{border-image: url(:/images/06.jpg);}</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <property name="spacing">
+      <number>25</number>
+     </property>
+     <property name="leftMargin">
+      <number>100</number>
+     </property>
+     <property name="topMargin">
+      <number>100</number>
+     </property>
+     <property name="rightMargin">
+      <number>567</number>
+     </property>
+     <property name="bottomMargin">
+      <number>200</number>
+     </property>
+     <item>
+      <widget class="QTableWidget" name="tableWidget">
+       <row>
+        <property name="text">
+         <string>药品1</string>
+        </property>
+       </row>
+       <row>
+        <property name="text">
+         <string>药品2</string>
+        </property>
+       </row>
+       <column>
+        <property name="text">
+         <string>药品名</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>数量</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>用量</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>价格</string>
+        </property>
+       </column>
+      </widget>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton">
+         <property name="text">
+          <string>返回</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_3">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_4">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+  </layout>
  </widget>
  <resources/>
  <connections/>

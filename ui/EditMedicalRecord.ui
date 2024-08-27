@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>编辑病历</string>
   </property>
   <property name="styleSheet">
    <string notr="true">#EditMedicalRecord{border-image: url(:/images/06.jpg);}</string>

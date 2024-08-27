@@ -16,6 +16,7 @@ class ViewRegistration : public QWidget
 
 public:
     explicit ViewRegistration(QWidget *parent = nullptr);
+    void paintEvent(QPaintEvent *e);
     ~ViewRegistration();
 private:
     QMap<long,int>idToLine;
