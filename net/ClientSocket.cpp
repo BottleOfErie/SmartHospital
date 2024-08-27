@@ -247,7 +247,7 @@ void ClientSocket::getMedicineByName(QString name){
 void ClientSocket::submitPatientData(NetUtils::PatientData data){
     socket->write(NetUtils::wrapStrings({"SPat",
         std::to_string(data.id),data.name.toStdString(),data.nationId.toStdString(),
-        std::to_string(data.sex),data.birthday.toStdString(),
+        std::to_string(data.gender),data.birthday.toStdString(),
         data.phoneNumber.toStdString(),data.history.toStdString()
     }));
 }
@@ -256,7 +256,7 @@ void ClientSocket::submitPatientData(NetUtils::PatientData data){
 void ClientSocket::submitDoctorData(NetUtils::DoctorData data){
     socket->write(NetUtils::wrapStrings({"SDoc",
         std::to_string(data.id),data.name.toStdString(),data.nationId.toStdString(),
-        std::to_string(data.sex),data.birthday.toStdString(),data.phoneNumber.toStdString(),
+        std::to_string(data.gender),data.birthday.toStdString(),data.phoneNumber.toStdString(),
         data.jobTitle.toStdString(),data.organization.toStdString(),data.section.toStdString()
     }));
 }
