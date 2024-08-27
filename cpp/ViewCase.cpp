@@ -22,3 +22,11 @@ void ViewCase::paintEvent(QPaintEvent *e)
     QPainter p(this);
     style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
 }
+
+void ViewCase::on_pushButton_clicked()
+{
+    this->close();
+    auto patient= new Patient;
+    patient->show();
+}
+

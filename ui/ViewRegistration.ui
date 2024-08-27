@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>875</width>
+    <width>1258</width>
     <height>691</height>
    </rect>
   </property>
@@ -26,7 +26,7 @@
       <number>100</number>
      </property>
      <property name="rightMargin">
-      <number>301</number>
+      <number>439</number>
      </property>
      <property name="bottomMargin">
       <number>167</number>
@@ -36,11 +36,6 @@
        <column>
         <property name="text">
          <string>患者姓名</string>
-        </property>
-       </column>
-       <column>
-        <property name="text">
-         <string>医生姓名</string>
         </property>
        </column>
        <column>
