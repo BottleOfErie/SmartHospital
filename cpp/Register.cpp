@@ -71,17 +71,6 @@ void Register::on_registerButton_clicked()
             connect(&ClientSocket::getInstance(),SIGNAL(register_callback(long long)),this,SLOT(registerCallbackSlot(long long)));
             ClientSocket::getInstance().registerAsPatient(username,password);
         }
-        //ClientSocket::getInstance().regist
-        /*if(query.first()){
-            QMessageBox::warning(this,"ERROR","用户名重复");//如果用户名重复，则提示用户名重复
-        }else if (query.exec(i)) {//如果用户名不重复，添加数据进入数据库
-            QMessageBox::information(this,"提示","注册成功！！",QMessageBox::Yes);
-            this->close();
-            MainWindow *mainWindow=new MainWindow();
-            mainWindow->show();
-        }
-        else
-            QMessageBox::warning(this,"ERROR","注册失败，请重试！！");*/
     }
 }
 
