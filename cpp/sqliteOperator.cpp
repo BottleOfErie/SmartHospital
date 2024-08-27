@@ -89,7 +89,6 @@ bool SqliteOperator::createTables()
                   "id INTEGER PRIMARY KEY AUTOINCREMENT,"
                   "name TEXT,"
                   "idCard TEXT,"
-                  "password TEXT,"
                   "gender TEXT,"
                   "birthdate DATE,"
                   "phone TEXT,"
@@ -105,7 +104,6 @@ bool SqliteOperator::createTables()
                   "name TEXT,"
                   "workNumber TEXT,"
                   "idCard TEXT,"
-                  "password TEXT,"
                   "gender TEXT,"
                   "birthdate TEXT,"
                   "phone TEXT,"
@@ -213,7 +211,7 @@ bool SqliteOperator::createTables()
     return true;
 }
 
-bool SqliteOperator::insertPatient(const QString &name, const QString &idCard, const QString &password, int gender, const QString &birthdate, const QString &phone, const QString &medicalHistory)
+bool SqliteOperator::insertPatient(const QString &name, const QString &idCard, int gender, const QString &birthdate, const QString &phone, const QString &medicalHistory)
 {
     QSqlQuery query(this->Db);
     //check if there is a same patient
@@ -225,11 +223,10 @@ bool SqliteOperator::insertPatient(const QString &name, const QString &idCard, c
     }
 
     //insert
-    query.prepare("INSERT INTO Patient (name, idCard, password, gender, birthdate, phone, medicalHistory) "
-                  "VALUES (?, ?, ?, ?, ?, ?, ?)");
+    query.prepare("INSERT INTO Patient (name, idCard, gender, birthdate, phone, medicalHistory) "
+                  "VALUES (?, ?, ?, ?, ?, ?)");
     query.addBindValue(name);
     query.addBindValue(idCard);
-    query.addBindValue(password);
     query.addBindValue(gender);
     query.addBindValue(birthdate);
     query.addBindValue(phone);
@@ -246,14 +243,13 @@ bool SqliteOperator::deletePatient(int patientId)
     return query.exec();
 }
 
-bool SqliteOperator::updatePatient(int patientId, const QString &name, const QString &idCard, const QString &password, int gender, const QString &birthdate, const QString &phone, const QString &medicalHistory)
+bool SqliteOperator::updatePatient(int patientId, const QString &name, const QString &idCard, int gender, const QString &birthdate, const QString &phone, const QString &medicalHistory)
 {
     QSqlQuery query(this->Db);
-    query.prepare("UPDATE Patient SET name = ?, idCard = ?, password = ?, gender = ?, birthdate = ?, phone = ?, medicalHistory = ? "
+    query.prepare("UPDATE Patient SET name = ?, idCard = ?, gender = ?, birthdate = ?, phone = ?, medicalHistory = ? "
                   "WHERE id = ?");
     query.addBindValue(name);
     query.addBindValue(idCard);
-    query.addBindValue(password);
     query.addBindValue(gender);
     query.addBindValue(birthdate);
     query.addBindValue(phone);
@@ -262,24 +258,23 @@ bool SqliteOperator::updatePatient(int patientId, const QString &name, const QSt
     return query.exec();
 }
 
-bool SqliteOperator::insertDoctor(const QString &name, const QString& workNumber, const QString &idCard, const QString &password, int gender, const QString &birthdate, const QString &phone, const QString &title, const QString &hospital, const QString &department)
+bool SqliteOperator::insertDoctor(const QString &name, const QString& workNumber, const QString &idCard, int gender, const QString &birthdate, const QString &phone, const QString &title, const QString &hospital, const QString &department)
 {
     QSqlQuery query(this->Db);
     // 检查医生是否已存在
-    query.prepare("SELECT COUNT(*) FROM Doctor WHERE workNumber = ?");
-    query.addBindValue(workNumber);
+    query.prepare("SELECT COUNT(*) FROM Doctor WHERE idCard = ?");
+    query.addBindValue(idCard);
     if (!query.exec() || !query.next() || query.value(0).toInt() > 0) {
         qDebug() << "Doctor already exists or query failed";
         return false;
     }
 
     //insert
-    query.prepare("INSERT INTO Doctor(name, workNumber, idCard, password, gender, birthdate, phone, title, hospital, department)"
-                  "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    query.prepare("INSERT INTO Doctor(name, workNumber, idCard, gender, birthdate, phone, title, hospital, department)"
+                  "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
     query.addBindValue(name);
     query.addBindValue(workNumber);
     query.addBindValue(idCard);
-    query.addBindValue(password);
     query.addBindValue(gender);
     query.addBindValue(birthdate);
     query.addBindValue(phone);
@@ -297,15 +292,14 @@ bool SqliteOperator::deleteDoctor(int doctorId)
     return query.exec();
 }
 
-bool SqliteOperator::updateDoctor(int doctorId, const QString& workNumber = " ", const QString &name = " ", const QString &idCard = " ", const QString &password = " ", int gender = 1, const QString &birthdate = " ", const QString &phone = " ", const QString &title = " ", const QString &hospital = " ", const QString &department = " ")
+bool SqliteOperator::updateDoctor(int doctorId, const QString& workNumber = " ", const QString &name = " ", const QString &idCard = " ", int gender = 1, const QString &birthdate = " ", const QString &phone = " ", const QString &title = " ", const QString &hospital = " ", const QString &department = " ")
 {
     QSqlQuery query(this->Db);
-    query.prepare("UPDATE Doctor SET name = ?, workNumber = ?, idCard = ?, password = ?, gender = ?, birthdate = ?, phone = ?, title = ?, hospital = ?, department = ? "
+    query.prepare("UPDATE Doctor SET name = ?, workNumber = ?, idCard = ?, gender = ?, birthdate = ?, phone = ?, title = ?, hospital = ?, department = ? "
                   "WHERE id = ?");
     query.addBindValue(name);
     query.addBindValue(workNumber);
     query.addBindValue(idCard);
-    query.addBindValue(password);
     query.addBindValue(gender);
     query.addBindValue(birthdate);
     query.addBindValue(phone);

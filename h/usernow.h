@@ -13,7 +13,6 @@ public:
 
 private:
     static QString id;
-    static int logined;
 };
 
 #endif // USERNOW_H

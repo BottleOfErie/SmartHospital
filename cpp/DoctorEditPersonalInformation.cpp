@@ -73,6 +73,7 @@ void DoctorEditPersonalInformation::on_pushButton_3_clicked()
 }
 
 void DoctorEditPersonalInformation::setDoctorData_slot(NetUtils::DoctorData data){
+    currentData=data;
     ui->lineEdit->setText(data.name);
     ui->lineEdit_2->setText(data.birthday);
     ui->lineEdit_3->setText(data.jobTitle);
@@ -82,13 +83,13 @@ void DoctorEditPersonalInformation::setDoctorData_slot(NetUtils::DoctorData data
 }
 
 void DoctorEditPersonalInformation::updateDoctorData(){
-    QString name=ui->lineEdit->text();
-    QString birthday=ui->lineEdit_2->text();
-    QString jobTitle=ui->lineEdit_3->text();
-    QString section=ui->lineEdit_4->text();
-    QString phoneNumber=ui->lineEdit_5->text();
+    currentData.name=ui->lineEdit->text();
+    currentData.birthday=ui->lineEdit_2->text();
+    currentData.jobTitle=ui->lineEdit_3->text();
+    currentData.section=ui->lineEdit_4->text();
+    currentData.phoneNumber=ui->lineEdit_5->text();
 
-    //ClientSocket::getInstance().getDoctorDataById(usernow::getId().toLong());
+    ClientSocket::getInstance().submitDoctorData(currentData);
     QMessageBox::information(NULL, "修改成功", "修改成功！！！", QMessageBox::Yes);
 
 }

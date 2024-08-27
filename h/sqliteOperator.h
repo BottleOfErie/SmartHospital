@@ -21,14 +21,14 @@ public:
     bool validateLogin(QString username, QString InputPassword);
     // 数据库表操作函数
     // Patient methods
-    bool insertPatient(const QString &name, const QString &idCard, const QString &password, int gender, const QString &birthdate, const QString &phone, const QString &medicalHistory);
+    bool insertPatient(const QString &name, const QString &idCard, int gender, const QString &birthdate, const QString &phone, const QString &medicalHistory);
     bool deletePatient(int patientId);
-    bool updatePatient(int patientId, const QString &name, const QString &idCard, const QString &password, int gender, const QString &birthdate, const QString &phone, const QString &medicalHistory);
+    bool updatePatient(int patientId, const QString &name, const QString &idCard, int gender, const QString &birthdate, const QString &phone, const QString &medicalHistory);
 
     // Doctor methods
-    bool insertDoctor(const QString &name, const QString& workNumber, const QString &idCard, const QString &password, int gender, const QString &birthdate, const QString &phone, const QString &title, const QString &hospital, const QString &department);
+    bool insertDoctor(const QString &name, const QString& workNumber, const QString &idCard, int gender, const QString &birthdate, const QString &phone, const QString &title, const QString &hospital, const QString &department);
     bool deleteDoctor(int doctorId);
-    bool updateDoctor(int doctorId, const QString& workNumber, const QString &name, const QString &idCard, const QString &password, int gender, const QString &birthdate, const QString &phone, const QString &title, const QString &hospital, const QString &department);
+    bool updateDoctor(int doctorId, const QString& workNumber, const QString &name, const QString &idCard, int gender, const QString &birthdate, const QString &phone, const QString &title, const QString &hospital, const QString &department);
 
     // Appointment methods
     bool insertAppointment(int patientId, int doctorId, const QString &dateTime, const int &status);

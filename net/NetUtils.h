@@ -29,6 +29,7 @@ namespace NetUtils {
         long id;
         QString name;
         QString nationId;
+        QString workingId;
         int gender;
         QString birthday;
         QString phoneNumber;

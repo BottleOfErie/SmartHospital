@@ -34,30 +34,12 @@ void MainWindow::on_LoginButton_clicked()
         QMessageBox::warning(this,"","用户名不能为空");
     else if (password=="")
         QMessageBox::warning(this,"","密码不能为空");
-    else {/*
-        //TODO 数据库对接
-        QString S = QString("select * from user_table where name='%1' and password='%2'").arg(username).arg(password);
-        QSqlQuery query;//执行查询语句
-        if(query.exec(S)||(username=="0"&&password=="123")){                //define a test user
-            QMessageBox::information(NULL, "登陆成功", "登陆成功！！！", QMessageBox::Yes);        
-            switchPage();
-        }
-        else
-            QMessageBox::warning(this,"error","用户名或者密码错误！！");
-            // 清空内容并定位光标*/
-        // 娓呯┖鍐呭骞跺畾浣嶅厜鏍?/
-        ClientSocket::getInstance().loginC(username,password,0);
-        if(usernow::getlogined()){
-                   usernow::setId(username);
-                   switchPage();
-               }
-            else{
-                   QMessageBox::warning(this,"error","用户名或者密码错误！！");
-               }
-            ui->username->clear();
-            ui->password->clear();
-            ui->username->setFocus();//将光标定位到用户名输入框
-
+    else if (ui->checkBox->isChecked()==false && ui->checkBox_2->isChecked()==false){
+        QMessageBox::warning(this,"","请选择你是医生还是患者！！");
+    }
+    else {
+        connect(&ClientSocket::getInstance(),SIGNAL(login_callback(long long)),this,SLOT(loginCallback_slot(long long)));
+        ClientSocket::getInstance().loginC(username,password,ui->checkBox->isChecked()?1:0);
     }
 }
 
@@ -91,24 +73,27 @@ void MainWindow::on_checkBox_2_toggled(bool checked)
     }
 }
 
-void MainWindow::switchPage()
-{
-    if(ui->checkBox->isChecked()==false && ui->checkBox_2->isChecked()==false){
-        QMessageBox::warning(this,"","请选择你的身份！");
-
-    }
-    else if (ui->checkBox_2->isChecked()==true){
-        // 进入患者主界面
-        QMessageBox::information(NULL, "登陆成功", "登陆成功！！！", QMessageBox::Yes);
-        this->close();
-        Patient *patientWidget = new Patient();
-        patientWidget->show();
+void MainWindow::loginCallback_slot(long long id){
+    if(id>0){
+        usernow::setId(QString::number(id));
+        if (ui->checkBox_2->isChecked()==true){
+            // 进入患者主界面
+            QMessageBox::information(NULL, "登陆成功", "登陆成功！！！", QMessageBox::Yes);
+            this->close();
+            Patient *patientWidget = new Patient();
+            patientWidget->show();
+        }
+        else if(ui->checkBox->isChecked()==true){
+            // 进入医生主界面
+            this->close();
+            QMessageBox::information(NULL, "登陆成功", "登陆成功！！！", QMessageBox::Yes);
+            Doctor *doctorWidget = new Doctor();
+            doctorWidget->show();
+        }
     }
     else{
-        // 进入医生主界面
-        this->close();
-        QMessageBox::information(NULL, "登陆成功", "登陆成功！！！", QMessageBox::Yes);
-        Doctor *doctorWidget = new Doctor();
-        doctorWidget->show();
+        QMessageBox::warning(this,"error","用户名或者密码错误！！");
+        ui->password->clear();
+        ui->username->setFocus();
     }
 }

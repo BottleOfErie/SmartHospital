@@ -48,10 +48,6 @@ void ClientSocket::readyRead_slot(){
 }
 
 void ClientSocket::login_slot(long long result){
-    if(result>0){
-           usernow::setlogined(1);
-           usernow::setId(QString::number(result));
-       }
        qDebug("ClientLogin:%s",result>0?"Success":"Failure");
 }
 
@@ -91,7 +87,7 @@ void ClientSocket::doCommand(QString command){
         ret.history=arr[7];
         emit patient_callback(ret);
     }else if(command.startsWith("doc")){
-        //doc <id> <name> <nationalId> <sex> <birthday> <phoneNumber> <jobTitle> <organization> <section>
+        //doc <id> <name> <nationalId> <sex> <birthday> <phoneNumber> <jobTitle> <organization> <section> <workingId>
         NetUtils::DoctorData ret;
         ret.id=arr[1].toLong();
         ret.name=arr[2];
@@ -102,6 +98,7 @@ void ClientSocket::doCommand(QString command){
         ret.jobTitle=arr[7];
         ret.organization=arr[8];
         ret.section=arr[9];
+        ret.workingId=arr[10];
         emit doctor_callback(ret);
     }else if(command.startsWith("app")){
         //app <patid> <docid> <date> <state>
@@ -278,12 +275,13 @@ void ClientSocket::submitPatientData(NetUtils::PatientData data){
     }));
 }
 
-//SDoc <id> <name> <nationalId> <sex> <birthday> <phoneNumber> <jobTitle> <organization> <section>
+//SDoc <id> <name> <nationalId> <sex> <birthday> <phoneNumber> <jobTitle> <organization> <section> <workingId>
 void ClientSocket::submitDoctorData(NetUtils::DoctorData data){
     socket->write(NetUtils::wrapStrings({"SDoc",
         std::to_string(data.id),data.name.toStdString(),data.nationId.toStdString(),
         std::to_string(data.gender),data.birthday.toStdString(),data.phoneNumber.toStdString(),
-        data.jobTitle.toStdString(),data.organization.toStdString(),data.section.toStdString()
+        data.jobTitle.toStdString(),data.organization.toStdString(),data.section.toStdString(),
+        data.workingId.toStdString()
     }));
 }
 
