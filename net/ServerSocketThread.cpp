@@ -117,7 +117,7 @@ void ServerSocketThread::doCommand(QString str){
         ret.id=arr[1].toLong();
         ret.name=arr[2];
         ret.nationId=arr[3];
-        ret.sex=arr[4].toInt();
+        ret.gender=arr[4].toInt();
         ret.birthday=arr[5];
         ret.phoneNumber=arr[6];
         ret.history=arr[7];
@@ -127,7 +127,7 @@ void ServerSocketThread::doCommand(QString str){
         ret.id=arr[1].toLong();
         ret.name=arr[2];
         ret.nationId=arr[3];
-        ret.sex=arr[4].toInt();
+        ret.gender=arr[4].toInt();
         ret.birthday=arr[5];
         ret.phoneNumber=arr[6];
         ret.jobTitle=arr[7];
