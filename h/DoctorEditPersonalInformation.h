@@ -12,6 +12,7 @@ class DoctorEditPersonalInformation : public QWidget
 
 public:
     explicit DoctorEditPersonalInformation(QWidget *parent = nullptr);
+    void paintEvent(QPaintEvent *e);
     ~DoctorEditPersonalInformation();
 
 

@@ -13,6 +13,7 @@ class HealthAssesment : public QWidget
 
 public:
     explicit HealthAssesment(QWidget *parent = nullptr);
+    void paintEvent(QPaintEvent *e);
     ~HealthAssesment();
 
 private slots:

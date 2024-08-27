@@ -65,3 +65,10 @@ void Doctor::on_pushButton_5_clicked()
     doctor_patientCommunicationPlatform->identity="doctor";
     doctor_patientCommunicationPlatform->show();
 }
+void Doctor::paintEvent(QPaintEvent *e)
+{
+    QStyleOption opt;
+    opt.init(this);
+    QPainter p(this);
+    style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
+}

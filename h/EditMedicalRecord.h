@@ -13,6 +13,7 @@ class EditMedicalRecord : public QWidget
 
 public:
     explicit EditMedicalRecord(QWidget *parent = nullptr);
+     void paintEvent(QPaintEvent *e);
     ~EditMedicalRecord();
 
 

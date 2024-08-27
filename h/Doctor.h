@@ -2,7 +2,8 @@
 #define DOCTOR_H
 
 #include <QWidget>
-
+#include <QPainter>
+#include <QStyleOption>
 namespace Ui {
 class Doctor;
 }
@@ -13,6 +14,7 @@ class Doctor : public QWidget
 
 public:
     explicit Doctor(QWidget *parent = nullptr);
+    void paintEvent(QPaintEvent *e);
     ~Doctor();
 
 public slots:
