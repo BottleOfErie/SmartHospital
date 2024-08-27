@@ -12,7 +12,7 @@ ViewRegistration::ViewRegistration(QWidget *parent) :
 {
     ui->setupUi(this);
     connect(&ClientSocket::getInstance(),SIGNAL(appointment_callback(NetUtils::Appointment)),this,SLOT(setRegistrationData_slot(NetUtils::Appointment)));
-    ClientSocket::getInstance().getMedicalRecordsByPatient(usernow::getId().toLong());
+    ClientSocket::getInstance().getAppointmentsByDoctor(usernow::getId().toLong());
 }
 
 ViewRegistration::~ViewRegistration()

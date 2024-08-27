@@ -69,7 +69,8 @@ void ClientSocket::error_slot(QAbstractSocket::SocketError socketError){
 }
 
 void ClientSocket::doCommand(QString command){
-    qDebug("Client Taken:%s",command.toStdString().data());
+    if(command.compare("ping")!=0)
+        qDebug("Client Taken:%s",command.toStdString().data());
     auto arr=command.split(NetUtils::messagePartition);
     if(command.startsWith("ping")){
         socket->write(NetUtils::wrapMessage("ping"));
