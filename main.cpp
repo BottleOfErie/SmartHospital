@@ -1,4 +1,5 @@
 #include <QApplication>
+#include <QFile>
 #include <h/mainwindow.h>
 
 #include "net/ServerThread.h"
@@ -8,6 +9,11 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     MainWindow w;
+    QFile file(":/stylesheet.qss");
+    if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        QString styleSheet = QString::fromUtf8(file.readAll());
+        qApp->setStyleSheet(styleSheet);
+    }
     w.show();
 
     qDebug("Started\n");
