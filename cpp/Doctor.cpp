@@ -14,11 +14,6 @@ Doctor::Doctor(QWidget *parent) :
     ui(new Ui::Doctor)
 {
     ui->setupUi(this);
-    qDebug() << usernow::getId();
-    //connect(ui->pushButton_6, &QPushButton::clicked, this, &Doctor::on_pushButton6_clicked);
-    //connect(ui->pushButton_4, &QPushButton::clicked, this, &Doctor::on_pushButton4_clicked);
-    //connect(ui->pushButton_2, &QPushButton::clicked, this, &Doctor::on_pushButton2_clicked);
-    //connect(ui->pushButton_3, &QPushButton::clicked, this, &Doctor::on_pushButton3_clicked);
 }
 
 Doctor::~Doctor()
@@ -27,14 +22,12 @@ Doctor::~Doctor()
 }
 void Doctor::on_pushButton_6_clicked()
 {
-    //qDebug("666");
     this->close();
     auto mainwindow = new MainWindow;
     mainwindow->show();
 }
 void Doctor::on_pushButton_4_clicked()
 {
-    //qDebug("1");
     this->close();
     auto registrationWindow = new ViewRegistration;
     registrationWindow->show();

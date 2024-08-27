@@ -56,7 +56,7 @@ HEADERS += \
 
 FORMS += \
     ui/HealthAssesment.ui \
-    ui/Register_copy.ui \
+    ui/Register.ui \
     ui/ViewDoctorInformations.ui \
     ui/ViewCase.ui \
     ui/Doctor_patientCommunicationPlatform.ui \
@@ -69,7 +69,6 @@ FORMS += \
     ui/PatientEditPersonalInformation.ui \
     ui/EditRecipeAndPaymentOrder.ui \
     ui/HealthAssesment.ui \
-    ui/Register.ui \
     ui/Registration.ui \
     ui/ViewCase.ui \
     ui/ViewDoctorInformations.ui \

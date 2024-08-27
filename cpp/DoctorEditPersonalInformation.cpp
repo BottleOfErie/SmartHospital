@@ -5,7 +5,6 @@
 #include "net/ClientSocket.h"
 #include "QMessageBox"
 //信息是否被修改过
-bool isInformationChanged(false);
 DoctorEditPersonalInformation::DoctorEditPersonalInformation(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::DoctorEditPersonalInformation)
