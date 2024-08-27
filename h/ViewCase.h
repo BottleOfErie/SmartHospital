@@ -16,6 +16,9 @@ public:
     void paintEvent(QPaintEvent *e);
     ~ViewCase();
 
+private slots:
+    void on_pushButton_clicked();
+
 private:
     Ui::ViewCase *ui;
 };

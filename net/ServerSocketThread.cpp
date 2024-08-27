@@ -229,6 +229,7 @@ void ServerSocketThread::registerAsDoctor(QString nationalId, QString passwd){
         auto doc=dbop->queryDoctorByNationId(nationalId);
         if(doc.length()>0){
             socket->write(NetUtils::wrapStrings({"reg",std::to_string(doc.first().id)}));
+            return;
         }
     }
     socket->write(NetUtils::wrapStrings({"reg","-1"}));

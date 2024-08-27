@@ -7,6 +7,8 @@
 #include<h/Doctor_patientCommunicationPlatform.h>
 #include<h/mainwindow.h>
 #include "h/usernow.h"
+#include "h/Registration.h"
+#include "h/PatientEditPersonalInformation.h"
 Patient::Patient(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Patient)
@@ -21,7 +23,10 @@ Patient::~Patient()
 
 void Patient::on_pushButton_4_clicked()
 {
+
     this->close();
+    auto registration = new Registration;
+    registration->show();
 }
 
 void Patient::on_pushButton_2_clicked()
@@ -73,3 +78,11 @@ void Patient::paintEvent(QPaintEvent *e)
     QPainter p(this);
     style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
 }
+
+void Patient::on_pushButton_clicked()
+{
+    this->close();
+    auto pei=new PatientEditPersonalInformation;
+    pei->show();
+}
+

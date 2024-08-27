@@ -15,6 +15,10 @@ int main(int argc, char *argv[])
     auto server = new ServerThread(34569);
     ClientSocket::getInstance().connectToIP("127.0.0.1",34569);
 
+    /*ClientSocket::getInstance().submitAppointment((NetUtils::Appointment){
+1,2,"2004-04-06",0
+                                                  });*/
+
     return a.exec();
 
 }

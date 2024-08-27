@@ -13,6 +13,8 @@ ViewRegistration::ViewRegistration(QWidget *parent) :
     ui->setupUi(this);
     connect(&ClientSocket::getInstance(),SIGNAL(appointment_callback(NetUtils::Appointment)),this,SLOT(setRegistrationData_slot(NetUtils::Appointment)));
     ClientSocket::getInstance().getAppointmentsByDoctor(usernow::getId().toLong());
+    connect(&ClientSocket::getInstance(),SIGNAL(patient_callback(NetUtils::PatientData)),this,SLOT(setPatientName_slot(NetUtils::PatientData)));
+
 }
 
 ViewRegistration::~ViewRegistration()
@@ -38,5 +40,17 @@ void ViewRegistration::setRegistrationData_slot(NetUtils::Appointment data){
     ui->tableWidget->setItem(newRow, 1, new QTableWidgetItem(data.doctorId));
     ui->tableWidget->setItem(newRow, 2, new QTableWidgetItem(data.time));
     ui->tableWidget->setItem(newRow, 3, new QTableWidgetItem(data.state));
+    idToLine.insert(data.patientId,newRow);
+    ClientSocket::getInstance().getPatientById(data.patientId);
 }
 
+void ViewRegistration::setPatientName_slot(NetUtils::PatientData data){
+    ui->tableWidget->setVerticalHeaderItem(idToLine.find(data.id).value(),new QTableWidgetItem(data.name));
+}
+void ViewRegistration::paintEvent(QPaintEvent *e)
+{
+    QStyleOption opt;
+    opt.init(this);
+    QPainter p(this);
+    style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
+}

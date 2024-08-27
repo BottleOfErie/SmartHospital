@@ -69,6 +69,13 @@
       </widget>
      </item>
      <item>
+      <widget class="QPushButton" name="pushButton_8">
+       <property name="text">
+        <string>健康评估</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QPushButton" name="pushButton">
        <property name="text">
         <string>编辑个人信息</string>
@@ -78,13 +85,6 @@
          <width>26</width>
          <height>26</height>
         </size>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="pushButton_8">
-       <property name="text">
-        <string>健康评估</string>
        </property>
       </widget>
      </item>
