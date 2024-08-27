@@ -13,6 +13,7 @@ public:
     void registerAsDoctor(QString nationalId,QString passwd);
     void registerAsPatient(QString nationalId,QString passwd);
     void loginC(QString id,QString passwd,int type);
+    void resetPassword(long id,QString oldpasswd,QString newpasswd);
     void getPatientById(long id);
     void getPatientByNationalId(QString nationalId);
     void getDoctorDataById(long id);
@@ -60,6 +61,7 @@ signals:
 
     void register_callback(long long id);
     void login_callback(long long id);
+    void resetPassword_callback(bool result);
     void patient_callback(NetUtils::PatientData data);
     void doctor_callback(NetUtils::DoctorData data);
     void appointment_callback(NetUtils::Appointment data);

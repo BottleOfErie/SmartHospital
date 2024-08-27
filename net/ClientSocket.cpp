@@ -76,6 +76,8 @@ void ClientSocket::doCommand(QString command){
         socket->write(NetUtils::wrapMessage("ping"));
     }else if(command.startsWith("login")){
         emit login_callback(arr[1].toLongLong());
+    }else if(command.startsWith("RPas")){
+        emit resetPassword_callback(arr[1].compare("true")==0);
     }else if(command.startsWith("pat")){
         //pat <id> <name> <nationalId> <sex> <birthday> <phoneNumber> <history>
         NetUtils::PatientData ret;
@@ -178,6 +180,12 @@ void ClientSocket::registerAsPatient(QString nationalId, QString passwd){
 void ClientSocket::loginC(QString id, QString passwd,int type){
     auto typestr=std::to_string(type);
     socket->write(NetUtils::wrapStrings({"login",id.toStdString(),passwd.toStdString(),typestr}));
+}
+
+//RP <id> <old> <new>
+void ClientSocket::resetPassword(long id, QString oldpasswd, QString newpasswd){
+    socket->write(NetUtils::wrapStrings({"RP",std::to_string(id),
+        oldpasswd.toStdString(),newpasswd.toStdString()}));
 }
 
 //GPatId <id>
