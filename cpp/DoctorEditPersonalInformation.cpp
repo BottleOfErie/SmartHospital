@@ -138,3 +138,10 @@ void DoctorEditPersonalInformation::on_lineEdit_5_textChanged(const QString &arg
 {
     isInformationChanged=true;
 }
+void DoctorEditPersonalInformation::paintEvent(QPaintEvent *e)
+{
+    QStyleOption opt;
+    opt.init(this);
+    QPainter p(this);
+    style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
+}

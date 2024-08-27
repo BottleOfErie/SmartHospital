@@ -11,153 +11,185 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>挂号</string>
   </property>
-  <widget class="QPushButton" name="pushButton">
-   <property name="geometry">
-    <rect>
-     <x>560</x>
-     <y>270</y>
-     <width>89</width>
-     <height>25</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>提交</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pushButton_2">
-   <property name="geometry">
-    <rect>
-     <x>560</x>
-     <y>350</y>
-     <width>89</width>
-     <height>25</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>返回</string>
-   </property>
-  </widget>
-  <widget class="QWidget" name="layoutWidget">
-   <property name="geometry">
-    <rect>
-     <x>150</x>
-     <y>170</y>
-     <width>241</width>
-     <height>351</height>
-    </rect>
-   </property>
-   <layout class="QVBoxLayout" name="verticalLayout">
-    <item>
-     <widget class="QComboBox" name="comboBox">
-      <item>
+  <property name="styleSheet">
+   <string notr="true">#Registration{border-image: url(:/images/05.jpg);}</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
+    <layout class="QVBoxLayout" name="verticalLayout" stretch="1,2,2,2,2,1">
+     <property name="spacing">
+      <number>25</number>
+     </property>
+     <property name="leftMargin">
+      <number>200</number>
+     </property>
+     <property name="topMargin">
+      <number>200</number>
+     </property>
+     <property name="rightMargin">
+      <number>200</number>
+     </property>
+     <property name="bottomMargin">
+      <number>200</number>
+     </property>
+     <item>
+      <widget class="QLabel" name="label_3">
        <property name="text">
-        <string>请选择就诊科室</string>
+        <string/>
        </property>
-      </item>
-      <item>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="comboBox">
+       <item>
+        <property name="text">
+         <string>请选择就诊科室</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>骨科</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>皮肤科</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>内科</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>外科</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>眼科</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>耳鼻喉科</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>心脑血管科</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>儿科</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>急诊</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>胸痛外科</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="comboBox_2">
+       <item>
+        <property name="text">
+         <string>请选择医生</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>新建项目</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>新建项目</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>新建项目</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="comboBox_3">
+       <item>
+        <property name="text">
+         <string>请选择就诊时间</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>明天</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>后天</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>新建项目</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton">
+         <property name="text">
+          <string>提交</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_2">
+         <property name="text">
+          <string>返回</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_4">
        <property name="text">
-        <string>骨科</string>
+        <string/>
        </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>皮肤科</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>内科</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>外科</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>眼科</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>耳鼻喉科</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>心脑血管科</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>儿科</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>急诊</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>胸痛外科</string>
-       </property>
-      </item>
-     </widget>
-    </item>
-    <item>
-     <widget class="QComboBox" name="comboBox_2">
-      <item>
-       <property name="text">
-        <string>请选择医生</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>新建项目</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>新建项目</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>新建项目</string>
-       </property>
-      </item>
-     </widget>
-    </item>
-    <item>
-     <widget class="QComboBox" name="comboBox_3">
-      <item>
-       <property name="text">
-        <string>请选择就诊时间</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>明天</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>后天</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>新建项目</string>
-       </property>
-      </item>
-     </widget>
-    </item>
-   </layout>
-  </widget>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
  </widget>
  <resources/>
  <connections/>
