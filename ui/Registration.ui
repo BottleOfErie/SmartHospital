@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>842</width>
-    <height>684</height>
+    <height>685</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -109,17 +109,7 @@
        </item>
        <item>
         <property name="text">
-         <string>新建项目</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>新建项目</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>新建项目</string>
+         <string/>
         </property>
        </item>
       </widget>
