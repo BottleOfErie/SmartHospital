@@ -13,6 +13,7 @@ class EditRecipeAndPaymentOrder : public QMainWindow
 
 public:
     explicit EditRecipeAndPaymentOrder(QMainWindow *parent = nullptr);
+     //void paintEvent(QPaintEvent *e);
     ~EditRecipeAndPaymentOrder();
 
 private slots:
