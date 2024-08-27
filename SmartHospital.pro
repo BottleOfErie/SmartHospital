@@ -28,6 +28,7 @@ SOURCES += \
     cpp/sqliteOperator.cpp \
     net/ClientSocket.cpp \
     net/NetUtils.cpp \
+    net/QwenClient.cpp \
     net/ServerSocketThread.cpp \
     net/ServerThread.cpp
 
@@ -50,6 +51,7 @@ HEADERS += \
     h/Register.h \
     h/Patient.h \
     net/ClientSocket.h \
+    net/QwenClient.h \
     net/ServerSocketThread.h \
     net/NetUtils.h \
     net/ServerThread.h
