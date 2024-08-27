@@ -22,10 +22,9 @@ public:
 
 private slots:
     void on_pushButton_2_clicked();
-    void setMedicalRecords_slot(NetUtils::MedicalRecord);
 
     void on_pushButton_clicked();
-
+    void uploadMedicalRecord();
     void on_comboBox_currentIndexChanged(const QString &arg1);
     void getPatientName_slot(NetUtils::Appointment data);
     void addNameItem_slot(NetUtils::PatientData data);

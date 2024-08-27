@@ -3,6 +3,7 @@
 #include "h/Doctor.h"
 #include "h/usernow.h"
 
+#include <QMessageBox>
 #include <QPainter>
 #include <QStyleOption>
 
@@ -23,12 +24,58 @@ EditMedicalRecord::~EditMedicalRecord()
     delete ui;
 }
 
+void EditMedicalRecord::on_pushButton_clicked()
+{
+    if(ui->lineEdit_3->text()=="" || ui->lineEdit_4->text()==""){
+        QMessageBox::warning(this,"error","请填写诊断结果或治疗方案！！");
+    }
+    else{
+        uploadMedicalRecord();
+        this->close();
+        auto doctor = new Doctor;
+        doctor->show();
+    }
+}
+
 void EditMedicalRecord::on_pushButton_2_clicked()
 {
+    if(ui->lineEdit_3->text()!="" && ui->lineEdit_4->text()!=""){
+        QMessageBox msgBox;
+        msgBox.setWindowTitle("选择操作");           // 设置弹窗标题
+        msgBox.setText("是否将病例结果上传？");    // 设置弹窗内容
+        msgBox.setIcon(QMessageBox::Question);        // 设置弹窗图标
+        msgBox.setWindowFlag(Qt::WindowCloseButtonHint, false);
+
+        // 添加两个按钮选项
+        QPushButton *yes = msgBox.addButton(tr("YES"), QMessageBox::ActionRole);
+        msgBox.addButton(tr("NO"), QMessageBox::ActionRole);
+
+        // 显示消息框并等待用户选择
+        msgBox.exec();
+
+        // 判断用户选择了哪个按钮
+        if (msgBox.clickedButton() == yes) {
+            uploadMedicalRecord();
+        }
+    }
     this->close();
     auto doctor = new Doctor;
     doctor->show();
 }
+
+void EditMedicalRecord::uploadMedicalRecord(){
+    long id=nametoId.find(ui->comboBox->currentText()).value();
+    QString date=idToTime.find(id).value();
+    ClientSocket::getInstance().submitMedicalRecord((NetUtils::MedicalRecord){
+        id,
+        usernow().getId().toLong(),
+        date,
+        ui->lineEdit_3->text(),
+        ui->lineEdit_4->text(),
+        });
+    QMessageBox::information(NULL, "上传成功", "上传成功！！！", QMessageBox::Yes);
+}
+
 void EditMedicalRecord::paintEvent(QPaintEvent *e)
 {
     QStyleOption opt;
@@ -47,21 +94,9 @@ void EditMedicalRecord::addNameItem_slot(NetUtils::PatientData data){
     nametoId.insert(data.name,data.id);
 }
 
-void EditMedicalRecord::on_pushButton_clicked()
-{
 
-    (NetUtils::MedicalRecord){
-                    id,ui->lineEdit_2->text(),ui->username->text(),
-                    ui->lineEdit_3->text(),
-                    ui->radioButton->isChecked()?0:1,
-                    ui->dateEdit->date().toString("yyyy-MM-dd"),
-                    ui->phone->text(),ui->comboBox->currentText(),
-                    ui->organization->text(),
-                    ui->lineEdit_4->text()
-                    })
-}
 
 void EditMedicalRecord::on_comboBox_currentIndexChanged(const QString &arg1)
 {
-    ui->lineEdit_2->setText(nametoId.find("QString(arg1)"))
+    ui->lineEdit_2->setText(idToTime.find(nametoId.find(arg1).value()).value());
 }
