@@ -47,3 +47,10 @@ void ViewRegistration::setRegistrationData_slot(NetUtils::Appointment data){
 void ViewRegistration::setPatientName_slot(NetUtils::PatientData data){
     ui->tableWidget->setVerticalHeaderItem(idToLine.find(data.id).value(),new QTableWidgetItem(data.name));
 }
+void ViewRegistration::paintEvent(QPaintEvent *e)
+{
+    QStyleOption opt;
+    opt.init(this);
+    QPainter p(this);
+    style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
+}
