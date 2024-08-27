@@ -12,7 +12,7 @@ ClientSocket::ClientSocket(){
     connect(socket,SIGNAL(error(QAbstractSocket::SocketError)),
         this,SLOT(error_slot(QAbstractSocket::SocketError)));
 
-    connect(this,SIGNAL(login_callback(bool)),this,SLOT(login_slot(bool)));
+    connect(this,SIGNAL(login_callback(long long)),this,SLOT(login_slot(long long)));
 
     //connect(&ClientSocket::getInstance(),SIGNAL(login_callback(bool)),this,SLOT(login_slot(bool)));
 }
@@ -47,11 +47,12 @@ void ClientSocket::readyRead_slot(){
     }
 }
 
-void ClientSocket::login_slot(bool result){
-    if(result){
+void ClientSocket::login_slot(long long result){
+    if(result>0){
            usernow::setlogined(1);
+           usernow::setId(QString::number(result));
        }
-       qDebug("ClientLogin:%s",result?"Success":"Failure");
+       qDebug("ClientLogin:%s",result>0?"Success":"Failure");
 }
 
 void ClientSocket::connected_slot(){
@@ -74,7 +75,7 @@ void ClientSocket::doCommand(QString command){
     if(command.startsWith("ping")){
         socket->write(NetUtils::wrapMessage("ping"));
     }else if(command.startsWith("login")){
-        emit login_callback(arr[1].compare("true")==0);
+        emit login_callback(arr[1].toLongLong());
     }else if(command.startsWith("pat")){
         //pat <id> <name> <nationalId> <sex> <birthday> <phoneNumber> <history>
         NetUtils::PatientData ret;
@@ -158,7 +159,19 @@ void ClientSocket::doCommand(QString command){
         ret.manufactuer=arr[5];
         ret.batch=arr[6];
         emit medicine_callback(ret);
+    }else if(command.startsWith("reg")){
+        emit register_callback(arr[1].toLongLong());
     }
+}
+
+//RDoc
+void ClientSocket::registerAsDoctor(QString nationalId, QString passwd){
+    socket->write(NetUtils::wrapStrings({"RDoc",nationalId.toStdString(),passwd.toStdString()}));
+}
+
+//RPat
+void ClientSocket::registerAsPatient(QString nationalId, QString passwd){
+    socket->write(NetUtils::wrapStrings({"RPat",nationalId.toStdString(),passwd.toStdString()}));
 }
 
 //login <id> <passwd> <type>

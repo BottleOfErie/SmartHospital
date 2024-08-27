@@ -71,7 +71,12 @@ void ServerSocketThread::doCommand(QString str){
     auto arr=str.split(NetUtils::messagePartition);
     if(str.startsWith("login")){
         loginCMD(arr[1],arr[2],arr[3].toInt());
-    }else if(str.startsWith("GPatId")){
+    }else if(str.startsWith("RDoc")){
+        registerAsDoctor(arr[1],arr[2]);
+    }else if(str.startsWith("RPat")){
+        registerAsPatient(arr[1],arr[2]);
+    }
+    else if(str.startsWith("GPatId")){
         getPatientDataById(arr[1].toLong());
     }else if(str.startsWith("GPatNm")){
         getPatientDataByNationalId(arr[1]);
@@ -198,9 +203,45 @@ void ServerSocketThread::doCommand(QString str){
 void ServerSocketThread::loginCMD(QString id,QString passwd,int type){
     qDebug("Trying Login:Id[%s],Pass[%s]Type[%d]",id.toStdString().data(),
            passwd.toStdString().data(),type);
-    //Connect DB
-    bool result=true;
-    socket->write(NetUtils::wrapStrings({"login",result?"true":"false"}));
+    if(dbop->validateLogin(id,passwd)){
+        if(type==0){
+            auto pat=dbop->queryPatientByNationId(id);
+            if(pat.length()>0){
+                socket->write(NetUtils::wrapStrings({"login",std::to_string(pat.first().id)}));
+                return;
+            }
+        }else if(type==1){
+            auto doc=dbop->queryDoctorByNationId(id);
+            if(doc.length()>0){
+                socket->write(NetUtils::wrapStrings({"login",std::to_string(doc.first().id)}));
+                return;
+            }
+        }
+    }
+    socket->write(NetUtils::wrapStrings({"login","-1"}));
+}
+
+//reg <id>
+void ServerSocketThread::registerAsDoctor(QString nationalId, QString passwd){
+    if(dbop->Login(nationalId,passwd)){
+        dbop->insertDoctor("","",nationalId,passwd,-1,"","","","","");
+        auto doc=dbop->queryDoctorByNationId(nationalId);
+        if(doc.length()>0){
+            socket->write(NetUtils::wrapStrings({"reg",std::to_string(doc.first().id)}));
+        }
+    }
+    socket->write(NetUtils::wrapStrings({"reg","-1"}));
+}
+void ServerSocketThread::registerAsPatient(QString nationalId, QString passwd){
+    if(dbop->Login(nationalId,passwd)){
+        dbop->insertPatient("",nationalId,passwd,-1,"","","");
+        auto pat=dbop->queryPatientByNationId(nationalId);
+        if(pat.length()>0){
+            socket->write(NetUtils::wrapStrings({"reg",std::to_string(pat.first().id)}));
+            return;
+        }
+    }
+    socket->write(NetUtils::wrapStrings({"reg","-1"}));
 }
 
 //pat <id> <name> <nationalId> <sex> <birthday> <phoneNumber> <history>

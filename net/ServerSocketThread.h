@@ -25,6 +25,8 @@ private:
     qintptr socketDescripter;
     SqliteOperator* dbop;
     void loginCMD(QString id,QString passwd,int type);
+    void registerAsDoctor(QString nationalId,QString passwd);
+    void registerAsPatient(QString nationalId,QString passwd);
     void getPatientDataById(long id);
     void getPatientDataByNationalId(QString name);
     void getDoctorDataById(long id);

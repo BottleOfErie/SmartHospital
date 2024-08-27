@@ -10,6 +10,8 @@ public:
     static ClientSocket& getInstance();
     void connectToIP(QString ip,int port);
 
+    void registerAsDoctor(QString nationalId,QString passwd);
+    void registerAsPatient(QString nationalId,QString passwd);
     void loginC(QString id,QString passwd,int type);
     void getPatientById(long id);
     void getPatientByNationalId(QString nationalId);
@@ -50,13 +52,14 @@ private slots:
     void connected_slot();
     void disconnected_slot();
     void error_slot(QAbstractSocket::SocketError socketError);
-    void login_slot(bool);
+    void login_slot(long long);
 signals:
     void connected();
     void disconnected();
     void recived_ping();
 
-    void login_callback(bool result);
+    void register_callback(long long id);
+    void login_callback(long long id);
     void patient_callback(NetUtils::PatientData data);
     void doctor_callback(NetUtils::DoctorData data);
     void appointment_callback(NetUtils::Appointment data);
