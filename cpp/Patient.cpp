@@ -66,3 +66,10 @@ void Patient::on_pushButton_6_clicked()
     auto mainwindow=new MainWindow;
     mainwindow->show();
 }
+void Patient::paintEvent(QPaintEvent *e)
+{
+    QStyleOption opt;
+    opt.init(this);
+    QPainter p(this);
+    style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
+}

@@ -13,6 +13,7 @@ class PatientEditPersonalInformation : public QWidget
 
 public:
     explicit PatientEditPersonalInformation(QWidget *parent = nullptr);
+    void paintEvent(QPaintEvent *e);
     ~PatientEditPersonalInformation();
 
 private slots:

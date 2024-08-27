@@ -27,3 +27,10 @@ void PatientEditPersonalInformation::on_pushButton_3_clicked()
 void PatientEditPersonalInformation::on_pushButton_2_clicked()
 {
 }
+void PatientEditPersonalInformation::paintEvent(QPaintEvent *e)
+{
+    QStyleOption opt;
+    opt.init(this);
+    QPainter p(this);
+    style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
+}

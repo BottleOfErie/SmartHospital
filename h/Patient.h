@@ -14,6 +14,7 @@ class Patient : public QWidget
 
 public:
     explicit Patient(QWidget *parent = nullptr);
+    void paintEvent(QPaintEvent *e);
     ~Patient();
 
 private slots:
