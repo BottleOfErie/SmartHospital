@@ -13,6 +13,7 @@ class ViewPrescriptionsAndContributions : public QWidget
 
 public:
     explicit ViewPrescriptionsAndContributions(QWidget *parent = nullptr);
+    void paintEvent(QPaintEvent *e);
     ~ViewPrescriptionsAndContributions();
 
 private slots:

@@ -13,6 +13,7 @@ class ViewDoctorInformations : public QWidget
 
 public:
     explicit ViewDoctorInformations(QWidget *parent = nullptr);
+    void paintEvent(QPaintEvent *e);
     ~ViewDoctorInformations();
 
 private slots:

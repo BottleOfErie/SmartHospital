@@ -1,6 +1,9 @@
 #include "h/ViewRegistration.h"
 #include "ui_ViewRegistration.h"
 
+#include <QPainter>
+#include <QStyleOption>
+
 ViewRegistration::ViewRegistration(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::ViewRegistration)
@@ -11,4 +14,11 @@ ViewRegistration::ViewRegistration(QWidget *parent) :
 ViewRegistration::~ViewRegistration()
 {
     delete ui;
+}
+void ViewRegistration::paintEvent(QPaintEvent *e)
+{
+    QStyleOption opt;
+    opt.init(this);
+    QPainter p(this);
+    style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
 }

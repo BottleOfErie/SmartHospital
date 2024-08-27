@@ -11,10 +11,10 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>查看病历</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">#ViewCase{border-image: url(:/images/03.jpg);}</string>
+   <string notr="true">#ViewCase{border-image: url(:/images/06.jpg);}</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
@@ -29,7 +29,7 @@
       <number>100</number>
      </property>
      <property name="rightMargin">
-      <number>100</number>
+      <number>493</number>
      </property>
      <property name="bottomMargin">
       <number>185</number>
@@ -38,6 +38,24 @@
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
         <widget class="QTableWidget" name="tableWidget">
+         <property name="layoutDirection">
+          <enum>Qt::LeftToRight</enum>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="textElideMode">
+          <enum>Qt::ElideLeft</enum>
+         </property>
+         <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
+          <bool>false</bool>
+         </attribute>
+         <attribute name="horizontalHeaderStretchLastSection">
+          <bool>false</bool>
+         </attribute>
          <row>
           <property name="text">
            <string>新建行</string>

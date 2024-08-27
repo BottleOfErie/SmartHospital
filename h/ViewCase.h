@@ -13,6 +13,7 @@ class ViewCase : public QWidget
 
 public:
     explicit ViewCase(QWidget *parent = nullptr);
+    void paintEvent(QPaintEvent *e);
     ~ViewCase();
 
 private:

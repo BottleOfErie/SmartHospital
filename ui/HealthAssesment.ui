@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>健康评测</string>
   </property>
   <property name="styleSheet">
    <string notr="true">#HealthAssesment{border-image: url(:/images/04.jpg);}</string>
