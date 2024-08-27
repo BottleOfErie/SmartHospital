@@ -91,8 +91,8 @@ void MainWindow::switchPage()
     }
     else if (ui->checkBox_2->isChecked()==true){
         // 进入患者主界面
-        this->close();
         QMessageBox::information(NULL, "登陆成功", "登陆成功！！！", QMessageBox::Yes);
+        this->close();
         Patient *patientWidget = new Patient();
         patientWidget->show();
     }

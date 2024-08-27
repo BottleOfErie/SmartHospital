@@ -19,7 +19,7 @@ namespace NetUtils {
         long id;
         QString name;
         QString nationId;
-        int sex;
+        int gender;
         QString birthday;
         QString phoneNumber;
         QString history;
@@ -29,7 +29,7 @@ namespace NetUtils {
         long id;
         QString name;
         QString nationId;
-        int sex;
+        int gender;
         QString birthday;
         QString phoneNumber;
         QString jobTitle;

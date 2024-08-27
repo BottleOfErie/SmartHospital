@@ -13,6 +13,7 @@ ClientSocket::ClientSocket(){
         this,SLOT(error_slot(QAbstractSocket::SocketError)));
 
     connect(this,SIGNAL(login_callback(bool)),this,SLOT(login_slot(bool)));
+    //connect(&ClientSocket::getInstance(),SIGNAL(login_callback(bool)),this,SLOT(login_slot(bool)));
 }
 
 ClientSocket::~ClientSocket(){
@@ -76,7 +77,7 @@ void ClientSocket::doCommand(QString command){
         ret.id=arr[1].toLong();
         ret.name=arr[2];
         ret.nationId=arr[3];
-        ret.sex=arr[4].toInt();
+        ret.gender=arr[4].toInt();
         ret.birthday=arr[5];
         ret.phoneNumber=arr[6];
         ret.history=arr[7];
@@ -87,7 +88,7 @@ void ClientSocket::doCommand(QString command){
         ret.id=arr[1].toLong();
         ret.name=arr[2];
         ret.nationId=arr[3];
-        ret.sex=arr[4].toInt();
+        ret.gender=arr[4].toInt();
         ret.birthday=arr[5];
         ret.phoneNumber=arr[6];
         ret.jobTitle=arr[7];
@@ -246,7 +247,7 @@ void ClientSocket::getMedicineByName(QString name){
 void ClientSocket::submitPatientData(NetUtils::PatientData data){
     socket->write(NetUtils::wrapStrings({"SPat",
         std::to_string(data.id),data.name.toStdString(),data.nationId.toStdString(),
-        std::to_string(data.sex),data.birthday.toStdString(),
+        std::to_string(data.gender),data.birthday.toStdString(),
         data.phoneNumber.toStdString(),data.history.toStdString()
     }));
 }
@@ -255,7 +256,7 @@ void ClientSocket::submitPatientData(NetUtils::PatientData data){
 void ClientSocket::submitDoctorData(NetUtils::DoctorData data){
     socket->write(NetUtils::wrapStrings({"SDoc",
         std::to_string(data.id),data.name.toStdString(),data.nationId.toStdString(),
-        std::to_string(data.sex),data.birthday.toStdString(),data.phoneNumber.toStdString(),
+        std::to_string(data.gender),data.birthday.toStdString(),data.phoneNumber.toStdString(),
         data.jobTitle.toStdString(),data.organization.toStdString(),data.section.toStdString()
     }));
 }

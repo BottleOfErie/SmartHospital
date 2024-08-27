@@ -1,6 +1,7 @@
 #ifndef DOCTOREDITPERSONALINFORMATION_H
 #define DOCTOREDITPERSONALINFORMATION_H
 #include <QWidget>
+#include "net/NetUtils.h"
 namespace Ui {
 class DoctorEditPersonalInformation;
 }
@@ -16,9 +17,22 @@ public:
 
 
 private slots:
-    void on_pushButton_clicked();
     void on_pushButton_2_clicked();
     void on_pushButton_3_clicked();
+
+    void setDoctorData_slot(NetUtils::DoctorData data);
+    void updateDoctorData();
+    void on_pushButton_toggled(bool checked);
+
+    void on_lineEdit_textChanged(const QString &arg1);
+
+    void on_lineEdit_2_textChanged(const QString &arg1);
+
+    void on_lineEdit_3_textChanged(const QString &arg1);
+
+    void on_lineEdit_4_textChanged(const QString &arg1);
+
+    void on_lineEdit_5_textChanged(const QString &arg1);
 
 private:
     Ui::DoctorEditPersonalInformation *ui;
