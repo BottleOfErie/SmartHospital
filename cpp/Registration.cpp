@@ -1,6 +1,7 @@
 #include "h/Registration.h"
 #include "ui_Registration.h"
-#include "h/Doctor.h"
+
+#include <h/Patient.h>
 
 Registration::Registration(QWidget *parent) :
     QWidget(parent),
@@ -17,8 +18,8 @@ Registration::~Registration()
 void Registration::on_pushButton_2_clicked()
 {
     this->close();
-    auto doctor = new Doctor;
-    doctor->show();
+    Patient *patientWindow=new Patient();
+    patientWindow->show();
 }
 
 void Registration::on_pushButton_clicked()

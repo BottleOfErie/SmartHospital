@@ -5,11 +5,15 @@
 
 #include <QPainter>
 #include <QStyleOption>
+
+#include <net/ClientSocket.h>
 EditMedicalRecord::EditMedicalRecord(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::EditMedicalRecord)
 {
     ui->setupUi(this);
+    connect(&ClientSocket::getInstance(),SIGNAL(medicalRecord_callback(NetUtils::MedicalRecord)),this,SLOT(setMedicalRecords_slot(NetUtils::MedicalRecord)));
+    ClientSocket::getInstance().getMedicalRecordsByDoctor(usernow::getId().toLong());
 }
 
 EditMedicalRecord::~EditMedicalRecord()
@@ -29,4 +33,8 @@ void EditMedicalRecord::paintEvent(QPaintEvent *e)
     opt.init(this);
     QPainter p(this);
     style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
+}
+
+void EditMedicalRecord::setMedicalRecords_slot(NetUtils::MedicalRecord data){
+
 }

@@ -49,7 +49,7 @@ void MainWindow::on_LoginButton_clicked()
         ClientSocket::getInstance().loginC(username,password,0);
         if(usernow::getlogined()){
                    usernow::setId(username);
-                   switchPage(); QMessageBox::information(NULL, "登陆成功", "登陆成功！！！", QMessageBox::Yes);
+                   switchPage();
                }
             else{
                    QMessageBox::warning(this,"error","用户名或者密码错误！！");

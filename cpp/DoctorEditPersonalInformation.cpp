@@ -25,6 +25,7 @@ DoctorEditPersonalInformation::DoctorEditPersonalInformation(QWidget *parent) :
 
     connect(&ClientSocket::getInstance(),SIGNAL(doctor_callback(NetUtils::DoctorData)),this,SLOT(setDoctorData_slot(NetUtils::DoctorData)));
     ClientSocket::getInstance().getDoctorDataById(usernow::getId().toLong());
+
     ui->lineEdit->setReadOnly(true);
     ui->lineEdit_2->setReadOnly(true);
     ui->lineEdit_3->setReadOnly(true);
@@ -137,4 +138,12 @@ void DoctorEditPersonalInformation::on_lineEdit_4_textChanged(const QString &arg
 void DoctorEditPersonalInformation::on_lineEdit_5_textChanged(const QString &arg1)
 {
     isInformationChanged=true;
+}
+
+void DoctorEditPersonalInformation::paintEvent(QPaintEvent *e)
+{
+    QStyleOption opt;
+    opt.init(this);
+    QPainter p(this);
+    style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
 }
