@@ -10,6 +10,7 @@
 #include <QSqlQuery>
 #include <QSqlError>
 #include <h/usernow.h>
+#include "net/ClientSocket.h"
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -44,11 +45,18 @@ void MainWindow::on_LoginButton_clicked()
         else
             QMessageBox::warning(this,"error","用户名或者密码错误！！");
             // 清空内容并定位光标*/
-        usernow::setId(username);
-        switchPage();
-        ui->username->clear();
-        ui->password->clear();
-        ui->username->setFocus();//将光标定位到用户名输入框
+        // 娓呯┖鍐呭骞跺畾浣嶅厜鏍?/
+        ClientSocket::getInstance().loginC(username,password,0);
+        if(usernow::getlogined()){
+                   usernow::setId(username);
+                   switchPage(); QMessageBox::information(NULL, "登陆成功", "登陆成功！！！", QMessageBox::Yes);
+               }
+            else{
+                   QMessageBox::warning(this,"error","用户名或者密码错误！！");
+               }
+            ui->username->clear();
+            ui->password->clear();
+            ui->username->setFocus();//将光标定位到用户名输入框
 
     }
 }
