@@ -1,0 +1,40 @@
+QPushButton {
+    border-style: solid;
+    border-width: 2px;
+    border-color: #534587;
+    border-radius: 6px;
+    background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #f6f7fa, stop:1 #dadbde);
+    color: black; /* 字体颜色 */
+    padding: 8px 16px; /* 内边距 */
+}
+
+QPushButton:hover {
+    background-color: #40E0D0; /* 鼠标悬停时的背景色 */
+    border-color: #8B8B00;
+}
+
+QPushButton:pressed {
+    background-color: #458B74; /* 按下时的背景色 */
+    border-color: #e61419;
+}
+/* 输入框样式 */
+QLineEdit, QTextEdit {
+    background-color: #ffffff; /* 白色背景 */
+    border: 1px solid #ccc; /* 灰色边框 */
+    border-radius: 4px; /* 圆角边框 */
+    padding: 4px; /* 内边距 */
+    font-size: 14px; /* 字体大小 */
+}
+
+/* 表格样式 */
+QTableView, QTableWidget {
+    background-color: #ffffff; /* 白色背景 */
+    gridline-color: #e0e0e0; /* 网格线颜色 */
+    selection-background-color: #b3d4fc; /* 选中项背景色 */
+    selection-color: #000000; /* 选中项文本颜色 */
+    border: 1px solid #ccc; /* 边框颜色 */
+}
+
+QTableView::item:hover, QTableWidget::item:hover {
+    background-color: #f0f0f0; /* 鼠标悬停时的背景色 */
+}

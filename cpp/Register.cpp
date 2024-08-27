@@ -1,4 +1,4 @@
-#include "ui_Register.h"
+#include "ui_Register_copy.h"
 #include <h/Register.h>
 #include <h/mainwindow.h>
 #include <QMessageBox>
