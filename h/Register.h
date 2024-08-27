@@ -25,6 +25,12 @@ private slots:
 
     void on_registerButton_clicked();
 
+    void registerCallbackSlot(long long);
+
+    void on_radioButton_toggled(bool checked);
+
+    void on_radioButton_2_toggled(bool checked);
+
 private:
     Ui::Register *ui;
 };

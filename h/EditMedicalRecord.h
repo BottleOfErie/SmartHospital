@@ -3,6 +3,8 @@
 
 #include <QWidget>
 
+#include <net/NetUtils.h>
+
 namespace Ui {
 class EditMedicalRecord;
 }
@@ -19,6 +21,7 @@ public:
 
 private slots:
     void on_pushButton_2_clicked();
+    void setMedicalRecords_slot(NetUtils::MedicalRecord);
 
 private:
     Ui::EditMedicalRecord *ui;

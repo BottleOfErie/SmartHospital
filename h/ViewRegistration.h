@@ -3,6 +3,8 @@
 
 #include <QWidget>
 
+#include <net/NetUtils.h>
+
 namespace Ui {
 class ViewRegistration;
 }
@@ -15,6 +17,10 @@ public:
     explicit ViewRegistration(QWidget *parent = nullptr);
     void paintEvent(QPaintEvent *e);
     ~ViewRegistration();
+
+private slots:
+    void on_pushButton_clicked();
+    void setRegistrationData_slot(NetUtils::Appointment data);
 
 private:
     Ui::ViewRegistration *ui;

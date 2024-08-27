@@ -15,10 +15,6 @@ int main(int argc, char *argv[])
     auto server = new ServerThread(34569);
     ClientSocket::getInstance().connectToIP("127.0.0.1",34569);
 
-    ClientSocket::getInstance().registerAsDoctor("114514","112345");
-
-    ClientSocket::getInstance().loginC("114514","112345",0);
-
     return a.exec();
 
 }

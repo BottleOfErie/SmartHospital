@@ -25,6 +25,7 @@ DoctorEditPersonalInformation::DoctorEditPersonalInformation(QWidget *parent) :
 
     connect(&ClientSocket::getInstance(),SIGNAL(doctor_callback(NetUtils::DoctorData)),this,SLOT(setDoctorData_slot(NetUtils::DoctorData)));
     ClientSocket::getInstance().getDoctorDataById(usernow::getId().toLong());
+
     ui->lineEdit->setReadOnly(true);
     ui->lineEdit_2->setReadOnly(true);
     ui->lineEdit_3->setReadOnly(true);
@@ -72,8 +73,10 @@ void DoctorEditPersonalInformation::on_pushButton_3_clicked()
 }
 
 void DoctorEditPersonalInformation::setDoctorData_slot(NetUtils::DoctorData data){
+    currentData=data;
     ui->lineEdit->setText(data.name);
-    ui->lineEdit_2->setText(data.birthday);
+    ui->dateEdit->setDate(QDate::fromString(data.birthday,"yyyy-MM-dd"));
+    ui->lineEdit_2->setText(data.nationId);
     ui->lineEdit_3->setText(data.jobTitle);
     ui->lineEdit_4->setText(data.section);
     ui->lineEdit_5->setText(data.phoneNumber);
@@ -81,13 +84,14 @@ void DoctorEditPersonalInformation::setDoctorData_slot(NetUtils::DoctorData data
 }
 
 void DoctorEditPersonalInformation::updateDoctorData(){
-    QString name=ui->lineEdit->text();
-    QString birthday=ui->lineEdit_2->text();
-    QString jobTitle=ui->lineEdit_3->text();
-    QString section=ui->lineEdit_4->text();
-    QString phoneNumber=ui->lineEdit_5->text();
+    currentData.name=ui->lineEdit->text();
+    currentData.birthday=ui->lineEdit_2->text();
+    currentData.jobTitle=ui->lineEdit_3->text();
+    currentData.section=ui->lineEdit_4->text();
+    currentData.phoneNumber=ui->lineEdit_5->text();
+    currentData.birthday=ui->dateEdit->date().toString("yyyy-MM-dd");
 
-    //ClientSocket::getInstance().getDoctorDataById(usernow::getId().toLong());
+    ClientSocket::getInstance().submitDoctorData(currentData);
     QMessageBox::information(NULL, "修改成功", "修改成功！！！", QMessageBox::Yes);
 
 }
@@ -138,6 +142,7 @@ void DoctorEditPersonalInformation::on_lineEdit_5_textChanged(const QString &arg
 {
     isInformationChanged=true;
 }
+
 void DoctorEditPersonalInformation::paintEvent(QPaintEvent *e)
 {
     QStyleOption opt;

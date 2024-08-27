@@ -67,7 +67,8 @@ void ServerSocketThread::readyRead_slot(){
 
 void ServerSocketThread::doCommand(QString str){
     if(noReplyCount>0) noReplyCount--;
-    qDebug("Server Taken:%s",str.toStdString().data());
+    if(str.compare("ping")!=0)
+        qDebug("Server Taken:%s",str.toStdString().data());
     auto arr=str.split(NetUtils::messagePartition);
     if(str.startsWith("login")){
         loginCMD(arr[1],arr[2],arr[3].toInt());
@@ -224,7 +225,7 @@ void ServerSocketThread::loginCMD(QString id,QString passwd,int type){
 //reg <id>
 void ServerSocketThread::registerAsDoctor(QString nationalId, QString passwd){
     if(dbop->Login(nationalId,passwd)){
-        dbop->insertDoctor("","",nationalId,passwd,-1,"","","","","");
+        dbop->insertDoctor("","",nationalId,-1,"","","","","");
         auto doc=dbop->queryDoctorByNationId(nationalId);
         if(doc.length()>0){
             socket->write(NetUtils::wrapStrings({"reg",std::to_string(doc.first().id)}));
@@ -234,7 +235,7 @@ void ServerSocketThread::registerAsDoctor(QString nationalId, QString passwd){
 }
 void ServerSocketThread::registerAsPatient(QString nationalId, QString passwd){
     if(dbop->Login(nationalId,passwd)){
-        dbop->insertPatient("",nationalId,passwd,-1,"","","");
+        dbop->insertPatient("",nationalId,-1,"","","");
         auto pat=dbop->queryPatientByNationId(nationalId);
         if(pat.length()>0){
             socket->write(NetUtils::wrapStrings({"reg",std::to_string(pat.first().id)}));
@@ -269,14 +270,15 @@ void ServerSocketThread::getPatientDataByNationalId(QString name){
         }));
 }
 
-//doc <id> <name> <nationalId> <sex> <birthday> <phoneNumber> <jobTitle> <organization> <section>
+//doc <id> <name> <nationalId> <sex> <birthday> <phoneNumber> <jobTitle> <organization> <section> <workingId>
 void ServerSocketThread::getDoctorDataById(long id){
     auto lst=dbop->queryDoctorById(id);
     foreach(auto result,lst){
         socket->write(NetUtils::wrapStrings({"doc",
             std::to_string(result.id),result.name.toStdString(),result.nationId.toStdString(),
             std::to_string(result.gender),result.birthday.toStdString(),result.phoneNumber.toStdString(),
-            result.jobTitle.toStdString(),result.organization.toStdString(),result.section.toStdString()
+            result.jobTitle.toStdString(),result.organization.toStdString(),result.section.toStdString(),
+            result.workingId.toStdString()
         }));
     }
 }
@@ -286,7 +288,8 @@ void ServerSocketThread::getDoctorDataByNationalId(QString name){
         socket->write(NetUtils::wrapStrings({"doc",
             std::to_string(result.id),result.name.toStdString(),result.nationId.toStdString(),
             std::to_string(result.gender),result.birthday.toStdString(),result.phoneNumber.toStdString(),
-            result.jobTitle.toStdString(),result.organization.toStdString(),result.section.toStdString()
+            result.jobTitle.toStdString(),result.organization.toStdString(),result.section.toStdString(),
+            result.workingId.toStdString()
         }));
     }
 }
@@ -296,7 +299,8 @@ void ServerSocketThread::getDoctorDatasBySection(QString section){
         socket->write(NetUtils::wrapStrings({"doc",
             std::to_string(result.id),result.name.toStdString(),result.nationId.toStdString(),
             std::to_string(result.gender),result.birthday.toStdString(),result.phoneNumber.toStdString(),
-            result.jobTitle.toStdString(),result.organization.toStdString(),result.section.toStdString()
+            result.jobTitle.toStdString(),result.organization.toStdString(),result.section.toStdString(),
+            result.workingId.toStdString()
         }));
     }
 }
@@ -400,13 +404,20 @@ void ServerSocketThread::getMedicineByName(QString name){
         result.manufactuer.toStdString(),result.batch.toStdString()}));
 }
 void ServerSocketThread::setPatient(NetUtils::PatientData data){
-    //CDB
-    /*if(dbop->queryPatientById(data.id).length()>0){
-        dbop->updatePatient(data.id,data.name,data.nationId,)
-    }*/
+    if(dbop->queryPatientById(data.id).length()>0){
+        dbop->updatePatient(data.id,data.name,data.nationId,data.gender,data.birthday,data.phoneNumber,data.history);
+    }else{
+        //ODS
+        dbop->insertPatient(data.name,data.nationId,data.gender,data.birthday,data.phoneNumber,data.history);
+    }
 }
 void ServerSocketThread::setDoctor(NetUtils::DoctorData data){
-    //CDB
+    if(dbop->queryDoctorById(data.id).length()>0){
+        dbop->updateDoctor(data.id,data.workingId,data.name,data.nationId,data.gender,data.birthday,data.phoneNumber,data.jobTitle,data.organization,data.section);
+    }else{
+        //ODS
+        dbop->insertDoctor(data.workingId,data.name,data.nationId,data.gender,data.birthday,data.phoneNumber,data.jobTitle,data.organization,data.section);
+    }
 }
 void ServerSocketThread::setAppointment(NetUtils::Appointment data){
     if(!dbop->insertAppointment(data.patientId,data.doctorId,data.time,data.state)){

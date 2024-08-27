@@ -25,7 +25,7 @@ private slots:
 
     void on_checkBox_2_toggled(bool checked);
 
-    void switchPage();
+    void loginCallback_slot(long long id);
 
 private:
     Ui::MainWindow *ui;

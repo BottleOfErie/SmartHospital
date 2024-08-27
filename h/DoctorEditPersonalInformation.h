@@ -36,6 +36,7 @@ private slots:
 
 private:
     Ui::DoctorEditPersonalInformation *ui;
+    NetUtils::DoctorData currentData;
 };
 
 #endif // DOCTOREDITPERSONALINFORMATION_H
