@@ -617,7 +617,7 @@ QList<NetUtils::PatientData> SqliteOperator::queryPatientByNationId(const QStrin
         patient.id = query.value("id").toLongLong();
         patient.name = query.value("name").toString();
         patient.nationId = query.value("idCard").toString();
-        patient.sex = query.value("gender").toInt();
+        patient.gender = query.value("gender").toInt();
         patient.birthday = query.value("birthdate").toString();
         patient.phoneNumber = query.value("phone").toString();
         patient.history = query.value("medicalHistory").toString();
@@ -645,7 +645,7 @@ QList<NetUtils::PatientData> SqliteOperator::queryPatientById(int id)
         patient.id = query.value("id").toLongLong();
         patient.name = query.value("name").toString();
         patient.nationId = query.value("idCard").toString();
-        patient.sex = query.value("gender").toInt();
+        patient.gender = query.value("gender").toInt();
         patient.birthday = query.value("birthdate").toString();
         patient.phoneNumber = query.value("phone").toString();
         patient.history = query.value("medicalHistory").toString();
@@ -674,7 +674,7 @@ QList<NetUtils::DoctorData> SqliteOperator::queryDoctorByNationId(const QString&
         doctor.id = query.value("id").toLongLong();
         doctor.name = query.value("name").toString();
         doctor.nationId = query.value("idCard").toString();
-        doctor.sex = query.value("gender").toInt();
+        doctor.gender = query.value("gender").toInt();
         doctor.birthday = query.value("birthdate").toString();
         doctor.phoneNumber = query.value("phone").toString();
         doctor.jobTitle = query.value("title").toString();
@@ -704,7 +704,7 @@ QList<NetUtils::DoctorData> SqliteOperator::queryDoctorById(int id)
         doctor.id = query.value("id").toLongLong();
         doctor.name = query.value("name").toString();
         doctor.nationId = query.value("idCard").toString();
-        doctor.sex = query.value("gender").toInt();
+        doctor.gender = query.value("gender").toInt();
         doctor.birthday = query.value("birthdate").toString();
         doctor.phoneNumber = query.value("phone").toString();
         doctor.jobTitle = query.value("title").toString();
@@ -734,7 +734,7 @@ QList<NetUtils::DoctorData> SqliteOperator::queryDoctorBySection(const QString& 
         doctor.id = query.value("id").toLongLong();
         doctor.name = query.value("name").toString();
         doctor.nationId = query.value("idCard").toString();
-        doctor.sex = query.value("gender").toInt();
+        doctor.gender = query.value("gender").toInt();
         doctor.birthday = query.value("birthdate").toString();
         doctor.phoneNumber = query.value("phone").toString();
         doctor.jobTitle = query.value("title").toString();
@@ -1044,6 +1044,3 @@ QList<NetUtils::Medicine> SqliteOperator::queryMedicineByName(const QString& nam
 
     return result;
 }
-
-
-
