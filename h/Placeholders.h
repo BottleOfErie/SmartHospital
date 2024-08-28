@@ -5,5 +5,6 @@
 #define SECTION_PLACEHOLDER "请选择科室"
 #define DOCTOR_PLACEHOLDER "请选择医生"
 #define DATETIME_PLACEHOLDER "请选择就诊时间"
+#define JOBTITLE_PLACEHOLDER "请选择职称"
 
 #endif // PLACEHOLDERS_H

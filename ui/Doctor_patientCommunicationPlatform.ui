@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>医患沟通</string>
   </property>
   <property name="styleSheet">
    <string notr="true">#Doctor_patientCommunicationPlatform{border-image: url(:/images/07.jpg);}</string>
