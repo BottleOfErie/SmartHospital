@@ -54,11 +54,8 @@ private:
     void setMessage(NetUtils::Message data);
     void setMedicine(NetUtils::Medicine data);
 private slots:
-    void readyRead_slot();
-    void doPing_slot();
     void doDisconnect_slot();
 signals:
-    void toDoPing();
     void toDoDisconnect();
 };
 
