@@ -19,6 +19,7 @@ public:
 private slots:
     void on_pushButton_clicked();
     void setPrescription_slot(NetUtils::Prescription data);
+    void setmedicine_slot(NetUtils::Medicine);
 
 private:
     Ui::ViewPrescriptionsAndContributions *ui;

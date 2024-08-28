@@ -3,7 +3,9 @@
 #include <h/Patient.h>
 #include "h/usernow.h"
 #include "net/ClientSocket.h"
-int i=0;
+int i=0,jj=0;
+QList<float>price;
+QList<QString>medicine_name;
 ViewPrescriptionsAndContributions::ViewPrescriptionsAndContributions(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::ViewPrescriptionsAndContributions)
@@ -11,6 +13,7 @@ ViewPrescriptionsAndContributions::ViewPrescriptionsAndContributions(QWidget *pa
     ui->setupUi(this);
     connect(&ClientSocket::getInstance(),SIGNAL(prescription_callback(NetUtils::Prescription)),this,SLOT(setPrescription_slot(NetUtils::Prescription)));
     ClientSocket::getInstance().getPrescriptionsByPatient(usernow::getId().toLong());
+    connect(&ClientSocket::getInstance(),SIGNAL(medicine_callback(NetUtils::Medicine)),this,SLOT(setmedicine_slot(NetUtils::Medicine)));
 }
 
 ViewPrescriptionsAndContributions::~ViewPrescriptionsAndContributions()
@@ -39,13 +42,21 @@ void ViewPrescriptionsAndContributions::setPrescription_slot(NetUtils::Prescript
    // ui->tableWidget->
             qDebug()<<"dsb"<<i;
     //ui->tableWidget->item(0,0)->setText(record.);
-    QTableWidgetItem *newItem = new QTableWidgetItem(QString::fromStdString(std::to_string(data.medicineId)));
-    ui->tableWidget->setItem(i,1,newItem);
+    QTableWidgetItem *newItem ;
     newItem=new QTableWidgetItem(data.count);
     ui->tableWidget->setItem(i,2,newItem);
-    /*newItem=new QTableWidgetItem(data.);
+    newItem=new QTableWidgetItem(data.advice);
     ui->tableWidget->setItem(i,3,newItem);
-    newItem=new QTableWidgetItem(data.date);
+    /*newItem=new QTableWidgetItem(data.date);
     ui->tableWidget->setItem(i,4,newItem);*/
     i++;
+}
+void ViewPrescriptionsAndContributions::setmedicine_slot(NetUtils::Medicine data){
+    medicine_name[jj]=data.name;
+    price[jj]=data.price;
+    QTableWidgetItem *newItem = new QTableWidgetItem(data.name);
+    ui->tableWidget->setItem(jj,1,newItem);
+    newItem = new QTableWidgetItem(data.price);
+    ui->tableWidget->setItem(jj,4,newItem);
+    jj++;
 }
