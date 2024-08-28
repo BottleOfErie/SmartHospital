@@ -962,7 +962,7 @@ QList<NetUtils::Message> SqliteOperator::queryChatRecordByDoctorId(int doctorId)
     QList<NetUtils::Message> result;
     QSqlQuery query(this->Db);
 
-    query.prepare("SELECT * FROM ChatRecord WHERE patientId = ? OR doctorId = ?");
+    query.prepare("SELECT * FROM ChatRecord WHERE doctorId = ?");
     query.addBindValue(doctorId);
 
     if (!query.exec()) {
@@ -975,7 +975,7 @@ QList<NetUtils::Message> SqliteOperator::queryChatRecordByDoctorId(int doctorId)
         message.patientId = query.value("patientId").toLongLong();
         message.doctorId = query.value("doctorId").toLongLong();
         message.timeStamp = query.value("timeStamp").toLongLong();
-        message.sendDirection = query.value("sendDirection").toInt();
+        message.sendDirection = query.value("direction").toInt();
         message.message = query.value("message").toString();
         message.isRead = query.value("isRead").toBool();
         result.append(message);
