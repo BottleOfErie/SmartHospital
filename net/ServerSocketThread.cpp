@@ -100,12 +100,9 @@ void ServerSocketThread::doCommand(QString str){
     else if(str.startsWith("GTrs")){
         getTestResultsByPatient(arr[1].toLong());
     }
-    else if(str.startsWith("GMsgPat")){
-        getMessageAsPatient(arr[1].toLong());
-    }else if(str.startsWith("GMsgDoc")){
-        getMessageAsDoctor(arr[1].toLong());
-    }
-    else if(str.startsWith("GMedId")){
+    else if(str.startsWith("GMsgPD")){
+            getMessageByPatDoc(arr[1].toLong(),arr[2].toLong());
+    }else if(str.startsWith("GMedId")){
         getMedicineById(arr[1].toLong());
     }else if(str.startsWith("GMsgNm")){
         getMedicineByName(arr[1]);
@@ -363,16 +360,8 @@ void ServerSocketThread::getTestResultsByPatient(long id){
 }
 
 //msg <patid> <docid> <time> <dir> <text> <read>
-void ServerSocketThread::getMessageAsPatient(long id){
-    auto lst=dbop->queryChatRecordByPatientId(id);
-    foreach(auto result,lst)
-    socket->write(NetUtils::wrapStrings({"msg",
-        std::to_string(result.patientId),std::to_string(result.doctorId),
-        std::to_string(result.timeStamp),std::to_string(result.sendDirection),
-        result.message.toStdString(),result.isRead?"true":"false"}));
-}
-void ServerSocketThread::getMessageAsDoctor(long id){
-    auto lst=dbop->queryChatRecordByDoctorId(id);
+void ServerSocketThread::getMessageByPatDoc(long patientId,long doctorId){
+    auto lst=dbop->queryChatRecordByPatientIdAndDoctorId(patientId,doctorId);
     foreach(auto result,lst)
     socket->write(NetUtils::wrapStrings({"msg",
         std::to_string(result.patientId),std::to_string(result.doctorId),
@@ -455,7 +444,6 @@ void ServerSocketThread::setMedicine(NetUtils::Medicine data){
     }
 }
 
-<<<<<<< Updated upstream
 //v <bool>
 void ServerSocketThread::verifyMedicineWithId(long id){
     bool result=dbop->queryMedicineById(id).length()>0;
@@ -465,6 +453,3 @@ void ServerSocketThread::verifymedicineWithName(QString name){
     bool result=dbop->queryMedicineByName(name).length()>0;
     socket->write(NetUtils::wrapStrings({"v",result?"true":"false"}));
 }
-=======
-
->>>>>>> Stashed changes
