@@ -22,7 +22,7 @@ private:
 private slots:
     void networkReply(QNetworkReply*);
 signals:
-    void aiReply(QString text);
+    void aiReply(QString);
 };
 
 #endif // QWENCLIENT_H

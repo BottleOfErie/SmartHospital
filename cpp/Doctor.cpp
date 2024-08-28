@@ -6,6 +6,7 @@
 #include <h/EditMedicalRecord.h>
 #include <h/DoctorEditPersonalInformation.h>
 #include <h/Doctor_patientCommunicationPlatform.h>
+#include <h/qnchatmessage.h>
 #include <QDebug>
 #include "h/usernow.h"
 #include "h/ViewRegistration.h"
@@ -56,6 +57,7 @@ void Doctor::on_pushButton_5_clicked()
 {
     this->close();
     auto doctor_patientCommunicationPlatform=new Doctor_patientCommunicationPlatform;
+    //auto doctor_patientCommunicationPlatform=new QNChatMessage;
     doctor_patientCommunicationPlatform->identity="doctor";
     doctor_patientCommunicationPlatform->show();
 }

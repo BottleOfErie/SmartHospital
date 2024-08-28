@@ -9,6 +9,7 @@ CONFIG += c++11
 
 SOURCES += \
     cpp/ViewRegistration.cpp \
+    cpp/qnchatmessage.cpp \
     cpp/usernow.cpp \
     main.cpp \
     cpp/HealthAssesment.cpp \
@@ -34,6 +35,7 @@ SOURCES += \
 
 HEADERS += \
     h/ViewRegistration.h \
+    h/qnchatmessage.h \
     h/usernow.h \
     h/HealthAssesment.h \
     h/ViewDoctorInformations.h \
@@ -76,7 +78,8 @@ FORMS += \
     ui/ViewDoctorInformations.ui \
     ui/ViewPrescriptionsAndContributions.ui \
     ui/ViewRegistration.ui \
-    ui/mainwindow.ui
+    ui/mainwindow.ui \
+    ui/qnchatmessage.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -85,4 +88,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     B_I.qrc \
-    fin.qrc
+    fin.qrc \
+    chatimg.qrc

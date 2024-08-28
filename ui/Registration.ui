@@ -121,21 +121,6 @@
          <string>请选择就诊时间</string>
         </property>
        </item>
-       <item>
-        <property name="text">
-         <string>明天</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>后天</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>新建项目</string>
-        </property>
-       </item>
       </widget>
      </item>
      <item>

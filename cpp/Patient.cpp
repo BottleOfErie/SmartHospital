@@ -9,11 +9,13 @@
 #include "h/usernow.h"
 #include "h/Registration.h"
 #include "h/PatientEditPersonalInformation.h"
+#include "net/QwenClient.h"
 Patient::Patient(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Patient)
 {
     ui->setupUi(this);
+    connect(&QwenClient::getInstance(),SIGNAL(aiReply(QString)),this,SLOT(aiReply_slot(QString)));
 }
 
 Patient::~Patient()
@@ -86,3 +88,12 @@ void Patient::on_pushButton_clicked()
     pei->show();
 }
 
+
+void Patient::on_pushButton_9_clicked()
+{
+    QwenClient::getInstance().ask(ui->textEdit->toPlainText()+"。我现在正在医院门诊挂号，请你简短地告诉我应该挂什么科室？");
+}
+void Patient::aiReply_slot(QString s)
+{
+    ui->textEdit->setText(s);
+}

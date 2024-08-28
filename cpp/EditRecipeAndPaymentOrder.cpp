@@ -166,13 +166,13 @@ void EditRecipeAndPaymentOrder::addNameItem_slot(NetUtils::PatientData data){
     ui->comboBox->addItem(data.name);
 }
 
-/*void EditRecipeAndPaymentOrder::paintEvent(QPaintEvent *e)
+void EditRecipeAndPaymentOrder::paintEvent(QPaintEvent *e)
 {
     QStyleOption opt;
     opt.init(this);
     QPainter p(this);
     style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
-}*/
+}
 
 
 void EditRecipeAndPaymentOrder::on_comboBox_currentIndexChanged(const QString &arg1)

@@ -240,6 +240,7 @@ void ClientSocket::getAppointmentsByDoctor(long id){
 
 //GMrcPat <id>
 void ClientSocket::getMedicalRecordsByPatient(long id){
+    qDebug("dsb");
     socketSend(NetUtils::wrapStrings({"GMrcPat",std::to_string(id)}));
 }
 
