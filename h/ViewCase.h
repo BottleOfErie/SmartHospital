@@ -19,6 +19,7 @@ public:
 private slots:
     void on_pushButton_clicked();
     void setMedicalRecord_slot(NetUtils::MedicalRecord);
+    void setdoctor_slot(NetUtils::DoctorData);
 
 private:
     Ui::ViewCase *ui;

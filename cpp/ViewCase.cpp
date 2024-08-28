@@ -3,7 +3,8 @@
 #include <h/Patient.h>
 #include "h/usernow.h"
 #include "net/ClientSocket.h"
-int ii=0;
+int ii=0,jj=0;
+QList<QString> doctorname;
 ViewCase::ViewCase(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::ViewCase)
@@ -11,7 +12,7 @@ ViewCase::ViewCase(QWidget *parent) :
     ui->setupUi(this);
     connect(&ClientSocket::getInstance(),SIGNAL(medicalRecord_callback(NetUtils::MedicalRecord)),this,SLOT(setMedicalRecord_slot(NetUtils::MedicalRecord)));
     ClientSocket::getInstance().getMedicalRecordsByPatient(usernow::getId().toLong());
-
+    connect(&ClientSocket::getInstance(),SIGNAL(doctor_callback(NetUtils::DoctorData)),this,SLOT(setdoctor_slot(NetUtils::DoctorData)));
 }
 
 ViewCase::~ViewCase()
@@ -40,13 +41,21 @@ void ViewCase::setMedicalRecord_slot(NetUtils::MedicalRecord record)
    // ui->tableWidget->
             qDebug()<<"dsb"<<ii;
     //ui->tableWidget->item(0,0)->setText(record.);
-    QTableWidgetItem *newItem = new QTableWidgetItem(QString::fromStdString(std::to_string(record.doctorId)));
-    ui->tableWidget->setItem(ii,1,newItem);
-    newItem=new QTableWidgetItem(record.diagnosis);
+    ClientSocket::getInstance().getDoctorDataById(record.doctorId);
+
+
+    QTableWidgetItem *newItem=new QTableWidgetItem(record.diagnosis);
     ui->tableWidget->setItem(ii,2,newItem);
     newItem=new QTableWidgetItem(record.advice);
     ui->tableWidget->setItem(ii,3,newItem);
     newItem=new QTableWidgetItem(record.date);
     ui->tableWidget->setItem(ii,4,newItem);
     ii++;
+}
+void ViewCase::setdoctor_slot(NetUtils::DoctorData data){
+    doctorname.push_back(data.name);
+    qDebug()<<data.name;
+    QTableWidgetItem *newItem = new QTableWidgetItem(doctorname[jj]);
+    ui->tableWidget->setItem(jj,1,newItem);
+    jj++;
 }
