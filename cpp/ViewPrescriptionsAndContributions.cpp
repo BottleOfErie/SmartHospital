@@ -42,23 +42,25 @@ void ViewPrescriptionsAndContributions::setPrescription_slot(NetUtils::Prescript
 
     //int rowCount = ui->tableWidget->rowCount();
    // ui->tableWidget->
-            qDebug()<<"dsb"<<i;
+            qDebug()<<"dsb"<<data.count;
     //ui->tableWidget->item(0,0)->setText(record.);
+    ClientSocket::getInstance().getMedicineById(data.medicineId);
     QTableWidgetItem *newItem ;
-    newItem=new QTableWidgetItem(data.count);
-    ui->tableWidget->setItem(i,2,newItem);
+    newItem=new QTableWidgetItem(QString::fromStdString(std::to_string(data.count)));
+    ui->tableWidget->setItem(i,1,newItem);
     newItem=new QTableWidgetItem(data.advice);
-    ui->tableWidget->setItem(i,3,newItem);
+    ui->tableWidget->setItem(i,2,newItem);
     /*newItem=new QTableWidgetItem(data.date);
     ui->tableWidget->setItem(i,4,newItem);*/
     i++;
 }
 void ViewPrescriptionsAndContributions::setmedicine_slot(NetUtils::Medicine data){
-    medicine_name[jj]=data.name;
-    price[jj]=data.price;
+    qDebug()<<data.name<<" "<<jj;
+    medicine_name.push_back(data.name);
+    price.push_back(data.price);
     QTableWidgetItem *newItem = new QTableWidgetItem(data.name);
-    ui->tableWidget->setItem(jj,1,newItem);
-    newItem = new QTableWidgetItem(data.price);
-    ui->tableWidget->setItem(jj,4,newItem);
+    ui->tableWidget->setItem(jj,0,newItem);
+    newItem = new QTableWidgetItem(QString::fromStdString(std::to_string(data.price)));
+    ui->tableWidget->setItem(jj,3,newItem);
     jj++;
 }
