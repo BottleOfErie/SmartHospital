@@ -103,16 +103,18 @@ void EditRecipeAndPaymentOrder::insertRecipe(){
     QString nowPatient = ui->comboBox->currentText();
     patientPrescriptions[nowPatient].append({"","","",""});
     qDebug()<<ui->tableWidget->rowCount()<<newRow<<ui->tableWidget->columnCount();
-    ui->tableWidget->setItem(newRow, 0, new QTableWidgetItem(""));// 将信息插入到新行的第一列
-    ui->tableWidget->setItem(newRow, 1, new QTableWidgetItem(""));
-    ui->tableWidget->setItem(newRow, 2, new QTableWidgetItem(""));
-    ui->tableWidget->setItem(newRow, 3, new QTableWidgetItem(""));
-    QTableWidgetItem *item = ui->tableWidget->item(newRow, 3);
-    qDebug()<<item;
+    QTableWidgetItem * ptr=new QTableWidgetItem();
+    qDebug("%d",ptr);
+    ui->tableWidget->setItem(newRow, 0, nullptr);// 将信息插入到新行的第一列
+    //ui->tableWidget->setItem(newRow, 1, new QTableWidgetItem(""));
+    //ui->tableWidget->setItem(newRow, 2, new QTableWidgetItem(""));
+    //ui->tableWidget->setItem(newRow, 3, new QTableWidgetItem(""));
+    //QTableWidgetItem *item = ui->tableWidget->item(newRow, 3);
+    //qDebug()<<item;
     // 设置该单元格为只读
-    if (item) {
-        item->setFlags(item->flags() & ~Qt::ItemIsEditable);
-    }
+    //if (item) {
+        //item->setFlags(item->flags() & ~Qt::ItemIsEditable);
+    //}
 }
 
 void EditRecipeAndPaymentOrder::deleteRecipe(){
