@@ -34,6 +34,7 @@ private slots:
 
     void on_tableWidget_itemChanged(QTableWidgetItem *item);
     void closeWindow();
+    void verify_slot(bool flag);
 
 private:
     Ui::EditRecipeAndPaymentOrder *ui;
@@ -45,6 +46,7 @@ private:
     void submit();
     bool CheckEmpty();
     bool isAddRow;
+    QMap<long,NetUtils::Appointment> nowState;
 };
 
 #endif // EDITRECIPEANDPAYMENTORDER_H

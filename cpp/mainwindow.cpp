@@ -81,7 +81,7 @@ void MainWindow::loginCallback_slot(long long id){
         usernow::setId(QString::number(id));
         if (ui->checkBox_2->isChecked()==true){
             // 进入患者主界面
-            QMessageBox::information(NULL, "登陆成功", "登陆成功！！！", QMessageBox::Yes);
+            QMessageBox::information(NULL, "登录成功", "登录成功！！！", QMessageBox::Yes);
             this->close();
             Patient *patientWidget = new Patient();
             patientWidget->show();
@@ -89,7 +89,7 @@ void MainWindow::loginCallback_slot(long long id){
         else if(ui->checkBox->isChecked()==true){
             // 进入医生主界面
             this->close();
-            QMessageBox::information(NULL, "登陆成功", "登陆成功！！！", QMessageBox::Yes);
+            QMessageBox::information(NULL, "登录成功", "登录成功！！！", QMessageBox::Yes);
             Doctor *doctorWidget = new Doctor();
             doctorWidget->show();
         }
