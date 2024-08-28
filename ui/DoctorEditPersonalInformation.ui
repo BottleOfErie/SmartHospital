@@ -98,37 +98,27 @@
         <widget class="QComboBox" name="comboBox">
          <item>
           <property name="text">
-           <string>新建项目</string>
+           <string>请选择职称</string>
           </property>
          </item>
          <item>
           <property name="text">
-           <string>新建项目</string>
+           <string>初级</string>
           </property>
          </item>
          <item>
           <property name="text">
-           <string>新建项目</string>
+           <string>中级</string>
           </property>
          </item>
          <item>
           <property name="text">
-           <string>新建项目</string>
+           <string>副高级</string>
           </property>
          </item>
          <item>
           <property name="text">
-           <string>新建项目</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>新建项目</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>新建项目</string>
+           <string>正高级</string>
           </property>
          </item>
         </widget>

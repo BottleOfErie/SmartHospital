@@ -20,9 +20,9 @@ Register::Register(QWidget *parent) :
 //    for (QObject* child: ui->formLayout_5->children()) {
 //        static_cast<QWidget*>(child)->hide();//->setHidden(true);
 //    }
-    for (QObject* child: ui->formLayout_2->children()) {
-        static_cast<QWidget*>(child)->hide();//->setHidden(true);
-    }
+//    for (QObject* child: ui->formLayout_2->children()) {
+//        static_cast<QWidget*>(child)->hide();//->setHidden(true);
+//    }
 }
 
 Register::~Register()
@@ -41,12 +41,12 @@ void Register::on_checkBox_toggled(bool checked)
 {
     if (checked) {
         ui->checkBox_2->setChecked(false);
-        for (QObject* child: ui->formLayout_5->children()) {
-            static_cast<QWidget*>(child)->setHidden(false);
-        }
-        for (QObject* child: ui->formLayout_2->children()) {
-            static_cast<QWidget*>(child)->setHidden(true);
-        }
+//        for (QObject* child: ui->formLayout_5->children()) {
+//            static_cast<QWidget*>(child)->setHidden(false);
+//        }
+//        for (QObject* child: ui->formLayout_2->children()) {
+//            static_cast<QWidget*>(child)->setHidden(true);
+//        }
     }
 }
 
@@ -54,12 +54,12 @@ void Register::on_checkBox_2_toggled(bool checked)
 {
     if (checked) {
         ui->checkBox->setChecked(false);
-        for (QObject* child: ui->formLayout_5->children()) {
-            static_cast<QWidget*>(child)->setHidden(true);
-        }
-        for (QObject* child: ui->formLayout_2->children()) {
-            static_cast<QWidget*>(child)->setHidden(false);
-        }
+//        for (QObject* child: ui->formLayout_5->children()) {
+//            static_cast<QWidget*>(child)->setHidden(true);
+//        }
+//        for (QObject* child: ui->formLayout_2->children()) {
+//            static_cast<QWidget*>(child)->setHidden(false);
+//        }
     }
 }
 
