@@ -3,12 +3,9 @@
 
 #include <QWidget>
 #include "usernow.h"
+#include "h/Placeholders.h"
 #include "net/NetUtils.h"
 #include "net/ClientSocket.h"
-
-#define SECTION_PLACEHOLDER "请选择就诊科室"
-#define DOCTOR_PLACEHOLDER "请选择医生"
-#define DATETIME_PLACEHOLDER "请选择就诊时间"
 
 namespace Ui {
 class Registration;

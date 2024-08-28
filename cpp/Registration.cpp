@@ -3,8 +3,6 @@
 
 #include <h/Patient.h>
 
-#include <net/ClientSocket.h>
-
 Registration::Registration(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Registration)
@@ -57,7 +55,7 @@ void Registration::on_comboBox_currentIndexChanged(const QString &arg1)
 {
     ui->comboBox_2->clear();
     ui->comboBox_2->addItem(DOCTOR_PLACEHOLDER);
-    if (arg1 != SECTION_PLACEHOLDER) {
+    if (arg1 != REG_SECTION_PLACEHOLDER) {
         ClientSocket::getInstance().getDoctorsBySection(arg1);
     }
 }

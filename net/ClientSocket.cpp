@@ -1,20 +1,12 @@
 #include <string>
 #include<QHostAddress>
+#include <QTime>
 #include"h/usernow.h"
 #include "ClientSocket.h"
 
 ClientSocket::ClientSocket(){
-    socket=new QTcpSocket(this);
-
-    connect(socket,SIGNAL(readyRead()),this,SLOT(readyRead_slot()));
-    connect(socket,SIGNAL(connected()),this,SLOT(connected_slot()));
-    connect(socket,SIGNAL(disconnected()),this,SLOT(disconnected_slot()));
-    connect(socket,SIGNAL(error(QAbstractSocket::SocketError)),
-        this,SLOT(error_slot(QAbstractSocket::SocketError)));
 
     connect(this,SIGNAL(login_callback(long long)),this,SLOT(login_slot(long long)));
-
-    //connect(&ClientSocket::getInstance(),SIGNAL(login_callback(bool)),this,SLOT(login_slot(bool)));
 }
 
 ClientSocket::~ClientSocket(){
@@ -28,27 +20,51 @@ ClientSocket& ClientSocket::getInstance(){
 }
 
 void ClientSocket::connectToIP(QString ip, int port){
-    socket->connectToHost(QHostAddress(ip),port);
+    socketIp=ip;
+    socketPort=port;
+    this->start();
 }
 
-void ClientSocket::readyRead_slot(){
-    buffer+=socket->readAll();
-    int pre=buffer.indexOf(NetUtils::messagePrefix);
-    if(pre>=0){
-        buffer=buffer.mid(pre);
-        int suff=buffer.indexOf(NetUtils::messageSuffix);
-        if(suff>0){
-            doCommand(
-                        buffer.mid(
-                            NetUtils::messagePrefix.length()
-                            ,suff-NetUtils::messagePrefix.length()));
-            buffer=buffer.mid(suff);
+void ClientSocket::socketSend(QByteArray data){
+    sendBuffer+=data;
+}
+
+void ClientSocket::run(){
+    socket=new QTcpSocket();
+
+    connect(socket,SIGNAL(connected()),this,SLOT(connected_slot()));
+    connect(socket,SIGNAL(disconnected()),this,SLOT(disconnected_slot()));
+    connect(socket,SIGNAL(error(QAbstractSocket::SocketError)),this,SLOT(error_slot(QAbstractSocket::SocketError)));
+
+    socket->connectToHost(QHostAddress(socketIp),socketPort);
+    while(true){
+        if(sendBuffer.length()>0){
+            socket->write(sendBuffer);
+            //qDebug("Out TIme:%s %s",QTime::currentTime().toString("HH:mm:ss:zzz").toStdString().data(),sendBuffer.toStdString().data());
+            sendBuffer.clear();
+        }
+        if(socket->waitForReadyRead(100)){
+            buffer+=socket->readAll();
+            //qDebug("In TIme:%s %s",QTime::currentTime().toString("HH:mm:ss:zzz").toStdString().data(),buffer.toStdString().data());
+            int pre=buffer.indexOf(NetUtils::messagePrefix);
+            while(pre>=0){
+                buffer=buffer.mid(pre);
+                int suff=buffer.indexOf(NetUtils::messageSuffix);
+                if(suff>0){
+                    doCommand(
+                                buffer.mid(
+                                    NetUtils::messagePrefix.length()
+                                    ,suff-NetUtils::messagePrefix.length()));
+                    buffer=buffer.mid(suff);
+                }
+                pre=buffer.indexOf(NetUtils::messagePrefix);
+            }
         }
     }
 }
 
 void ClientSocket::login_slot(long long result){
-       qDebug("ClientLogin:%s",result>0?"Success":"Failure");
+    qDebug("ClientLogin:%s",result>0?"Success":"Failure");
 }
 
 void ClientSocket::connected_slot(){
@@ -62,15 +78,16 @@ void ClientSocket::disconnected_slot(){
 }
 
 void ClientSocket::error_slot(QAbstractSocket::SocketError socketError){
-    qDebug("ClientSocket:Error %d\n",socketError);
+    if(socketError!=5)
+        qDebug("ClientSocket:Error %d",socketError);
 }
 
 void ClientSocket::doCommand(QString command){
     if(command.compare("ping")!=0)
-        qDebug("Client Taken:%s",command.toStdString().data());
+        qDebug("[%s]Client:%s",QTime::currentTime().toString("HH:mm:ss:zzz").toStdString().data(),command.toStdString().data());
     auto arr=command.split(NetUtils::messagePartition);
     if(command.startsWith("ping")){
-        socket->write(NetUtils::wrapMessage("ping"));
+        socketSend(NetUtils::wrapMessage("ping"));
     }else if(command.startsWith("login")){
         emit login_callback(arr[1].toLongLong());
     }else if(command.startsWith("RPas")){
@@ -166,109 +183,109 @@ void ClientSocket::doCommand(QString command){
 
 //RDoc
 void ClientSocket::registerAsDoctor(QString nationalId, QString passwd){
-    socket->write(NetUtils::wrapStrings({"RDoc",nationalId.toStdString(),passwd.toStdString()}));
+    socketSend(NetUtils::wrapStrings({"RDoc",nationalId.toStdString(),passwd.toStdString()}));
 }
 
 //RPat
 void ClientSocket::registerAsPatient(QString nationalId, QString passwd){
-    socket->write(NetUtils::wrapStrings({"RPat",nationalId.toStdString(),passwd.toStdString()}));
+    socketSend(NetUtils::wrapStrings({"RPat",nationalId.toStdString(),passwd.toStdString()}));
 }
 
 //login <id> <passwd> <type>
 void ClientSocket::loginC(QString id, QString passwd,int type){
     auto typestr=std::to_string(type);
-    socket->write(NetUtils::wrapStrings({"login",id.toStdString(),passwd.toStdString(),typestr}));
+    socketSend(NetUtils::wrapStrings({"login",id.toStdString(),passwd.toStdString(),typestr}));
 }
 
 //RP <id> <old> <new>
 void ClientSocket::resetPassword(long id, QString oldpasswd, QString newpasswd){
-    socket->write(NetUtils::wrapStrings({"RP",std::to_string(id),
+    socketSend(NetUtils::wrapStrings({"RP",std::to_string(id),
         oldpasswd.toStdString(),newpasswd.toStdString()}));
 }
 
 //GPatId <id>
 void ClientSocket::getPatientById(long id){
-    socket->write(NetUtils::wrapStrings({"GPatId",std::to_string(id)}));
+    socketSend(NetUtils::wrapStrings({"GPatId",std::to_string(id)}));
 }
 
 //GPatNm <id>
 void ClientSocket::getPatientByNationalId(QString nationalId){
-    socket->write(NetUtils::wrapStrings({"GPatNm",nationalId.toStdString()}));
+    socketSend(NetUtils::wrapStrings({"GPatNm",nationalId.toStdString()}));
 }
 
 //GDocId <id>
 void ClientSocket::getDoctorDataById(long id){
-    socket->write(NetUtils::wrapStrings({"GDocId",std::to_string(id)}));
+    socketSend(NetUtils::wrapStrings({"GDocId",std::to_string(id)}));
 }
 
 //GDocNm <name>
 void ClientSocket::getDoctorByNationalId(QString nationalId){
-    socket->write(NetUtils::wrapStrings({"GDocNm",nationalId.toStdString()}));
+    socketSend(NetUtils::wrapStrings({"GDocNm",nationalId.toStdString()}));
 }
 
 //GDosSt <section>
 void ClientSocket::getDoctorsBySection(QString section){
-    socket->write(NetUtils::wrapStrings({"GDosSt",section.toStdString()}));
+    socketSend(NetUtils::wrapStrings({"GDosSt",section.toStdString()}));
 }
 
 //GAppPat <id>
 void ClientSocket::getAppointmentsByPatient(long id){
-    socket->write(NetUtils::wrapStrings({"GAppPat",std::to_string(id)}));
+    socketSend(NetUtils::wrapStrings({"GAppPat",std::to_string(id)}));
 }
 
 //GAppDoc <id>
 void ClientSocket::getAppointmentsByDoctor(long id){
-    socket->write(NetUtils::wrapStrings({"GAppDoc",std::to_string(id)}));
+    socketSend(NetUtils::wrapStrings({"GAppDoc",std::to_string(id)}));
 }
 
 //GMrcPat <id>
 void ClientSocket::getMedicalRecordsByPatient(long id){
-    socket->write(NetUtils::wrapStrings({"GMrcPat",std::to_string(id)}));
+    socketSend(NetUtils::wrapStrings({"GMrcPat",std::to_string(id)}));
 }
 
 //GMrcDoc <id>
 void ClientSocket::getMedicalRecordsByDoctor(long id){
-    socket->write(NetUtils::wrapStrings({"GMrcDoc",std::to_string(id)}));
+    socketSend(NetUtils::wrapStrings({"GMrcDoc",std::to_string(id)}));
 }
 
 //GPstPat <id>
 void ClientSocket::getPrescriptionsByPatient(long id){
-    socket->write(NetUtils::wrapStrings({"GPstPat",std::to_string(id)}));
+    socketSend(NetUtils::wrapStrings({"GPstPat",std::to_string(id)}));
 }
 
 //GPstDoc <id>
 void ClientSocket::getPrescriptionsByDoctor(long id){
-    socket->write(NetUtils::wrapStrings({"GPstDoc",std::to_string(id)}));
+    socketSend(NetUtils::wrapStrings({"GPstDoc",std::to_string(id)}));
 }
 
 //GTrs <id>
 void ClientSocket::getTestResultsByPatient(long id){
-    socket->write(NetUtils::wrapStrings({"GTrs",std::to_string(id)}));
+    socketSend(NetUtils::wrapStrings({"GTrs",std::to_string(id)}));
 }
 
 //GMsgDoc <id>
 void ClientSocket::getMessageAsDoctor(long id){
-    socket->write(NetUtils::wrapStrings({"GMsgDoc",std::to_string(id)}));
+    socketSend(NetUtils::wrapStrings({"GMsgDoc",std::to_string(id)}));
 }
 
 //GMsgPat <id>
 void ClientSocket::getMessageAsPatient(long id){
-    socket->write(NetUtils::wrapStrings({"GMsgPat",std::to_string(id)}));
+    socketSend(NetUtils::wrapStrings({"GMsgPat",std::to_string(id)}));
 }
 
 //GMedId <id>
 void ClientSocket::getMedicineById(long id){
-    socket->write(NetUtils::wrapStrings({"GMedId",std::to_string(id)}));
+    socketSend(NetUtils::wrapStrings({"GMedId",std::to_string(id)}));
 }
 
 //GMedNm <name>
 void ClientSocket::getMedicineByName(QString name){
-    socket->write(NetUtils::wrapStrings({"GMedNm",name.toStdString()}));
+    socketSend(NetUtils::wrapStrings({"GMedNm",name.toStdString()}));
 }
 
 //SPat <id> <name> <nationalId> <sex> <birthday> <phoneNumber> <history>
 void ClientSocket::submitPatientData(NetUtils::PatientData data){
-    socket->write(NetUtils::wrapStrings({"SPat",
+    socketSend(NetUtils::wrapStrings({"SPat",
         std::to_string(data.id),data.name.toStdString(),data.nationId.toStdString(),
         std::to_string(data.gender),data.birthday.toStdString(),
         data.phoneNumber.toStdString(),data.history.toStdString()
@@ -277,7 +294,7 @@ void ClientSocket::submitPatientData(NetUtils::PatientData data){
 
 //SDoc <id> <name> <nationalId> <sex> <birthday> <phoneNumber> <jobTitle> <organization> <section> <workingId>
 void ClientSocket::submitDoctorData(NetUtils::DoctorData data){
-    socket->write(NetUtils::wrapStrings({"SDoc",
+    socketSend(NetUtils::wrapStrings({"SDoc",
         std::to_string(data.id),data.name.toStdString(),data.nationId.toStdString(),
         std::to_string(data.gender),data.birthday.toStdString(),data.phoneNumber.toStdString(),
         data.jobTitle.toStdString(),data.organization.toStdString(),data.section.toStdString(),
@@ -287,28 +304,28 @@ void ClientSocket::submitDoctorData(NetUtils::DoctorData data){
 
 //SApp <patid> <docid> <date> <state>
 void ClientSocket::submitAppointment(NetUtils::Appointment data){
-    socket->write(NetUtils::wrapStrings({"SApp",
+    socketSend(NetUtils::wrapStrings({"SApp",
         std::to_string(data.patientId),std::to_string(data.doctorId),
         data.time.toStdString(),std::to_string(data.state)}));
 }
 
 //SMrc <patid> <docid> <time> <diag> <advc>
 void ClientSocket::submitMedicalRecord(NetUtils::MedicalRecord data){
-    socket->write(NetUtils::wrapStrings({"SMrc",
+    socketSend(NetUtils::wrapStrings({"SMrc",
         std::to_string(data.patientId),std::to_string(data.doctorId),data.date.toStdString(),
         data.diagnosis.toStdString(),data.advice.toStdString()}));
 }
 
 //SPst <patid> <docid> <date> <medid> <cnt> <advc>
 void ClientSocket::submitPrescription(NetUtils::Prescription data){
-    socket->write(NetUtils::wrapStrings({"SPst",
+    socketSend(NetUtils::wrapStrings({"SPst",
         std::to_string(data.patientId),std::to_string(data.doctorId),data.date.toStdString(),
         std::to_string(data.medicineId),std::to_string(data.count),data.advice.toStdString()}));
 }
 
 //STrs <patid> <date> <height> <weight> <HR> <hBP> <lBP> <VC>
 void ClientSocket::submitTestResult(NetUtils::TestResult data){
-    socket->write(NetUtils::wrapStrings({"STrs",
+    socketSend(NetUtils::wrapStrings({"STrs",
         std::to_string(data.patientId),data.date.toStdString(),
         std::to_string(data.height),std::to_string(data.weight),
         std::to_string(data.heartRate),std::to_string(data.highBP),
@@ -317,7 +334,7 @@ void ClientSocket::submitTestResult(NetUtils::TestResult data){
 
 //SMsg <patid> <docid> <time> <dir> <text> <read>
 void ClientSocket::submitMessage(NetUtils::Message data){
-    socket->write(NetUtils::wrapStrings({"SMsg",
+    socketSend(NetUtils::wrapStrings({"SMsg",
         std::to_string(data.patientId),std::to_string(data.doctorId),
         std::to_string(data.timeStamp),std::to_string(data.sendDirection),
         data.message.toStdString(),data.isRead?"true":"false"}));
@@ -325,7 +342,7 @@ void ClientSocket::submitMessage(NetUtils::Message data){
 
 //SMed <id> <name> <price> <cnt> <manu> <batch>
 void ClientSocket::submitMedicine(NetUtils::Medicine data){
-    socket->write(NetUtils::wrapStrings({"SMed",
+    socketSend(NetUtils::wrapStrings({"SMed",
         std::to_string(data.medicineId),data.name.toStdString(),
         std::to_string(data.price),std::to_string(data.count),
         data.manufactuer.toStdString(),data.batch.toStdString()}));
