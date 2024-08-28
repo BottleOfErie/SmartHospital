@@ -443,3 +443,13 @@ void ServerSocketThread::setMedicine(NetUtils::Medicine data){
         dbop->insertMedicine(data.name,data.price,data.count,data.manufactuer,data.batch);
     }
 }
+
+//v <bool>
+void ServerSocketThread::verifyMedicineWithId(long id){
+    bool result=dbop->queryMedicineById(id).length()>0;
+    socket->write(NetUtils::wrapStrings({"v",result?"true":"false"}));
+}
+void ServerSocketThread::verifymedicineWithName(QString name){
+    bool result=dbop->queryMedicineByName(name).length()>0;
+    socket->write(NetUtils::wrapStrings({"v",result?"true":"false"}));
+}

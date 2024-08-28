@@ -88,7 +88,10 @@ void ClientSocket::doCommand(QString command){
     auto arr=command.split(NetUtils::messagePartition);
     if(command.startsWith("ping")){
         socketSend(NetUtils::wrapMessage("ping"));
-    }else if(command.startsWith("login")){
+    }else if(command.startsWith("v")){
+        emit verify_callback(arr[1].compare("true")==0);
+    }
+    else if(command.startsWith("login")){
         emit login_callback(arr[1].toLongLong());
     }else if(command.startsWith("RPas")){
         emit resetPassword_callback(arr[1].compare("true")==0);
@@ -342,4 +345,14 @@ void ClientSocket::submitMedicine(NetUtils::Medicine data){
         std::to_string(data.medicineId),data.name.toStdString(),
         std::to_string(data.price),std::to_string(data.count),
         data.manufactuer.toStdString(),data.batch.toStdString()}));
+}
+
+//VMedId <id>
+void ClientSocket::verifyMedicineWithId(long id){
+    socketSend(NetUtils::wrapStrings({"VMedId",std::to_string(id)}));
+}
+
+//VMedNm <name>
+void ClientSocket::verifymedicineWithName(QString name){
+    socketSend(NetUtils::wrapStrings({"VMedNm",name.toStdString()}));
 }

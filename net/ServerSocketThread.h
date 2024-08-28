@@ -52,6 +52,9 @@ private:
     void setTestResult(NetUtils::TestResult data);
     void setMessage(NetUtils::Message data);
     void setMedicine(NetUtils::Medicine data);
+
+    void verifyMedicineWithId(long id);
+    void verifymedicineWithName(QString name);
 private slots:
     void doDisconnect_slot();
 signals:
