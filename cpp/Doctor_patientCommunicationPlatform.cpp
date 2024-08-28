@@ -2,10 +2,12 @@
 #include "ui_Doctor_patientCommunicationPlatform.h"
 #include <h/Doctor.h>
 #include <h/Doctor_patientCommunicationPlatform.h>
+#include <h/DoctorPatientCommunicationUserListWidget.h>
 #include <h/Patient.h>
 #include "h/usernow.h"
 #include <QDateTime>
 #include <QDebug>
+#include <QMessageBox>
 #include <net/ClientSocket.h>
 #include <QTimer>
 Doctor_patientCommunicationPlatform::Doctor_patientCommunicationPlatform(QWidget *parent) :
@@ -18,15 +20,23 @@ Doctor_patientCommunicationPlatform::Doctor_patientCommunicationPlatform(QWidget
     ui->listWidget->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
     waitTime=8000;
+    patientId=doctorId=0;
     timer=new QTimer(this);
     connect(timer,SIGNAL(timeout()),this,SLOT(timerOutGetMsg_slot()));
     timer->start(waitTime);
 
+    connect(&ClientSocket::getInstance(),SIGNAL(appointment_callback(NetUtils::Appointment)),this,SLOT(getFriendList_slot(NetUtils::Appointment)));
+    connect(&ClientSocket::getInstance(),SIGNAL(doctor_callback(NetUtils::DoctorData)),this,SLOT(getDoctorFriend_slot(NetUtils::DoctorData)));
+    connect(&ClientSocket::getInstance(),SIGNAL(patient_callback(NetUtils::PatientData)),this,SLOT(getPatientFriend_slot(NetUtils::PatientData)));
+
+
     connect(&ClientSocket::getInstance(),SIGNAL(message_callback(NetUtils::Message)),this,SLOT(getMessage_slot(NetUtils::Message)));
     if(identity.compare("patient")==0){
-        ClientSocket::getInstance().getMessageAsPatient(usernow::getId().toLong());
+        patientId=usernow::getId().toLong();
+        ClientSocket::getInstance().getAppointmentsByPatient(patientId);
     }else{
-        ClientSocket::getInstance().getMessageAsDoctor(usernow::getId().toLong());
+        doctorId=usernow::getId().toLong();
+        ClientSocket::getInstance().getAppointmentsByDoctor(doctorId);
     }
 }
 
@@ -50,6 +60,12 @@ void Doctor_patientCommunicationPlatform::on_pushButton_2_clicked()
 }
 void Doctor_patientCommunicationPlatform::on_pushButton_clicked()
 {
+    if(patientId<=0||doctorId<=0){
+        QMessageBox::warning(this,"","请选择聊天对象");
+        return;
+    }
+
+
     QString msg = ui->textEdit->toPlainText();
     ui->textEdit->setText("");
     QString time = QString::number(QDateTime::currentDateTime().toTime_t()); //时间戳
@@ -60,13 +76,11 @@ void Doctor_patientCommunicationPlatform::on_pushButton_clicked()
     dealMessage(messageW, item, msg, time, QNChatMessage::User_Me);
 
     NetUtils::Message data;
+    data.patientId=patientId;
+    data.doctorId=doctorId;
     if(identity.compare("patient")==0){
-        data.patientId=usernow::getId().toLong();
-        data.doctorId=1;//TODO connect
         data.sendDirection=0;
     }else{
-        data.patientId=1;
-        data.doctorId=usernow::getId().toLong();
         data.sendDirection=1;
     }
     data.timeStamp=QDateTime::currentDateTime().toTime_t();
@@ -79,10 +93,8 @@ void Doctor_patientCommunicationPlatform::on_pushButton_clicked()
 }
 
 void Doctor_patientCommunicationPlatform::timerOutGetMsg_slot(){
-    if(identity.compare("patient")==0){
-        ClientSocket::getInstance().getMessageAsPatient(usernow::getId().toLong());
-    }else{
-        ClientSocket::getInstance().getMessageAsDoctor(usernow::getId().toLong());
+    if(patientId>0&&doctorId>0){
+        ClientSocket::getInstance().getMessageByPatDoc(patientId,doctorId);
     }
     timer->start(waitTime);
 }
@@ -176,3 +188,41 @@ void Doctor_patientCommunicationPlatform::paintEvent(QPaintEvent *e)
     QPainter p(this);
     style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
 }
+
+void Doctor_patientCommunicationPlatform::getFriendList_slot(NetUtils::Appointment data){
+    auto item=new QListWidgetItem("",ui->listWidget_2);
+
+    if(identity=="patient"){
+        idToItem.insert(data.doctorId,item);
+        ClientSocket::getInstance().getDoctorDataById(data.doctorId);
+    }
+    else{
+        idToItem.insert(data.patientId,item);
+        ClientSocket::getInstance().getPatientById(data.patientId);
+    }
+}
+
+void Doctor_patientCommunicationPlatform::getDoctorFriend_slot(NetUtils::DoctorData data){
+    auto wid=new DoctorPatientCommunicationUserListWidget(data);
+    ui->listWidget_2->setItemWidget(idToItem[data.id],wid);
+}
+void Doctor_patientCommunicationPlatform::getPatientFriend_slot(NetUtils::PatientData data){
+    auto wid=new DoctorPatientCommunicationUserListWidget(data);
+    ui->listWidget_2->setItemWidget(idToItem[data.id],wid);
+}
+
+void Doctor_patientCommunicationPlatform::on_listWidget_2_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)
+{
+    ui->listWidget->clear();
+    msgs.clear();
+
+    if(identity=="patient"){
+        doctorId=((DoctorPatientCommunicationUserListWidget*)ui->listWidget_2->itemWidget(current))->id;
+    }
+    else{
+        patientId=((DoctorPatientCommunicationUserListWidget*)ui->listWidget_2->itemWidget(current))->id;
+    }
+    ClientSocket::getInstance().getMessageByPatDoc(patientId,doctorId);
+
+}
+

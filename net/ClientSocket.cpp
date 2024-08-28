@@ -264,14 +264,9 @@ void ClientSocket::getTestResultsByPatient(long id){
     socketSend(NetUtils::wrapStrings({"GTrs",std::to_string(id)}));
 }
 
-//GMsgDoc <id>
-void ClientSocket::getMessageAsDoctor(long id){
-    socketSend(NetUtils::wrapStrings({"GMsgDoc",std::to_string(id)}));
-}
-
-//GMsgPat <id>
-void ClientSocket::getMessageAsPatient(long id){
-    socketSend(NetUtils::wrapStrings({"GMsgPat",std::to_string(id)}));
+//GMsgPD <pId> <dId>
+void ClientSocket::getMessageByPatDoc(long patientId, long doctorId){
+    socketSend(NetUtils::wrapStrings({"GMsgPD",std::to_string(patientId),std::to_string(doctorId)}));
 }
 
 //GMedId <id>
