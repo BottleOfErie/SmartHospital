@@ -1,0 +1,9 @@
+#ifndef PLACEHOLDERS_H
+#define PLACEHOLDERS_H
+
+#define REG_SECTION_PLACEHOLDER "请选择就诊科室"
+#define SECTION_PLACEHOLDER "请选择科室"
+#define DOCTOR_PLACEHOLDER "请选择医生"
+#define DATETIME_PLACEHOLDER "请选择就诊时间"
+
+#endif // PLACEHOLDERS_H
