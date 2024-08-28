@@ -87,6 +87,9 @@ void EditRecipeAndPaymentOrder::submit(){
     closeWindow();
 }
 bool EditRecipeAndPaymentOrder::CheckEmpty(){
+    if (ui->comboBox->currentText()==""){
+        return true;
+    }
     for (int i = 0; i < ui->tableWidget->rowCount(); ++i) {
         for (int j = 0; j < 4; ++j) {
             QTableWidgetItem *item = ui->tableWidget->item(i, j);
@@ -154,6 +157,8 @@ void EditRecipeAndPaymentOrder::on_pushButton_2_clicked()
 }
 
 void EditRecipeAndPaymentOrder::getPatientName_slot(NetUtils::Appointment data){
+    if(data.state)
+        return;
     nowState.insert(data.patientId,data);
     idToTime.insert(data.patientId,data.time);
     ClientSocket::getInstance().getPatientById(data.patientId);
