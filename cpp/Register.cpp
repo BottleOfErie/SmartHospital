@@ -16,6 +16,8 @@ Register::Register(QWidget *parent) :
     ui->checkBox_2->setChecked(false);
     ui->radioButton->setChecked(false);
     ui->radioButton_2->setChecked(false);
+
+    connect(&ClientSocket::getInstance(),SIGNAL(register_callback(long long)),this,SLOT(registerCallbackSlot(long long)));
 }
 
 Register::~Register()
@@ -64,11 +66,9 @@ void Register::on_registerButton_clicked()
             QMessageBox::warning(this,"ERROR","请选择你是医生还是患者！！");
         }
         else if (ui->checkBox->isChecked()==true){
-            connect(&ClientSocket::getInstance(),SIGNAL(register_callback(long long)),this,SLOT(registerCallbackSlot(long long)));
             ClientSocket::getInstance().registerAsDoctor(username,password);
         }
         else{
-            connect(&ClientSocket::getInstance(),SIGNAL(register_callback(long long)),this,SLOT(registerCallbackSlot(long long)));
             ClientSocket::getInstance().registerAsPatient(username,password);
         }
     }
