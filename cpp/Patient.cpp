@@ -15,7 +15,7 @@ Patient::Patient(QWidget *parent) :
     ui(new Ui::Patient)
 {
     ui->setupUi(this);
-    connect(&QwenClient::getInstance(),SIGNAL(aiReply(Qstring)),this,SLOT(aiReply_slot(Qstring)));
+    connect(&QwenClient::getInstance(),SIGNAL(aiReply(QString)),this,SLOT(aiReply_slot(QString)));
 }
 
 Patient::~Patient()
