@@ -3,7 +3,7 @@
 #include <h/Patient.h>
 #include "h/usernow.h"
 #include "net/ClientSocket.h"
-int i=0;
+int ii=0;
 ViewCase::ViewCase(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::ViewCase)
@@ -27,7 +27,7 @@ void ViewCase::paintEvent(QPaintEvent *e)
 
 void ViewCase::on_pushButton_clicked()
 {
-    i=0;
+    ii=0;
     this->close();
     auto patient= new Patient;
     patient->show();
@@ -37,15 +37,15 @@ void ViewCase::setMedicalRecord_slot(NetUtils::MedicalRecord record)
 
     //int rowCount = ui->tableWidget->rowCount();
    // ui->tableWidget->
-            qDebug()<<"dsb"<<i;
+            qDebug()<<"dsb"<<ii;
     //ui->tableWidget->item(0,0)->setText(record.);
     QTableWidgetItem *newItem = new QTableWidgetItem(QString::fromStdString(std::to_string(record.doctorId)));
-    ui->tableWidget->setItem(i,1,newItem);
+    ui->tableWidget->setItem(ii,1,newItem);
     newItem=new QTableWidgetItem(record.diagnosis);
-    ui->tableWidget->setItem(i,2,newItem);
+    ui->tableWidget->setItem(ii,2,newItem);
     newItem=new QTableWidgetItem(record.advice);
-    ui->tableWidget->setItem(i,3,newItem);
+    ui->tableWidget->setItem(ii,3,newItem);
     newItem=new QTableWidgetItem(record.date);
-    ui->tableWidget->setItem(i,4,newItem);
-    i++;
+    ui->tableWidget->setItem(ii,4,newItem);
+    ii++;
 }
