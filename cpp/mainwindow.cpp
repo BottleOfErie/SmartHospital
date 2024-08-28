@@ -18,6 +18,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     ui->checkBox->setChecked(false);
     ui->checkBox_2->setChecked(false);
+
+    connect(&ClientSocket::getInstance(),SIGNAL(login_callback(long long)),this,SLOT(loginCallback_slot(long long)));
 }
 
 MainWindow::~MainWindow()
@@ -38,7 +40,7 @@ void MainWindow::on_LoginButton_clicked()
         QMessageBox::warning(this,"","请选择你是医生还是患者！！");
     }
     else {
-        connect(&ClientSocket::getInstance(),SIGNAL(login_callback(long long)),this,SLOT(loginCallback_slot(long long)));
+        //connect(&ClientSocket::getInstance(),SIGNAL(login_callback(long long)),this,SLOT(loginCallback_slot(long long)));
         ClientSocket::getInstance().loginC(username,password,ui->checkBox->isChecked()?1:0);
     }
 }
@@ -74,7 +76,7 @@ void MainWindow::on_checkBox_2_toggled(bool checked)
 }
 
 void MainWindow::loginCallback_slot(long long id){
-    disconnect(&ClientSocket::getInstance(),SIGNAL(login_callback(long long)),this,SLOT(loginCallback_slot(long long)));
+    //disconnect(&ClientSocket::getInstance(),SIGNAL(login_callback(long long)),this,SLOT(loginCallback_slot(long long)));
     if(id>0){
         usernow::setId(QString::number(id));
         if (ui->checkBox_2->isChecked()==true){
