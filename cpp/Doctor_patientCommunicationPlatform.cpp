@@ -6,16 +6,34 @@
 #include "h/usernow.h"
 #include <QDateTime>
 #include <QDebug>
+#include <net/ClientSocket.h>
+#include <QTimer>
 Doctor_patientCommunicationPlatform::Doctor_patientCommunicationPlatform(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Doctor_patientCommunicationPlatform)
 {
     ui->setupUi(this);
+
+    ui->listWidget->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    ui->listWidget->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+
+    waitTime=8000;
+    timer=new QTimer(this);
+    connect(timer,SIGNAL(timeout()),this,SLOT(timerOutGetMsg_slot()));
+    timer->start(waitTime);
+
+    connect(&ClientSocket::getInstance(),SIGNAL(message_callback(NetUtils::Message)),this,SLOT(getMessage_slot(NetUtils::Message)));
+    if(identity.compare("patient")==0){
+        ClientSocket::getInstance().getMessageAsPatient(usernow::getId().toLong());
+    }else{
+        ClientSocket::getInstance().getMessageAsDoctor(usernow::getId().toLong());
+    }
 }
 
 Doctor_patientCommunicationPlatform::~Doctor_patientCommunicationPlatform()
 {
     delete ui;
+    delete timer;
 }
 
 void Doctor_patientCommunicationPlatform::on_pushButton_2_clicked()
@@ -35,45 +53,67 @@ void Doctor_patientCommunicationPlatform::on_pushButton_clicked()
     QString msg = ui->textEdit->toPlainText();
     ui->textEdit->setText("");
     QString time = QString::number(QDateTime::currentDateTime().toTime_t()); //时间戳
+    dealMessageTime(time);
 
-    bool isSending = true; // 发送中
+    QNChatMessage* messageW = new QNChatMessage(ui->listWidget->parentWidget());
+    QListWidgetItem* item = new QListWidgetItem(ui->listWidget);
+    dealMessage(messageW, item, msg, time, QNChatMessage::User_Me);
 
-    qDebug()<<"addMessage" << msg << time << ui->listWidget->count();
-    if(ui->listWidget->count()%2) {
-        if(isSending) {
-            dealMessageTime(time);
+    NetUtils::Message data;
+    if(identity.compare("patient")==0){
+        data.patientId=usernow::getId().toLong();
+        data.doctorId=1;//TODO connect
+        data.sendDirection=0;
+    }else{
+        data.patientId=1;
+        data.doctorId=usernow::getId().toLong();
+        data.sendDirection=1;
+    }
+    data.timeStamp=QDateTime::currentDateTime().toTime_t();
+    data.message=msg;
+    data.isRead=false;
+    ClientSocket::getInstance().submitMessage(data);
+    msgs.append(data);
 
-            QNChatMessage* messageW = new QNChatMessage(ui->listWidget->parentWidget());
-            QListWidgetItem* item = new QListWidgetItem(ui->listWidget);
-            dealMessage(messageW, item, msg, time, QNChatMessage::User_Me);
-        } else {
-            bool isOver = true;
+    ui->listWidget->setCurrentRow(ui->listWidget->count()-1);
+}
+
+void Doctor_patientCommunicationPlatform::timerOutGetMsg_slot(){
+    if(identity.compare("patient")==0){
+        ClientSocket::getInstance().getMessageAsPatient(usernow::getId().toLong());
+    }else{
+        ClientSocket::getInstance().getMessageAsDoctor(usernow::getId().toLong());
+    }
+    timer->start(waitTime);
+}
+
+void Doctor_patientCommunicationPlatform::getMessage_slot(NetUtils::Message msg){
+    bool contains=false;
+    foreach(auto m,msgs){
+        if(m.doctorId==msg.doctorId&&m.patientId==msg.patientId&&m.timeStamp==msg.timeStamp){
+            contains=true;
             for(int i = ui->listWidget->count() - 1; i > 0; i--) {
                 QNChatMessage* messageW = (QNChatMessage*)ui->listWidget->itemWidget(ui->listWidget->item(i));
-                if(messageW->text() == msg) {
-                    isOver = false;
+                if(messageW->text() == msg.message) {
                     messageW->setTextSuccess();
                 }
             }
-            if(isOver) {
-                dealMessageTime(time);
-
-                QNChatMessage* messageW = new QNChatMessage(ui->listWidget->parentWidget());
-                QListWidgetItem* item = new QListWidgetItem(ui->listWidget);
-                dealMessage(messageW, item, msg, time, QNChatMessage::User_Me);
-                messageW->setTextSuccess();
-            }
-        }
-    } else {
-        if(msg != "") {
-            dealMessageTime(time);
-
-            QNChatMessage* messageW = new QNChatMessage(ui->listWidget->parentWidget());
-            QListWidgetItem* item = new QListWidgetItem(ui->listWidget);
-            dealMessage(messageW, item, msg, time, QNChatMessage::User_She);
         }
     }
-    ui->listWidget->setCurrentRow(ui->listWidget->count()-1);
+    if(!contains){
+        int myIdentity=identity.compare("patient")==0?1:-1;
+        int msgDir=msg.sendDirection==0?1:-1;
+        dealMessageTime(QString::number(msg.timeStamp));
+
+        QNChatMessage::User_Type type=myIdentity*msgDir>0?QNChatMessage::User_Me:QNChatMessage::User_She;
+
+        QNChatMessage* messageW = new QNChatMessage(ui->listWidget->parentWidget());
+        QListWidgetItem* item = new QListWidgetItem(ui->listWidget);
+        dealMessage(messageW, item, msg.message, QString::number(msg.timeStamp), type);
+        messageW->setTextSuccess();
+
+        msgs.append(msg);
+    }
 }
 
 void Doctor_patientCommunicationPlatform::dealMessage(QNChatMessage *messageW, QListWidgetItem *item, QString text, QString time,  QNChatMessage::User_Type type)
@@ -93,7 +133,6 @@ void Doctor_patientCommunicationPlatform::dealMessageTime(QString curMsgTime)
         QNChatMessage* messageW = (QNChatMessage*)ui->listWidget->itemWidget(lastItem);
         int lastTime = messageW->time().toInt();
         int curTime = curMsgTime.toInt();
-        qDebug() << "curTime lastTime:" << curTime - lastTime;
         isShowTime = ((curTime - lastTime) > 60); // 两个消息相差一分钟
 //        isShowTime = true;
     } else {
