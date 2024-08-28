@@ -930,13 +930,14 @@ QList<NetUtils::TestResult> SqliteOperator::queryHealthAssessmentByPatientId(int
 }
 
 //查询聊天记录信息
-QList<NetUtils::Message> SqliteOperator::queryChatRecordByPatientId(int patientId)
+QList<NetUtils::Message> SqliteOperator::queryChatRecordByPatientIdAndDoctorId(int patientId, int doctorId)
 {
     QList<NetUtils::Message> result;
     QSqlQuery query(this->Db);
 
-    query.prepare("SELECT * FROM ChatRecord WHERE patientId = ?");
+    query.prepare("SELECT * FROM ChatRecord WHERE patientId = ? AND doctorId = ?");
     query.addBindValue(patientId);
+    query.addBindValue(doctorId);
 
     if (!query.exec()) {
         qDebug() << "Error querying chat records:" << query.lastError().text();
