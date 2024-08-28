@@ -1032,7 +1032,7 @@ QList<NetUtils::Medicine> SqliteOperator::queryMedicineByName(const QString& nam
     QList<NetUtils::Medicine> result;
     QSqlQuery query(this->Db);
 
-    query.prepare("SELECT * FROM Medicine WHERE name = ?");
+    query.prepare("SELECT * FROM Medicine WHERE medicineName = ?");
     query.addBindValue(name);
 
     if (!query.exec()) {

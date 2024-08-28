@@ -18,6 +18,7 @@ EditRecipeAndPaymentOrder::EditRecipeAndPaymentOrder(QMainWindow *parent) :
     connect(ui->action_2, &QAction::triggered, this,&EditRecipeAndPaymentOrder::insertRecipe);
     connect(ui->action_3, &QAction::triggered, this,&EditRecipeAndPaymentOrder::deleteRecipe);
     connect(&ClientSocket::getInstance(),SIGNAL(medicine_callback(NetUtils::Medicine)),this,SLOT(setMedicine_slot(NetUtils::Medicine)));
+    connect(&ClientSocket::getInstance(),SIGNAL(verify_callback(bool)),this,SLOT(verify_slot(bool)));
     connect(&ClientSocket::getInstance(),SIGNAL(prescription_callback(NetUtils::Prescription)),this,SLOT(setPrescription_slot(NetUtils::Prescription)));
 }
 EditRecipeAndPaymentOrder::~EditRecipeAndPaymentOrder()
@@ -81,6 +82,8 @@ void EditRecipeAndPaymentOrder::submit(){
                 ui->tableWidget->item(i, 2)->text(),
         });
     }
+    nowState[id].state=1;
+    ClientSocket::getInstance().submitAppointment(nowState[id]);
     closeWindow();
 }
 bool EditRecipeAndPaymentOrder::CheckEmpty(){
@@ -151,6 +154,7 @@ void EditRecipeAndPaymentOrder::on_pushButton_2_clicked()
 }
 
 void EditRecipeAndPaymentOrder::getPatientName_slot(NetUtils::Appointment data){
+    nowState.insert(data.patientId,data);
     idToTime.insert(data.patientId,data.time);
     ClientSocket::getInstance().getPatientById(data.patientId);
 }
@@ -174,7 +178,6 @@ void EditRecipeAndPaymentOrder::paintEvent(QPaintEvent *e)
 
 void EditRecipeAndPaymentOrder::on_comboBox_currentIndexChanged(const QString &arg1)
 {
-    qDebug()<<114514;
     ui->tableWidget->clearContents();
     ui->tableWidget->setRowCount(0);
     ui->lineEdit_3->setText(idToTime.find(nametoId.find(arg1).value()).value());
@@ -193,17 +196,25 @@ void EditRecipeAndPaymentOrder::on_comboBox_currentIndexChanged(const QString &a
     }
 }
 
+void EditRecipeAndPaymentOrder::verify_slot(bool flag){
+    if(flag){
+        ClientSocket::getInstance().getMedicineByName(ui->tableWidget->item(row, 0)->text());
+    }
+    else{
+        QMessageBox::warning(this,"","此药名未在数据库中找到!!");
+    }
+}
+
 void EditRecipeAndPaymentOrder::on_tableWidget_itemChanged(QTableWidgetItem *item)
 {
     if(isAddRow){
         return;
     }
-    qDebug()<<114514;
     QString nowPatient = ui->comboBox->currentText();
     row = item->row();
     int column = item->column();
-    if (column==0){
-        ClientSocket::getInstance().getMedicineByName(item->text());
+    if (column==0 || column==1){
+        ClientSocket::getInstance().verifymedicineWithName(ui->tableWidget->item(row, 0)->text());
     }
     for (int i=0;i<4;i++){
         patientPrescriptions[nowPatient][row][i]=ui->tableWidget->item(row, i)->text();

@@ -104,7 +104,7 @@ void ServerSocketThread::doCommand(QString str){
             getMessageByPatDoc(arr[1].toLong(),arr[2].toLong());
     }else if(str.startsWith("GMedId")){
         getMedicineById(arr[1].toLong());
-    }else if(str.startsWith("GMsgNm")){
+    }else if(str.startsWith("GMedNm")){
         getMedicineByName(arr[1]);
     }
 
@@ -183,6 +183,11 @@ void ServerSocketThread::doCommand(QString str){
         ret.manufactuer=arr[5];
         ret.batch=arr[6];
         setMedicine(ret);
+    }
+    else if(str.startsWith("VMedId")){
+        verifyMedicineWithId(arr[1].toLong());
+    }else if(str.startsWith("VMedNm")){
+        verifymedicineWithName(arr[1]);
     }
 
     else if(!str.startsWith("ping")){
