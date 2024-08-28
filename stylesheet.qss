@@ -15,7 +15,6 @@ QPushButton:hover{
         border-left-color: transparent;
         border-bottom-color: transparent;
         border-bottom-width: 1px;
-        border-bottom-radius: 6px;
         border-style: solid;
         padding-bottom: 2px;
         background-color:  #40E0D0;
@@ -27,7 +26,6 @@ QPushButton:pressed{
         border-left-color: transparent;
         border-bottom-color: transparent;
         border-bottom-width: 2px;
-        border-bottom-radius: 6px;
         border-style: solid;
         padding-bottom: 1px;
         background-color:#458B74;

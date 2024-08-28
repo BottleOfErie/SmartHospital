@@ -91,7 +91,7 @@ void Patient::on_pushButton_clicked()
 
 void Patient::on_pushButton_9_clicked()
 {
-    QwenClient::getInstance().ask(ui->textEdit->toPlainText());
+    QwenClient::getInstance().ask(ui->textEdit->toPlainText()+"。我现在正在医院门诊挂号，请你简短地告诉我应该挂什么科室？");
 }
 void Patient::aiReply_slot(QString s)
 {
