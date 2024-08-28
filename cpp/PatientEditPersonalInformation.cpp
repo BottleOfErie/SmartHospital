@@ -8,7 +8,8 @@
 #include "h/usernow.h"
 #include "net/ClientSocket.h"
 //信息是否被修改过
-bool isInformationChanged2(false);
+bool passwordright=false;
+bool isInformationChanged2(false),isempty(true);
 PatientEditPersonalInformation::PatientEditPersonalInformation(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::PatientEditPersonalInformation)
@@ -33,7 +34,7 @@ PatientEditPersonalInformation::PatientEditPersonalInformation(QWidget *parent) 
 
     connect(&ClientSocket::getInstance(),SIGNAL(patient_callback(NetUtils::PatientData)),this,SLOT(setPatientData_slot(NetUtils::PatientData)));
     ClientSocket::getInstance().getPatientById(usernow::getId().toLong());
-
+    connect(&ClientSocket::getInstance(),SIGNAL(resetPassword_callback(bool)),this,SLOT(resetPassword_slot(bool)));
     ui->lineEdit->setReadOnly(true);
     ui->lineEdit_2->setReadOnly(true);
     ui->lineEdit_3->setReadOnly(true);
@@ -52,11 +53,19 @@ PatientEditPersonalInformation::~PatientEditPersonalInformation()
 }
 void PatientEditPersonalInformation::on_pushButton_2_clicked()
 {
-    PatientEditPersonalInformation::updatePatientData();
-    //qDebug("666");
-    this->close();
-    auto patient = new Patient;
-    patient->show();
+    //if(pd()&&passwordright)
+    //{
+        PatientEditPersonalInformation::updatePatientData();
+        //qDebug("666");
+        this->close();
+        auto patient = new Patient;
+        patient->show();
+    //}
+   // else
+    //{
+    //    QMessageBox::warning(this,"","原密码错误或两次输入的新密码不相同!!");
+   //}
+
 }
 void PatientEditPersonalInformation::on_pushButton_3_clicked()
 {
@@ -81,9 +90,16 @@ void PatientEditPersonalInformation::on_pushButton_3_clicked()
             isInformationChanged2=false;
         }
     }
-    this->close();
-    auto patient = new Patient;
-    patient->show();
+   // if(pd()&&passwordright)
+   // {
+        this->close();
+        auto patient = new Patient;
+        patient->show();
+    //}
+    //else
+   // {
+    //    QMessageBox::warning(this,"","原密码错误或两次输入的新密码不相同!!");
+    //}
 }
 
 void PatientEditPersonalInformation::setPatientData_slot(NetUtils::PatientData data){
@@ -204,4 +220,18 @@ void PatientEditPersonalInformation::on_textEdit_2_textChanged(const QString &ar
 {
     isInformationChanged2=true;
 }
+int PatientEditPersonalInformation::pd()
+{
+    QString password=ui->lineEdit_2->text();
+    if(password=="")isempty=true;
+    else isempty=false;qDebug("reset");
+    if(password!=ui->lineEdit_3->text())return 0;
 
+    ClientSocket::getInstance().resetPassword(usernow::getId().toLong(),ui->lineEdit->text(),password);
+    return 1;
+}
+void PatientEditPersonalInformation::resetPassword_slot(bool b)
+{
+    qDebug()<<b;
+    passwordright=b;
+}

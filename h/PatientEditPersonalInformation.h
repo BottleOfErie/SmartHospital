@@ -45,6 +45,8 @@ private slots:
     void on_textEdit_textChanged(const QString &arg1);
 
     void on_textEdit_2_textChanged(const QString &arg1);
+    int pd();
+    void resetPassword_slot(bool b);
 
 private:
     Ui::PatientEditPersonalInformation *ui;
