@@ -86,3 +86,9 @@ void Patient::on_pushButton_clicked()
     pei->show();
 }
 
+
+void Patient::on_pushButton_9_clicked()
+{
+
+}
+

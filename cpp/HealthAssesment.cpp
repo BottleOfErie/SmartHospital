@@ -29,3 +29,9 @@ void HealthAssesment::paintEvent(QPaintEvent *e)
     QPainter p(this);
     style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
 }
+
+void HealthAssesment::on_pushButton_4_clicked()
+{
+
+}
+

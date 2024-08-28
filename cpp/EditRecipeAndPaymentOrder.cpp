@@ -54,11 +54,11 @@ void EditRecipeAndPaymentOrder::on_pushButton_2_clicked()
     doctor->show();
 }
 
-/*void EditRecipeAndPaymentOrder::paintEvent(QPaintEvent *e)
+void EditRecipeAndPaymentOrder::paintEvent(QPaintEvent *e)
 {
     QStyleOption opt;
     opt.init(this);
     QPainter p(this);
     style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
-}*/
+}
 

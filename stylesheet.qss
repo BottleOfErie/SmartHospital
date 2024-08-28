@@ -1,40 +1,79 @@
 QPushButton {
     border-style: solid;
     border-width: 2px;
-    border-color: #534587;
+    border-color: #ffffff;
     border-radius: 6px;
     background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #f6f7fa, stop:1 #dadbde);
     color: black; /* 字体颜色 */
     padding: 8px 16px; /* 内边距 */
 }
 
-QPushButton:hover {
-    background-color: #40E0D0; /* 鼠标悬停时的背景色 */
-    border-color: #8B8B00;
+QPushButton:hover{
+        border-style: solid;
+        border-top-color: transparent;
+        border-right-color: transparent;
+        border-left-color: transparent;
+        border-bottom-color: transparent;
+        border-bottom-width: 1px;
+        border-bottom-radius: 6px;
+        border-style: solid;
+        padding-bottom: 2px;
+        background-color:  #40E0D0;
 }
-
-QPushButton:pressed {
-    background-color: #458B74; /* 按下时的背景色 */
-    border-color: #e61419;
+QPushButton:pressed{
+        border-style: solid;
+        border-top-color: transparent;
+        border-right-color: transparent;
+        border-left-color: transparent;
+        border-bottom-color: transparent;
+        border-bottom-width: 2px;
+        border-bottom-radius: 6px;
+        border-style: solid;
+        padding-bottom: 1px;
+        background-color:#458B74;
 }
 /* 输入框样式 */
 QLineEdit, QTextEdit {
     background-color: #ffffff; /* 白色背景 */
     border: 1px solid #ccc; /* 灰色边框 */
-    border-radius: 4px; /* 圆角边框 */
+    border-radius: 6px; /* 圆角边框 */
     padding: 4px; /* 内边距 */
     font-size: 14px; /* 字体大小 */
 }
 
 /* 表格样式 */
-QTableView, QTableWidget {
-    background-color: #ffffff; /* 白色背景 */
-    gridline-color: #e0e0e0; /* 网格线颜色 */
-    selection-background-color: #b3d4fc; /* 选中项背景色 */
-    selection-color: #000000; /* 选中项文本颜色 */
-    border: 1px solid #ccc; /* 边框颜色 */
+QTableWidget {
+    background-color: #f0f0f0; /* 背景色 */
+    border: 1px solid #c0c0c0; /* 边框 */
+    border-radius: 5px; /* 边框圆角 */
+    selection-background-color: #3399ff; /* 选择项的背景色 */
+    selection-color: white; /* 选择项的文字颜色 */
+    gridline-color: #d0d0d0; /* 网格线颜色 */
 }
 
-QTableView::item:hover, QTableWidget::item:hover {
-    background-color: #f0f0f0; /* 鼠标悬停时的背景色 */
+QTableWidget::item {
+    font-family: Arial; /* 字体 */
+    font-size: 12px; /* 字体大小 */
 }
+
+QTableWidget::item:selected {
+    background-color: #3399ff; /* 被选中项的背景色 */
+    color: white; /* 被选中项的文字颜色 */
+}
+QHeaderView::section {
+    background-color: #e0e0e0; /* 表头背景色 */
+    border: 1px solid #c0c0c0; /* 表头边框 */
+    border-top: 0px; /* 去除顶部边框，与表格边框一致 */
+    border-bottom: 2px solid #c0c0c0; /* 增强底部边框 */
+    font-weight: bold; /* 加粗表头文字 */
+    padding: 4px; /* 内边距 */
+}
+
+QTableWidget::item:hover {
+    background-color: #e0e0e0; /* 鼠标悬停时的背景色 */
+}
+QTableWidget QTableView::item:alternate {
+    background-color: #f9f9f9; /* 交替行的背景色 */
+}
+
+
