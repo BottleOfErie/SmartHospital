@@ -74,4 +74,8 @@ QTableWidget QTableView::item:alternate {
     background-color: #f9f9f9; /* 交替行的背景色 */
 }
 
+* {
+    font-size: 16pt; /* 设置所有控件的字体大小为12点 */
+}
+
 

@@ -40,7 +40,7 @@
        </column>
        <column>
         <property name="text">
-         <string>就诊日期时间</string>
+         <string>就诊日期</string>
         </property>
        </column>
        <column>
