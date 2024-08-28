@@ -77,17 +77,19 @@ void Register::on_registerButton_clicked()
         QMessageBox::warning(this,"","两次输入的密码不相同!!");
     else if (ui->radioButton->isChecked()==false && ui->radioButton_2->isChecked()==false)
         QMessageBox::warning(this,"ERROR","请选择你的性别！！");
-    else if (ui->comboBox->currentText() == JOBTITLE_PLACEHOLDER)
-        QMessageBox::warning(this,"ERROR","请选择你的职称！！");
-    else if (ui->comboBox_2->currentText() == SECTION_PLACEHOLDER)
-        QMessageBox::warning(this,"ERROR","请选择你的科室！！");
     else{
         if(ui->checkBox->isChecked()==false && ui->checkBox_2->isChecked()==false){
             QMessageBox::warning(this,"ERROR","请选择你是医生还是患者！！");
         }
         else if (ui->checkBox->isChecked()==true){
-            connect(&ClientSocket::getInstance(),SIGNAL(register_callback(long long)),this,SLOT(registerCallbackSlot(long long)));
-            ClientSocket::getInstance().registerAsDoctor(username,password);
+            if (ui->comboBox->currentText() == JOBTITLE_PLACEHOLDER)
+                QMessageBox::warning(this,"ERROR","请选择你的职称！！");
+            else if (ui->comboBox_2->currentText() == SECTION_PLACEHOLDER)
+                QMessageBox::warning(this,"ERROR","请选择你的科室！！");
+            else {
+                connect(&ClientSocket::getInstance(),SIGNAL(register_callback(long long)),this,SLOT(registerCallbackSlot(long long)));
+                ClientSocket::getInstance().registerAsDoctor(username,password);
+            }
         }
         else{
             connect(&ClientSocket::getInstance(),SIGNAL(register_callback(long long)),this,SLOT(registerCallbackSlot(long long)));
