@@ -118,7 +118,7 @@ void Doctor_patientCommunicationPlatform::getMessage_slot(NetUtils::Message msg)
 
 void Doctor_patientCommunicationPlatform::dealMessage(QNChatMessage *messageW, QListWidgetItem *item, QString text, QString time,  QNChatMessage::User_Type type)
 {
-    messageW->setFixedWidth(this->width());
+    messageW->setFixedWidth(ui->listWidget->width());
     QSize size = messageW->fontRect(text);
     item->setSizeHint(size);
     messageW->setText(text, time, size, type);
@@ -142,7 +142,7 @@ void Doctor_patientCommunicationPlatform::dealMessageTime(QString curMsgTime)
         QNChatMessage* messageTime = new QNChatMessage(ui->listWidget->parentWidget());
         QListWidgetItem* itemTime = new QListWidgetItem(ui->listWidget);
 
-        QSize size = QSize(this->width(), 40);
+        QSize size = QSize(ui->listWidget->width(), 40);
         messageTime->resize(size);
         itemTime->setSizeHint(size);
         messageTime->setText(curMsgTime, curMsgTime, size, QNChatMessage::User_Time);
@@ -155,11 +155,11 @@ void Doctor_patientCommunicationPlatform::resizeEvent(QResizeEvent *event)
     Q_UNUSED(event);
 
 
-    ui->textEdit->resize(this->width() - 20, ui->widget->height() - 20);
-    ui->textEdit->move(10, 10);
+    //ui->textEdit->resize(ui->listWidget->width() - 20, ui->widget->height() - 20);
+    //ui->textEdit->move(10, 10);
 
-    ui->pushButton->move(ui->textEdit->width()+ui->textEdit->x() - ui->pushButton->width() - 10,
-                         ui->textEdit->height()+ui->textEdit->y() - ui->pushButton->height() - 10);
+    /*ui->pushButton->move(ui->textEdit->width()+ui->textEdit->x() - ui->pushButton->width() - 10,
+                         ui->textEdit->height()+ui->textEdit->y() - ui->pushButton->height() - 10);*/
 
 
     for(int i = 0; i < ui->listWidget->count(); i++) {
@@ -168,4 +168,11 @@ void Doctor_patientCommunicationPlatform::resizeEvent(QResizeEvent *event)
 
         dealMessage(messageW, item, messageW->text(), messageW->time(), messageW->userType());
     }
+}
+void Doctor_patientCommunicationPlatform::paintEvent(QPaintEvent *e)
+{
+    QStyleOption opt;
+    opt.init(this);
+    QPainter p(this);
+    style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
 }
