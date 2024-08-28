@@ -958,33 +958,6 @@ QList<NetUtils::Message> SqliteOperator::queryChatRecordByPatientIdAndDoctorId(i
     return result;
 }
 
-QList<NetUtils::Message> SqliteOperator::queryChatRecordByDoctorId(int doctorId)
-{
-    QList<NetUtils::Message> result;
-    QSqlQuery query(this->Db);
-
-    query.prepare("SELECT * FROM ChatRecord WHERE doctorId = ?");
-    query.addBindValue(doctorId);
-
-    if (!query.exec()) {
-        qDebug() << "Error querying chat records:" << query.lastError().text();
-        return result;
-    }
-
-    while (query.next()) {
-        NetUtils::Message message;
-        message.patientId = query.value("patientId").toLongLong();
-        message.doctorId = query.value("doctorId").toLongLong();
-        message.timeStamp = query.value("timeStamp").toLongLong();
-        message.sendDirection = query.value("direction").toInt();
-        message.message = query.value("message").toString();
-        message.isRead = query.value("isRead").toBool();
-        result.append(message);
-    }
-
-    return result;
-}
-
 //查询药品信息
 QList<NetUtils::Medicine> SqliteOperator::queryMedicineById(int medicineId)
 {
