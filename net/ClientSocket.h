@@ -1,10 +1,11 @@
 #ifndef CLIENTSOCKET_H
 #define CLIENTSOCKET_H
 
+#include <QThread>
 #include<QTcpSocket>
 #include "NetUtils.h"
 
-class ClientSocket : public QObject{
+class ClientSocket : public QThread{
     Q_OBJECT
 public:
     static ClientSocket& getInstance();
@@ -46,10 +47,15 @@ private:
     ClientSocket(const ClientSocket&) = delete;
     const ClientSocket &operator=(const ClientSocket&)=delete;
     void doCommand(QString command);
+    void socketSend(QByteArray);
+    virtual void run();
     QTcpSocket*socket;
     QString buffer;
+    QByteArray sendBuffer;
+    bool running;
+    QString socketIp;
+    int socketPort;
 private slots:
-    void readyRead_slot();
     void connected_slot();
     void disconnected_slot();
     void error_slot(QAbstractSocket::SocketError socketError);

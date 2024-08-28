@@ -1,4 +1,6 @@
 #include <cstdio>
+#include <QTime>
+#include <QCoreApplication>
 
 #include "ServerSocketThread.h"
 
@@ -8,13 +10,6 @@ ServerSocketThread::ServerSocketThread(qintptr descriptor,SqliteOperator*db){
     buffer = QString();
     alive=true;
 
-    socket=new QTcpSocket();
-    socket->setSocketDescriptor(socketDescripter);
-    qDebug("ServerSocket connected from:%s",socket->peerAddress().toString().toStdString().data());
-    socket->write(NetUtils::wrapMessage("ping"));
-
-    connect(socket,SIGNAL(readyRead()),this,SLOT(readyRead_slot()));
-    connect(this,SIGNAL(toDoPing()),this,SLOT(doPing_slot()));
     connect(this,SIGNAL(toDoDisconnect()),this,SLOT(doDisconnect_slot()));
     noReplyCount=0;
 }
@@ -25,15 +20,32 @@ ServerSocketThread::~ServerSocketThread(){
 }
 
 void ServerSocketThread::run(){
+    socket=new QTcpSocket();
+    socket->setSocketDescriptor(socketDescripter);
+    qDebug("ServerSocket connected from:%s",socket->peerAddress().toString().toStdString().data());
+    socket->write(NetUtils::wrapMessage("ping"));
     while (true) {
-        emit toDoPing();
-        noReplyCount++;
-        this->msleep(NetUtils::waitTime/2);
-        emit toDoPing();
-        noReplyCount++;
-        this->msleep(NetUtils::waitTime/2);
+        if(socket->waitForReadyRead(NetUtils::waitTime/5)){
+            buffer+=socket->readAll();
+            int pre=buffer.indexOf(NetUtils::messagePrefix);
+            while(pre>=0){
+                buffer=buffer.mid(pre);
+                int suff=buffer.indexOf(NetUtils::messageSuffix);
+                if(suff>0){
+                    doCommand(
+                                buffer.mid(
+                                    NetUtils::messagePrefix.length()
+                                    ,suff-NetUtils::messagePrefix.length()));
+                    buffer=buffer.mid(suff);
+                }
+                pre=buffer.indexOf(NetUtils::messagePrefix);
+            }
+        }else{
+            socket->write(NetUtils::wrapMessage("ping"));
+            noReplyCount++;
+        }
         if(noReplyCount>5){
-            qDebug("Client No-reply For more than %ld ms,disconnected!",NetUtils::waitTime);
+            qDebug("Client No-reply For more than %ld ms,disconnected!",5*NetUtils::waitTime);
             emit toDoDisconnect();
             alive=false;
             return;
@@ -41,34 +53,15 @@ void ServerSocketThread::run(){
     }
 }
 
-void ServerSocketThread::doPing_slot(){
-    socket->write(NetUtils::wrapMessage("ping"));
-}
-
 void ServerSocketThread::doDisconnect_slot(){
     socket->disconnectFromHost();
 }
 
-void ServerSocketThread::readyRead_slot(){
-    buffer+=socket->readAll();
-    int pre=buffer.indexOf(NetUtils::messagePrefix);
-    if(pre>=0){
-        buffer=buffer.mid(pre);
-        int suff=buffer.indexOf(NetUtils::messageSuffix);
-        if(suff>0){
-            doCommand(
-                        buffer.mid(
-                            NetUtils::messagePrefix.length()
-                            ,suff-NetUtils::messagePrefix.length()));
-            buffer=buffer.mid(suff);
-        }
-    }
-}
 
 void ServerSocketThread::doCommand(QString str){
     if(noReplyCount>0) noReplyCount--;
     if(str.compare("ping")!=0)
-        qDebug("Server Taken:%s",str.toStdString().data());
+        qDebug("[%s]Server:%s",QTime::currentTime().toString("HH:mm:ss:zzz").toStdString().data(),str.toStdString().data());
     auto arr=str.split(NetUtils::messagePartition);
     if(str.startsWith("login")){
         loginCMD(arr[1],arr[2],arr[3].toInt());

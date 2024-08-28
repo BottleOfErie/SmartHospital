@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 
+#include <net/NetUtils.h>
+
 namespace Ui {
 class EditRecipeAndPaymentOrder;
 }
@@ -18,6 +20,10 @@ public:
 
 private slots:
     void on_pushButton_2_clicked();
+
+    void on_pushButton_clicked();
+    void insertRecipe();
+    void setPrescription_slot(NetUtils::Prescription data);
 
 private:
     Ui::EditRecipeAndPaymentOrder *ui;

@@ -90,11 +90,9 @@ void EditMedicalRecord::getPatientName_slot(NetUtils::Appointment data){
 }
 
 void EditMedicalRecord::addNameItem_slot(NetUtils::PatientData data){
-    ui->comboBox->addItem(data.name);
     nametoId.insert(data.name,data.id);
+    ui->comboBox->addItem(data.name);
 }
-
-
 
 void EditMedicalRecord::on_comboBox_currentIndexChanged(const QString &arg1)
 {

@@ -2,7 +2,7 @@
 #define VIEWCASE_H
 
 #include <QWidget>
-
+#include"net/ClientSocket.h"
 namespace Ui {
 class ViewCase;
 }
@@ -18,6 +18,7 @@ public:
 
 private slots:
     void on_pushButton_clicked();
+    void setMedicalRecord_slot(NetUtils::MedicalRecord);
 
 private:
     Ui::ViewCase *ui;

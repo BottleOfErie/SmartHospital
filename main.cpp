@@ -1,5 +1,6 @@
 #include <QApplication>
 #include <QFile>
+#include <QMetaType>
 #include <h/mainwindow.h>
 
 #include "net/QwenClient.h"
@@ -10,6 +11,18 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     MainWindow w;
+
+    //RegisterMetaType
+    qRegisterMetaType<NetUtils::PatientData>("NetUtils::PatientData");
+    qRegisterMetaType<NetUtils::DoctorData>("NetUtils::DoctorData");
+    qRegisterMetaType<NetUtils::Appointment>("NetUtils::Appointment");
+    qRegisterMetaType<NetUtils::MedicalRecord>("NetUtils::MedicalRecord");
+    qRegisterMetaType<NetUtils::Prescription>("NetUtils::Prescription");
+    qRegisterMetaType<NetUtils::TestResult>("NetUtils::TestResult");
+    qRegisterMetaType<NetUtils::Message>("NetUtils::Message");
+    qRegisterMetaType<NetUtils::Medicine>("NetUtils::Medicine");
+    qRegisterMetaType<QAbstractSocket::SocketError>("QAbstractSocket::SocketError");
+
     QFile file(":/stylesheet.qss");
     if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         QString styleSheet = QString::fromUtf8(file.readAll());
