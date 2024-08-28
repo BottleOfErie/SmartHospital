@@ -11,6 +11,42 @@
 SqliteOperator::SqliteOperator() {
     this->connect("General.db");
     createTables();
+    QSqlQuery query(this->Db);
+    query.prepare("INSERT INTO Medicine (medicineId, medicineName, medicinePrice, medicineStock, manufacturer, batchNumber) "
+                  "VALUES(?, ?, ?, ?, ?, ?)");
+    query.addBindValue(1);//id
+    query.addBindValue("阿司匹林");
+    query.addBindValue("20yuan");
+    query.addBindValue("No Data");
+    query.addBindValue("河北敬业医药科技股份有限公司");
+    query.addBindValue("001");
+
+    query.prepare("INSERT INTO Medicine (medicineId, medicineName, medicinePrice, medicineStock, manufacturer, batchNumber) "
+                  "VALUES(?, ?, ?, ?, ?, ?)");
+    query.addBindValue(2);//id
+    query.addBindValue("诺氟沙星");//药名
+    query.addBindValue("13.80yuan");
+    query.addBindValue("No Data");
+    query.addBindValue("日本杏林制药");
+    query.addBindValue("002");
+
+    query.prepare("INSERT INTO Medicine (medicineId, medicineName, medicinePrice, medicineStock, manufacturer, batchNumber) "
+                  "VALUES(?, ?, ?, ?, ?, ?)");
+    query.addBindValue(3);//id
+    query.addBindValue("复合维生素B");//药名
+    query.addBindValue("30.12yuan");
+    query.addBindValue("No Data");
+    query.addBindValue("湖北九洲康达生物科技有限公司");
+    query.addBindValue("003");
+
+    query.prepare("INSERT INTO Medicine (medicineId, medicineName, medicinePrice, medicineStock, manufacturer, batchNumber) "
+                  "VALUES(?, ?, ?, ?, ?, ?)");
+    query.addBindValue(4);//id
+    query.addBindValue("阿莫西林");//药名
+    query.addBindValue("25.00yuan");
+    query.addBindValue("No Data");
+    query.addBindValue("国药威奇达制药总厂");
+    query.addBindValue("004");
 }
 
 bool SqliteOperator::connect(const QString &dbName) {
