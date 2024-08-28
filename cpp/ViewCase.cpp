@@ -29,7 +29,9 @@ void ViewCase::paintEvent(QPaintEvent *e)
 
 void ViewCase::on_pushButton_clicked()
 {
-    ii=0;
+    ii=0;j2=0;
+    disconnect(&ClientSocket::getInstance(),SIGNAL(medicalRecord_callback(NetUtils::MedicalRecord)),this,SLOT(setMedicalRecord_slot(NetUtils::MedicalRecord)));
+    disconnect(&ClientSocket::getInstance(),SIGNAL(doctor_callback(NetUtils::DoctorData)),this,SLOT(setdoctor_slot(NetUtils::DoctorData)));
     this->close();
     auto patient= new Patient;
     patient->show();

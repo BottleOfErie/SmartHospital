@@ -23,7 +23,9 @@ ViewPrescriptionsAndContributions::~ViewPrescriptionsAndContributions()
 
 void ViewPrescriptionsAndContributions::on_pushButton_clicked()
 {
-    i=0;
+    i=0;jj=0;
+    disconnect(&ClientSocket::getInstance(),SIGNAL(prescription_callback(NetUtils::Prescription)),this,SLOT(setPrescription_slot(NetUtils::Prescription)));
+    disconnect(&ClientSocket::getInstance(),SIGNAL(medicine_callback(NetUtils::Medicine)),this,SLOT(setmedicine_slot(NetUtils::Medicine)));
     this->close();
     auto patientWindow=new Patient;
     patientWindow->show();
