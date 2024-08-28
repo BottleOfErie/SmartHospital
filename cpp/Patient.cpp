@@ -9,11 +9,13 @@
 #include "h/usernow.h"
 #include "h/Registration.h"
 #include "h/PatientEditPersonalInformation.h"
+#include "net/QwenClient.h"
 Patient::Patient(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Patient)
 {
     ui->setupUi(this);
+    connect(&QwenClient::getInstance(),SIGNAL(aiReply(Qstring)),this,SLOT(aiReply_slot(Qstring)));
 }
 
 Patient::~Patient()
@@ -86,3 +88,12 @@ void Patient::on_pushButton_clicked()
     pei->show();
 }
 
+
+void Patient::on_pushButton_9_clicked()
+{
+    QwenClient::getInstance().ask(ui->textEdit->toPlainText());
+}
+void Patient::aiReply_slot(QString s)
+{
+    ui->textEdit->setText(s);
+}

@@ -11,6 +11,7 @@ ViewCase::ViewCase(QWidget *parent) :
     ui->setupUi(this);
     connect(&ClientSocket::getInstance(),SIGNAL(medicalRecord_callback(NetUtils::MedicalRecord)),this,SLOT(setMedicalRecord_slot(NetUtils::MedicalRecord)));
     ClientSocket::getInstance().getMedicalRecordsByPatient(usernow::getId().toLong());
+
 }
 
 ViewCase::~ViewCase()
