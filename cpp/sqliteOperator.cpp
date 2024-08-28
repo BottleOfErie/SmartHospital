@@ -11,8 +11,9 @@
 SqliteOperator::SqliteOperator() {
     this->connect("General.db");
     createTables();
+    Db.open();
     QSqlQuery query(this->Db);
-    query.prepare("INSERT INTO Medicine (medicineId, medicineName, medicinePrice, medicineStock, manufacturer, batchNumber) "
+    query.prepare("INSERT INTO Medicine (medicineId, medicineName, medicinePrice, medicineStock, manufacturer, batchNumber)"
                   "VALUES(?, ?, ?, ?, ?, ?)");
     query.addBindValue(1);//id
     query.addBindValue("阿司匹林");
@@ -20,8 +21,9 @@ SqliteOperator::SqliteOperator() {
     query.addBindValue("No Data");
     query.addBindValue("河北敬业医药科技股份有限公司");
     query.addBindValue("001");
+    query.exec();
 
-    query.prepare("INSERT INTO Medicine (medicineId, medicineName, medicinePrice, medicineStock, manufacturer, batchNumber) "
+    query.prepare("INSERT INTO Medicine (medicineId, medicineName, medicinePrice, medicineStock, manufacturer, batchNumber)"
                   "VALUES(?, ?, ?, ?, ?, ?)");
     query.addBindValue(2);//id
     query.addBindValue("诺氟沙星");//药名
@@ -29,8 +31,9 @@ SqliteOperator::SqliteOperator() {
     query.addBindValue("No Data");
     query.addBindValue("日本杏林制药");
     query.addBindValue("002");
+    query.exec();
 
-    query.prepare("INSERT INTO Medicine (medicineId, medicineName, medicinePrice, medicineStock, manufacturer, batchNumber) "
+    query.prepare("INSERT INTO Medicine (medicineId, medicineName, medicinePrice, medicineStock, manufacturer, batchNumber)"
                   "VALUES(?, ?, ?, ?, ?, ?)");
     query.addBindValue(3);//id
     query.addBindValue("复合维生素B");//药名
@@ -38,8 +41,9 @@ SqliteOperator::SqliteOperator() {
     query.addBindValue("No Data");
     query.addBindValue("湖北九洲康达生物科技有限公司");
     query.addBindValue("003");
+    query.exec();
 
-    query.prepare("INSERT INTO Medicine (medicineId, medicineName, medicinePrice, medicineStock, manufacturer, batchNumber) "
+    query.prepare("INSERT INTO Medicine (medicineId, medicineName, medicinePrice, medicineStock, manufacturer, batchNumber)"
                   "VALUES(?, ?, ?, ?, ?, ?)");
     query.addBindValue(4);//id
     query.addBindValue("阿莫西林");//药名
@@ -47,6 +51,7 @@ SqliteOperator::SqliteOperator() {
     query.addBindValue("No Data");
     query.addBindValue("国药威奇达制药总厂");
     query.addBindValue("004");
+    query.exec();
 }
 
 bool SqliteOperator::connect(const QString &dbName) {
