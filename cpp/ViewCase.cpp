@@ -5,6 +5,7 @@
 #include "net/ClientSocket.h"
 int ii=0,j2=0;
 QList<QString> doctorname;
+QList<QString> keshi;
 ViewCase::ViewCase(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::ViewCase)
@@ -56,8 +57,11 @@ void ViewCase::setMedicalRecord_slot(NetUtils::MedicalRecord record)
 }
 void ViewCase::setdoctor_slot(NetUtils::DoctorData data){
     doctorname.push_back(data.name);
+    keshi.push_back(data.section);
     qDebug()<<data.name;
     QTableWidgetItem *newItem = new QTableWidgetItem(doctorname[j2]);
     ui->tableWidget->setItem(j2,1,newItem);
+    newItem = new QTableWidgetItem(keshi[j2]);
+        ui->tableWidget->setItem(j2,0,newItem);
     j2++;
 }
