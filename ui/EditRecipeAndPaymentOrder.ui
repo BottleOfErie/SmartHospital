@@ -81,7 +81,7 @@
       </column>
       <column>
        <property name="text">
-        <string>用量</string>
+        <string>服用医嘱</string>
        </property>
       </column>
       <column>
