@@ -44,7 +44,7 @@
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_2">
        <property name="spacing">
-        <number>25</number>
+        <number>0</number>
        </property>
        <item>
         <widget class="QComboBox" name="comboBox">
@@ -106,15 +106,6 @@
         </widget>
        </item>
        <item>
-        <widget class="QComboBox" name="comboBox_2">
-         <item>
-          <property name="text">
-           <string>请选择医生</string>
-          </property>
-         </item>
-        </widget>
-       </item>
-       <item>
         <widget class="QLabel" name="label_7">
          <property name="text">
           <string/>
@@ -128,25 +119,39 @@
          </property>
         </widget>
        </item>
+       <item>
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
       </layout>
      </item>
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_3">
-       <property name="spacing">
-        <number>35</number>
-       </property>
        <item>
-        <widget class="QPushButton" name="pushButton">
-         <property name="text">
-          <string>确定 </string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="pushButton_2">
-         <property name="text">
-          <string>返回</string>
-         </property>
+        <widget class="QComboBox" name="comboBox_2">
+         <item>
+          <property name="text">
+           <string>请选择医生</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>新建项目</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>新建项目</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>新建项目</string>
+          </property>
+         </item>
         </widget>
        </item>
        <item>
@@ -157,14 +162,14 @@
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="label_2">
+        <widget class="QLabel" name="label_9">
          <property name="text">
           <string/>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="label_9">
+        <widget class="QLabel" name="label_11">
          <property name="text">
           <string/>
          </property>
@@ -179,9 +184,6 @@
        </property>
        <property name="verticalSpacing">
         <number>25</number>
-       </property>
-       <property name="topMargin">
-        <number>30</number>
        </property>
        <item row="0" column="0">
         <widget class="QLabel" name="label">
@@ -199,6 +201,13 @@
           <string>职称</string>
          </property>
         </widget>
+       </item>
+       <item row="1" column="1">
+        <layout class="QHBoxLayout" name="horizontalLayout_10">
+         <item>
+          <widget class="QLineEdit" name="lineEdit_2"/>
+         </item>
+        </layout>
        </item>
        <item row="2" column="0">
         <widget class="QLabel" name="label_4">
@@ -230,8 +239,43 @@
        <item row="4" column="1">
         <widget class="QLineEdit" name="lineEdit_5"/>
        </item>
-       <item row="1" column="1">
-        <widget class="QLineEdit" name="lineEdit_2"/>
+       <item row="5" column="1">
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <property name="spacing">
+          <number>60</number>
+         </property>
+         <property name="topMargin">
+          <number>40</number>
+         </property>
+         <item>
+          <widget class="QLabel" name="label_14">
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButton">
+           <property name="text">
+            <string>确定 </string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButton_2">
+           <property name="text">
+            <string>返回</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_15">
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </item>
       </layout>
      </item>
