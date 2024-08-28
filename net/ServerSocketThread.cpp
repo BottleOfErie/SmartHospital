@@ -450,6 +450,6 @@ void ServerSocketThread::verifyMedicineWithId(long id){
     socket->write(NetUtils::wrapStrings({"v",result?"true":"false"}));
 }
 void ServerSocketThread::verifymedicineWithName(QString name){
-    bool result=dbop->queryMedicineByName(name).length()>0;
+    bool result=dbop->queryMedicineByName(name).length()>0;+
     socket->write(NetUtils::wrapStrings({"v",result?"true":"false"}));
 }

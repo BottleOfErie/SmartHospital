@@ -198,6 +198,7 @@ void EditRecipeAndPaymentOrder::on_tableWidget_itemChanged(QTableWidgetItem *ite
     if(isAddRow){
         return;
     }
+    qDebug()<<114514;
     QString nowPatient = ui->comboBox->currentText();
     row = item->row();
     int column = item->column();
