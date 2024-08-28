@@ -74,8 +74,8 @@ void MainWindow::on_checkBox_2_toggled(bool checked)
 }
 
 void MainWindow::loginCallback_slot(long long id){
+    disconnect(&ClientSocket::getInstance(),SIGNAL(login_callback(long long)),this,SLOT(loginCallback_slot(long long)));
     if(id>0){
-        disconnect(&ClientSocket::getInstance(),SIGNAL(login_callback(long long)),this,SLOT(loginCallback_slot(long long)));
         usernow::setId(QString::number(id));
         if (ui->checkBox_2->isChecked()==true){
             // 进入患者主界面

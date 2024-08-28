@@ -35,6 +35,9 @@ void Registration::on_pushButton_clicked()
         appointment.time = dateTime;
         ClientSocket::getInstance().submitAppointment(appointment);
     }
+    this->close();
+    Patient *patientWindow=new Patient();
+    patientWindow->show();
 }
 void Registration::paintEvent(QPaintEvent *e)
 {

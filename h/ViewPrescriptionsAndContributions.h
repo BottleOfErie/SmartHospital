@@ -2,7 +2,7 @@
 #define VIEWPRESCRIPTIONSANDCONTRIBUTIONS_H
 
 #include <QWidget>
-
+#include"net/ClientSocket.h"
 namespace Ui {
 class ViewPrescriptionsAndContributions;
 }
@@ -18,6 +18,7 @@ public:
 
 private slots:
     void on_pushButton_clicked();
+    void setPrescription_slot(NetUtils::Prescription data);
 
 private:
     Ui::ViewPrescriptionsAndContributions *ui;
