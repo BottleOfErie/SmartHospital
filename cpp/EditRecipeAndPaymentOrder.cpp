@@ -83,6 +83,7 @@ void EditRecipeAndPaymentOrder::submit(){
         });
     }
     nowState[id].state=1;
+    QMessageBox::information(NULL, "提交成功", "提交成功！！！", QMessageBox::Yes);
     ClientSocket::getInstance().submitAppointment(nowState[id]);
     closeWindow();
 }
@@ -98,6 +99,7 @@ bool EditRecipeAndPaymentOrder::CheckEmpty(){
             }
         }
     }
+    return false;
 }
 
 void EditRecipeAndPaymentOrder::insertRecipe(){

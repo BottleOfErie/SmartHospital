@@ -57,3 +57,13 @@ void HealthAssesment::on_pushButton_4_clicked()
 void HealthAssesment::takeAiReply(QString reply){
     QMessageBox::information(this,"",reply);
 }
+
+void HealthAssesment::on_pushButton_2_clicked()
+{
+
+}
+
+void HealthAssesment::on_pushButton_clicked()
+{
+
+}

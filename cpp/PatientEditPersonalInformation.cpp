@@ -21,17 +21,6 @@ PatientEditPersonalInformation::PatientEditPersonalInformation(QWidget *parent) 
 
     connect(ui->pushButton, &QPushButton::toggled, this, &PatientEditPersonalInformation::on_pushButton_toggled);
 
-    /*connect(ui->lineEdit, &QLineEdit::textChanged, this, &PatientEditPersonalInformation::on_lineEdit_textChanged);
-    connect(ui->lineEdit_2, &QLineEdit::textChanged, this, &PatientEditPersonalInformation::on_lineEdit_2_textChanged);
-    connect(ui->lineEdit_3, &QLineEdit::textChanged, this, &PatientEditPersonalInformation::on_lineEdit_3_textChanged);
-    connect(ui->name, &QLineEdit::textChanged, this, &PatientEditPersonalInformation::on_name_textChanged);
-    connect(ui->age, &QLineEdit::textChanged, this, &PatientEditPersonalInformation::on_age_textChanged);
-    connect(ui->gender, &QLineEdit::textChanged, this, &PatientEditPersonalInformation::on_gender_textChanged);
-    connect(ui->IDnumber, &QLineEdit::textChanged, this, &PatientEditPersonalInformation::on_IDnumber_textChanged);
-    connect(ui->phone, &QLineEdit::textChanged, this, &PatientEditPersonalInformation::on_phone_textChanged);
-    connect(ui->textEdit, &QLineEdit::textChanged, this, &PatientEditPersonalInformation::on_textEdit_textChanged);
-    connect(ui->textEdit_2, &QLineEdit::textChanged, this, &PatientEditPersonalInformation::on_textEdit_2_textChanged);*/
-
     connect(&ClientSocket::getInstance(),SIGNAL(patient_callback(NetUtils::PatientData)),this,SLOT(setPatientData_slot(NetUtils::PatientData)));
     ClientSocket::getInstance().getPatientById(usernow::getId().toLong());
     connect(&ClientSocket::getInstance(),SIGNAL(resetPassword_callback(bool)),this,SLOT(resetPassword_slot(bool)));

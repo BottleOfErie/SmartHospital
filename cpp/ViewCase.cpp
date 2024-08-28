@@ -39,29 +39,16 @@ void ViewCase::on_pushButton_clicked()
 }
 void ViewCase::setMedicalRecord_slot(NetUtils::MedicalRecord record)
 {
-
-    //int rowCount = ui->tableWidget->rowCount();
-   // ui->tableWidget->
-            qDebug()<<"dsb"<<ii;
-    //ui->tableWidget->item(0,0)->setText(record.);
+    int newRow = ui->tableWidget->rowCount(); // 获取当前行数
+    ui->tableWidget->insertRow(newRow); // 在末尾插入新行
+    ui->tableWidget->setVerticalHeaderItem(newRow, new QTableWidgetItem("病历"+QString::number(newRow+1)));
+    ui->tableWidget->setItem(newRow, 2, new QTableWidgetItem(record.diagnosis));
+    ui->tableWidget->setItem(newRow, 3, new QTableWidgetItem(record.advice));
+    ui->tableWidget->setItem(newRow, 4, new QTableWidgetItem(record.date));
     ClientSocket::getInstance().getDoctorDataById(record.doctorId);
-
-
-    QTableWidgetItem *newItem=new QTableWidgetItem(record.diagnosis);
-    ui->tableWidget->setItem(ii,2,newItem);
-    newItem=new QTableWidgetItem(record.advice);
-    ui->tableWidget->setItem(ii,3,newItem);
-    newItem=new QTableWidgetItem(record.date);
-    ui->tableWidget->setItem(ii,4,newItem);
-    ii++;
 }
 void ViewCase::setdoctor_slot(NetUtils::DoctorData data){
-    doctorname.push_back(data.name);
-    keshi.push_back(data.section);
-    qDebug()<<data.name;
-    QTableWidgetItem *newItem = new QTableWidgetItem(doctorname[j2]);
-    ui->tableWidget->setItem(j2,1,newItem);
-    newItem = new QTableWidgetItem(keshi[j2]);
-        ui->tableWidget->setItem(j2,0,newItem);
-    j2++;
+    int row=ui->tableWidget->rowCount()-1;
+    ui->tableWidget->setItem(row,0,new QTableWidgetItem(data.section));
+    ui->tableWidget->setItem(row,1,new QTableWidgetItem(data.name));
 }

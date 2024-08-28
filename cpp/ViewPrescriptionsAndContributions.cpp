@@ -3,7 +3,7 @@
 #include <h/Patient.h>
 #include "h/usernow.h"
 #include "net/ClientSocket.h"
-int i=0,jj=0;
+int cnt;
 QList<float>price;
 QList<QString>medicine_name;
 ViewPrescriptionsAndContributions::ViewPrescriptionsAndContributions(QWidget *parent) :
@@ -23,7 +23,6 @@ ViewPrescriptionsAndContributions::~ViewPrescriptionsAndContributions()
 
 void ViewPrescriptionsAndContributions::on_pushButton_clicked()
 {
-    i=0;jj=0;
     disconnect(&ClientSocket::getInstance(),SIGNAL(prescription_callback(NetUtils::Prescription)),this,SLOT(setPrescription_slot(NetUtils::Prescription)));
     disconnect(&ClientSocket::getInstance(),SIGNAL(medicine_callback(NetUtils::Medicine)),this,SLOT(setmedicine_slot(NetUtils::Medicine)));
     this->close();
@@ -39,28 +38,16 @@ void ViewPrescriptionsAndContributions::paintEvent(QPaintEvent *e)
 }
 void ViewPrescriptionsAndContributions::setPrescription_slot(NetUtils::Prescription data)
 {
-
-    //int rowCount = ui->tableWidget->rowCount();
-   // ui->tableWidget->
-            qDebug()<<"dsb"<<data.count;
-    //ui->tableWidget->item(0,0)->setText(record.);
+    int newRow = ui->tableWidget->rowCount(); // 获取当前行数
+    ui->tableWidget->insertRow(newRow); // 在末尾插入新行
+    ui->tableWidget->setVerticalHeaderItem(newRow, new QTableWidgetItem("缴费单"+QString::number(newRow+1)));
+    ui->tableWidget->setItem(newRow, 1, new QTableWidgetItem(QString::number(data.count)));
+    cnt=data.count;
+    ui->tableWidget->setItem(newRow, 2, new QTableWidgetItem(data.advice));
     ClientSocket::getInstance().getMedicineById(data.medicineId);
-    QTableWidgetItem *newItem ;
-    newItem=new QTableWidgetItem(QString::fromStdString(std::to_string(data.count)));
-    ui->tableWidget->setItem(i,1,newItem);
-    newItem=new QTableWidgetItem(data.advice);
-    ui->tableWidget->setItem(i,2,newItem);
-    /*newItem=new QTableWidgetItem(data.date);
-    ui->tableWidget->setItem(i,4,newItem);*/
-    i++;
 }
 void ViewPrescriptionsAndContributions::setmedicine_slot(NetUtils::Medicine data){
-    qDebug()<<data.name<<" "<<jj;
-    medicine_name.push_back(data.name);
-    price.push_back(data.price);
-    QTableWidgetItem *newItem = new QTableWidgetItem(data.name);
-    ui->tableWidget->setItem(jj,0,newItem);
-    newItem = new QTableWidgetItem(QString::fromStdString(std::to_string(data.price)));
-    ui->tableWidget->setItem(jj,3,newItem);
-    jj++;
+    int row=ui->tableWidget->rowCount()-1;
+    ui->tableWidget->setItem(row,0,new QTableWidgetItem(data.name));
+    ui->tableWidget->setItem(row,3,new QTableWidgetItem(QString::number(data.price*cnt)));
 }

@@ -24,6 +24,10 @@ private slots:
 
     void on_pushButton_4_clicked();
     void takeAiReply(QString reply);
+    void on_pushButton_2_clicked();
+
+    void on_pushButton_clicked();
+
 private:
     Ui::HealthAssesment *ui;
 };

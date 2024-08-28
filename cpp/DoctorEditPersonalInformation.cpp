@@ -16,12 +16,6 @@ DoctorEditPersonalInformation::DoctorEditPersonalInformation(QWidget *parent) :
 
     connect(ui->pushButton, &QPushButton::toggled, this, &DoctorEditPersonalInformation::on_pushButton_toggled);
 
-    connect(ui->lineEdit, &QLineEdit::textChanged, this, &DoctorEditPersonalInformation::on_lineEdit_textChanged);
-    connect(ui->lineEdit_2, &QLineEdit::textChanged, this, &DoctorEditPersonalInformation::on_lineEdit_2_textChanged);
-    connect(ui->lineEdit_3, &QLineEdit::textChanged, this, &DoctorEditPersonalInformation::on_lineEdit_3_textChanged);
-    connect(ui->lineEdit_4, &QLineEdit::textChanged, this, &DoctorEditPersonalInformation::on_lineEdit_4_textChanged);
-    connect(ui->lineEdit_5, &QLineEdit::textChanged, this, &DoctorEditPersonalInformation::on_lineEdit_5_textChanged);
-
     connect(&ClientSocket::getInstance(),SIGNAL(doctor_callback(NetUtils::DoctorData)),this,SLOT(setDoctorData_slot(NetUtils::DoctorData)));
     ClientSocket::getInstance().getDoctorDataById(usernow::getId().toLong());
 
@@ -30,6 +24,8 @@ DoctorEditPersonalInformation::DoctorEditPersonalInformation(QWidget *parent) :
     ui->lineEdit_3->setReadOnly(true);
     ui->lineEdit_4->setReadOnly(true);
     ui->lineEdit_5->setReadOnly(true);
+    ui->lineEdit_6->setReadOnly(true);
+    ui->dateEdit->setReadOnly(true);
 }
 
 DoctorEditPersonalInformation::~DoctorEditPersonalInformation()
@@ -79,16 +75,18 @@ void DoctorEditPersonalInformation::setDoctorData_slot(NetUtils::DoctorData data
     ui->lineEdit_3->setText(data.jobTitle);
     ui->lineEdit_4->setText(data.section);
     ui->lineEdit_5->setText(data.phoneNumber);
+    ui->lineEdit_6->setText(data.organization);
     isInformationChanged=false;
 }
 
 void DoctorEditPersonalInformation::updateDoctorData(){
     currentData.name=ui->lineEdit->text();
-    currentData.birthday=ui->lineEdit_2->text();
     currentData.jobTitle=ui->lineEdit_3->text();
     currentData.section=ui->lineEdit_4->text();
     currentData.phoneNumber=ui->lineEdit_5->text();
     currentData.birthday=ui->dateEdit->date().toString("yyyy-MM-dd");
+    currentData.nationId=ui->lineEdit_2->text();
+    currentData.organization=ui->lineEdit_6->text();
 
     ClientSocket::getInstance().submitDoctorData(currentData);
     QMessageBox::information(NULL, "修改成功", "修改成功！！！", QMessageBox::Yes);
@@ -148,4 +146,19 @@ void DoctorEditPersonalInformation::paintEvent(QPaintEvent *e)
     opt.init(this);
     QPainter p(this);
     style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
+}
+
+void DoctorEditPersonalInformation::on_dateEdit_dateChanged(const QDate &date)
+{
+    isInformationChanged=true;
+}
+
+void DoctorEditPersonalInformation::on_lineEdit_6_textChanged(const QString &arg1)
+{
+    isInformationChanged=true;
+}
+
+void DoctorEditPersonalInformation::on_lineEdit_5_cursorPositionChanged(int arg1, int arg2)
+{
+    isInformationChanged=true;
 }

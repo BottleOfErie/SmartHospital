@@ -34,6 +34,12 @@ private slots:
 
     void on_lineEdit_5_textChanged(const QString &arg1);
 
+    void on_dateEdit_dateChanged(const QDate &date);
+
+    void on_lineEdit_6_textChanged(const QString &arg1);
+
+    void on_lineEdit_5_cursorPositionChanged(int arg1, int arg2);
+
 private:
     Ui::DoctorEditPersonalInformation *ui;
     NetUtils::DoctorData currentData;

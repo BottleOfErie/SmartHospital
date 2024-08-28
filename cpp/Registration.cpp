@@ -2,7 +2,7 @@
 #include "ui_Registration.h"
 
 #include <h/Patient.h>
-
+#include <QMessageBox>
 #include <QDate>
 
 Registration::Registration(QWidget *parent) :
@@ -42,10 +42,14 @@ void Registration::on_pushButton_clicked()
         appointment.state = 0;  // before the meeting time
         appointment.time = dateTime;
         ClientSocket::getInstance().submitAppointment(appointment);
+        QMessageBox::information(NULL, "提交成功", "提交成功！！！", QMessageBox::Yes);
+        this->close();
+        Patient *patientWindow=new Patient();
+        patientWindow->show();
     }
-    this->close();
-    Patient *patientWindow=new Patient();
-    patientWindow->show();
+    else{
+        QMessageBox::warning(this,"error","提交失败，请确认信息是否全部填写！！");
+    }
 }
 void Registration::paintEvent(QPaintEvent *e)
 {
