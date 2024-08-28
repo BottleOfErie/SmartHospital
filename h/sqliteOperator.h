@@ -83,6 +83,8 @@ public:
 
     QList<NetUtils::Medicine> queryMedicineById(int medicineId);
     QList<NetUtils::Medicine> queryMedicineByName(const QString& name);
+    QList<NetUtils::Message> queryChatRecordByPatientId(long id);
+    QList<NetUtils::Message> queryChatRecordByDoctorId(int doctorId);
     // function of logging in
     bool Login(QString userName, QString Password);
     void moreInsertData(); // 插入多条数据

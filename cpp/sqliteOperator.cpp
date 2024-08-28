@@ -1,4 +1,4 @@
-#include "h/sqliteOperator.h"
+ #include "h/sqliteOperator.h"
 #include "net/NetUtils.h"
 #include <QSqlDatabase>
 #include <QSqlError>
@@ -1011,4 +1011,35 @@ QList<NetUtils::Medicine> SqliteOperator::queryMedicineByName(const QString& nam
     }
 
     return result;
+}
+
+QList<NetUtils::Message> SqliteOperator::queryChatRecordByDoctorId(int doctorId)
+{
+    QList<NetUtils::Message> result;
+    QSqlQuery query(this->Db);
+
+    query.prepare("SELECT * FROM ChatRecord WHERE doctorId = ?");
+    query.addBindValue(doctorId);
+
+    if (!query.exec()) {
+        qDebug() << "Error querying chat records:" << query.lastError().text();
+        return result;
+    }
+
+    while (query.next()) {
+        NetUtils::Message message;
+        message.patientId = query.value("patientId").toLongLong();
+        message.doctorId = query.value("doctorId").toLongLong();
+        message.timeStamp = query.value("timeStamp").toLongLong();
+        message.sendDirection = query.value("direction").toInt();
+        message.message = query.value("message").toString();
+        message.isRead = query.value("isRead").toBool();
+        result.append(message);
+    }
+
+    return result;
+}
+
+QList<NetUtils::Message> SqliteOperator::queryChatRecordByPatientId(long id){
+
 }

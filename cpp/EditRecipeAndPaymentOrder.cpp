@@ -81,9 +81,7 @@ void EditRecipeAndPaymentOrder::submit(){
                 ui->tableWidget->item(i, 2)->text(),
         });
     }
-    this->close();
-    auto doctor = new Doctor;
-    doctor->show();
+    closeWindow();
 }
 bool EditRecipeAndPaymentOrder::CheckEmpty(){
     for (int i = 0; i < ui->tableWidget->rowCount(); ++i) {
@@ -97,24 +95,23 @@ bool EditRecipeAndPaymentOrder::CheckEmpty(){
 }
 
 void EditRecipeAndPaymentOrder::insertRecipe(){
+    isAddRow=true;
     int newRow = ui->tableWidget->rowCount(); // 获取当前行数
     ui->tableWidget->insertRow(newRow); // 在末尾插入新行
     ui->tableWidget->setVerticalHeaderItem(newRow, new QTableWidgetItem("药品"+QString::number(newRow+1)));
     QString nowPatient = ui->comboBox->currentText();
     patientPrescriptions[nowPatient].append({"","","",""});
-    qDebug()<<ui->tableWidget->rowCount()<<newRow<<ui->tableWidget->columnCount();
     QTableWidgetItem * ptr=new QTableWidgetItem();
-    qDebug("%d",ptr);
-    ui->tableWidget->setItem(newRow, 0, nullptr);// 将信息插入到新行的第一列
-    //ui->tableWidget->setItem(newRow, 1, new QTableWidgetItem(""));
-    //ui->tableWidget->setItem(newRow, 2, new QTableWidgetItem(""));
-    //ui->tableWidget->setItem(newRow, 3, new QTableWidgetItem(""));
-    //QTableWidgetItem *item = ui->tableWidget->item(newRow, 3);
-    //qDebug()<<item;
+    ui->tableWidget->setItem(newRow, 0, new QTableWidgetItem(""));// 将信息插入到新行的第一列
+    ui->tableWidget->setItem(newRow, 1, new QTableWidgetItem(""));
+    ui->tableWidget->setItem(newRow, 2, new QTableWidgetItem(""));
+    ui->tableWidget->setItem(newRow, 3, new QTableWidgetItem(""));
+    QTableWidgetItem *item = ui->tableWidget->item(newRow, 3);
     // 设置该单元格为只读
-    //if (item) {
-        //item->setFlags(item->flags() & ~Qt::ItemIsEditable);
-    //}
+    if (item) {
+        item->setFlags(item->flags() & ~Qt::ItemIsEditable);
+    }
+    isAddRow=false;
 }
 
 void EditRecipeAndPaymentOrder::deleteRecipe(){
@@ -149,9 +146,7 @@ void EditRecipeAndPaymentOrder::on_pushButton_2_clicked()
         submit();
     }
     else{
-        this->close();
-        auto doctor = new Doctor;
-        doctor->show();
+        closeWindow();
     }
 }
 
@@ -200,6 +195,9 @@ void EditRecipeAndPaymentOrder::on_comboBox_currentIndexChanged(const QString &a
 
 void EditRecipeAndPaymentOrder::on_tableWidget_itemChanged(QTableWidgetItem *item)
 {
+    if(isAddRow){
+        return;
+    }
     QString nowPatient = ui->comboBox->currentText();
     row = item->row();
     int column = item->column();
@@ -209,5 +207,17 @@ void EditRecipeAndPaymentOrder::on_tableWidget_itemChanged(QTableWidgetItem *ite
     for (int i=0;i<4;i++){
         patientPrescriptions[nowPatient][row][i]=ui->tableWidget->item(row, i)->text();
     }
+}
+
+void EditRecipeAndPaymentOrder::closeWindow(){
+    this->close();
+    disconnect(&ClientSocket::getInstance(),SIGNAL(appointment_callback(NetUtils::Appointment)),this,SLOT(getPatientName_slot(NetUtils::Appointment)));
+    disconnect(&ClientSocket::getInstance(),SIGNAL(patient_callback(NetUtils::PatientData)),this,SLOT(addNameItem_slot(NetUtils::PatientData)));
+    disconnect(ui->action_2, &QAction::triggered, this,&EditRecipeAndPaymentOrder::insertRecipe);
+    disconnect(ui->action_3, &QAction::triggered, this,&EditRecipeAndPaymentOrder::deleteRecipe);
+    disconnect(&ClientSocket::getInstance(),SIGNAL(medicine_callback(NetUtils::Medicine)),this,SLOT(setMedicine_slot(NetUtils::Medicine)));
+    disconnect(&ClientSocket::getInstance(),SIGNAL(prescription_callback(NetUtils::Prescription)),this,SLOT(setPrescription_slot(NetUtils::Prescription)));
+    auto doctor = new Doctor;
+    doctor->show();
 }
 

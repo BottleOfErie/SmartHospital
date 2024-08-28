@@ -33,6 +33,7 @@ private slots:
     void on_comboBox_currentIndexChanged(const QString &arg1);
 
     void on_tableWidget_itemChanged(QTableWidgetItem *item);
+    void closeWindow();
 
 private:
     Ui::EditRecipeAndPaymentOrder *ui;
@@ -43,6 +44,7 @@ private:
     QMap<QString,long> medicineNametoId;
     void submit();
     bool CheckEmpty();
+    bool isAddRow;
 };
 
 #endif // EDITRECIPEANDPAYMENTORDER_H

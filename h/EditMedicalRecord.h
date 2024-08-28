@@ -28,6 +28,7 @@ private slots:
     void on_comboBox_currentIndexChanged(const QString &arg1);
     void getPatientName_slot(NetUtils::Appointment data);
     void addNameItem_slot(NetUtils::PatientData data);
+    void closeWindow();
 private:
     Ui::EditMedicalRecord *ui;
     QMap<long,QString> idToTime;

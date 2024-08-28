@@ -31,9 +31,7 @@ void EditMedicalRecord::on_pushButton_clicked()
     }
     else{
         uploadMedicalRecord();
-        this->close();
-        auto doctor = new Doctor;
-        doctor->show();
+        closeWindow();
     }
 }
 
@@ -58,9 +56,7 @@ void EditMedicalRecord::on_pushButton_2_clicked()
             uploadMedicalRecord();
         }
     }
-    this->close();
-    auto doctor = new Doctor;
-    doctor->show();
+    closeWindow();
 }
 
 void EditMedicalRecord::uploadMedicalRecord(){
@@ -97,4 +93,12 @@ void EditMedicalRecord::addNameItem_slot(NetUtils::PatientData data){
 void EditMedicalRecord::on_comboBox_currentIndexChanged(const QString &arg1)
 {
     ui->lineEdit_2->setText(idToTime.find(nametoId.find(arg1).value()).value());
+}
+
+void EditMedicalRecord::closeWindow(){
+    this->close();
+    disconnect(&ClientSocket::getInstance(),SIGNAL(patient_callback(NetUtils::PatientData)),this,SLOT(addNameItem_slot(NetUtils::PatientData)));
+    disconnect(&ClientSocket::getInstance(),SIGNAL(appointment_callback(NetUtils::Appointment)),this,SLOT(getPatientName_slot(NetUtils::Appointment)));
+    auto doctor = new Doctor;
+    doctor->show();
 }
