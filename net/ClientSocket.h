@@ -40,6 +40,9 @@ public:
     void submitTestResult(NetUtils::TestResult data);
     void submitMessage(NetUtils::Message data);
     void submitMedicine(NetUtils::Medicine data);
+
+    void verifyMedicineWithId(long id);
+    void verifymedicineWithName(QString name);
 private:
     ClientSocket();
     ~ClientSocket();
@@ -75,6 +78,7 @@ signals:
     void testResult_callback(NetUtils::TestResult data);
     void message_callback(NetUtils::Message data);
     void medicine_callback(NetUtils::Medicine data);
+    void verify_callback(bool);
 };
 
 #endif // CLIENTSOCKET_H

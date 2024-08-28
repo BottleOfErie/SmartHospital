@@ -3,7 +3,7 @@
 #include <h/Patient.h>
 #include "h/usernow.h"
 #include "net/ClientSocket.h"
-int ii=0,jj=0;
+int ii=0,j2=0;
 QList<QString> doctorname;
 ViewCase::ViewCase(QWidget *parent) :
     QWidget(parent),
@@ -29,7 +29,9 @@ void ViewCase::paintEvent(QPaintEvent *e)
 
 void ViewCase::on_pushButton_clicked()
 {
-    ii=0;
+    ii=0;j2=0;
+    disconnect(&ClientSocket::getInstance(),SIGNAL(medicalRecord_callback(NetUtils::MedicalRecord)),this,SLOT(setMedicalRecord_slot(NetUtils::MedicalRecord)));
+    disconnect(&ClientSocket::getInstance(),SIGNAL(doctor_callback(NetUtils::DoctorData)),this,SLOT(setdoctor_slot(NetUtils::DoctorData)));
     this->close();
     auto patient= new Patient;
     patient->show();
@@ -55,7 +57,7 @@ void ViewCase::setMedicalRecord_slot(NetUtils::MedicalRecord record)
 void ViewCase::setdoctor_slot(NetUtils::DoctorData data){
     doctorname.push_back(data.name);
     qDebug()<<data.name;
-    QTableWidgetItem *newItem = new QTableWidgetItem(doctorname[jj]);
-    ui->tableWidget->setItem(jj,1,newItem);
-    jj++;
+    QTableWidgetItem *newItem = new QTableWidgetItem(doctorname[j2]);
+    ui->tableWidget->setItem(j2,1,newItem);
+    j2++;
 }
