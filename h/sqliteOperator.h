@@ -79,8 +79,7 @@ public:
 
     QList<NetUtils::TestResult> queryHealthAssessmentByPatientId(int patientId);
 
-    QList<NetUtils::Message> queryChatRecordByPatientId(int patientId);
-    QList<NetUtils::Message> queryChatRecordByDoctorId(int doctorId);
+    QList<NetUtils::Message> queryChatRecordByPatientIdAndDoctorId(int patientId, int doctorId);
 
     QList<NetUtils::Medicine> queryMedicineById(int medicineId);
     QList<NetUtils::Medicine> queryMedicineByName(const QString& name);
