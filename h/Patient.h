@@ -36,6 +36,8 @@ private slots:
 
     void on_pushButton_9_clicked();
 
+    void aiReply_slot(QString s);
+
 private:
     Ui::Patient *ui;
 };

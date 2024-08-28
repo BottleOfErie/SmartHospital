@@ -4,11 +4,14 @@
 #include "h/usernow.h"
 #include <QPainter>
 #include <QStyleOption>
+#include "net/ClientSocket.h"
 HealthAssesment::HealthAssesment(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::HealthAssesment)
 {
     ui->setupUi(this);
+    connect(&ClientSocket::getInstance(),SIGNAL(testResult_callback(NetUtils::TestResult)),this,SLOT(setTestResult_slot(NetUtils::TestResult)));
+    ClientSocket::getInstance().getTestResultsByPatient(usernow::getId().toLong());
 }
 
 HealthAssesment::~HealthAssesment()
@@ -29,9 +32,6 @@ void HealthAssesment::paintEvent(QPaintEvent *e)
     QPainter p(this);
     style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
 }
-
-void HealthAssesment::on_pushButton_4_clicked()
-{
+void HealthAssesment::setTestResult_slot(NetUtils::TestResult){
 
 }
-

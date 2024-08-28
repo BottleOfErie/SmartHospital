@@ -75,7 +75,6 @@ QSize QNChatMessage::fontRect(QString str)
 
     QSize size = getRealString(m_msg); // 整个的size
 
-    qDebug() << "fontRect Size:" << size;
     int hei = size.height() < minHei ? minHei : size.height();
 
     m_sanjiaoLeftRect = QRect(iconWH+iconSpaceW+iconRectW, m_lineHeight/2, sanJiaoW, hei - m_lineHeight);
@@ -110,7 +109,6 @@ QSize QNChatMessage::getRealString(QString src)
             nMaxWidth = m_textWidth;
             int size = m_textWidth / fm.width(" ");
             int num = fm.width(value) / m_textWidth;
-            int ttmp = num*fm.width(" ");
             num = ( fm.width(value) ) / m_textWidth;
             nCount += num;
             QString temp = "";
@@ -137,7 +135,7 @@ QSize QNChatMessage::getRealString(QString src)
             }
         }
     }
-    return QSize(nMaxWidth+m_spaceWid, (nCount + 1) * m_lineHeight+2*m_lineHeight);
+    return QSize(nMaxWidth+m_spaceWid+1, (nCount + 1) * m_lineHeight+2*m_lineHeight);
 }
 
 void QNChatMessage::paintEvent(QPaintEvent *event)
