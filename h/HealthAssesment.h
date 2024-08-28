@@ -15,13 +15,15 @@ public:
     explicit HealthAssesment(QWidget *parent = nullptr);
     void paintEvent(QPaintEvent *e);
     ~HealthAssesment();
-
+private:
+    void outputAiResult(QString result);
+    NetUtils::TestResult result;
 private slots:
     void on_pushButton_3_clicked();
     void setTestResult_slot(NetUtils::TestResult);
 
-    //void on_pushButton_4_clicked();
-
+    void on_pushButton_4_clicked();
+    void takeAiReply(QString reply);
 private:
     Ui::HealthAssesment *ui;
 };
