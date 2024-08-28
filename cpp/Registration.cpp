@@ -3,11 +3,19 @@
 
 #include <h/Patient.h>
 
+#include <QDate>
+
 Registration::Registration(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Registration)
 {
     ui->setupUi(this);
+
+    QDate date = QDate::currentDate();
+    for (int i = 0; i < 7; i++) {
+        ui->comboBox_3->addItem(date.addDays(i).toString("yyyy-MM-dd"));
+    }
+
     connect(&ClientSocket::getInstance(),SIGNAL(doctor_callback(NetUtils::DoctorData)),this,SLOT(loadDoctors_slot(NetUtils::DoctorData)));
 }
 
