@@ -8,6 +8,7 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    cpp/DoctorPatientCommunicationUserListWidget.cpp \
     cpp/ViewRegistration.cpp \
     cpp/qnchatmessage.cpp \
     cpp/usernow.cpp \
@@ -34,6 +35,7 @@ SOURCES += \
     net/ServerThread.cpp
 
 HEADERS += \
+    h/DoctorPatientCommunicationUserListWidget.h \
     h/ViewRegistration.h \
     h/qnchatmessage.h \
     h/usernow.h \

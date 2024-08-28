@@ -56,9 +56,7 @@ void Doctor::on_pushButton_clicked()
 void Doctor::on_pushButton_5_clicked()
 {
     this->close();
-    auto doctor_patientCommunicationPlatform=new Doctor_patientCommunicationPlatform;
-    //auto doctor_patientCommunicationPlatform=new QNChatMessage;
-    doctor_patientCommunicationPlatform->identity="doctor";
+    auto doctor_patientCommunicationPlatform=new Doctor_patientCommunicationPlatform("doctor");
     doctor_patientCommunicationPlatform->show();
 }
 void Doctor::paintEvent(QPaintEvent *e)
