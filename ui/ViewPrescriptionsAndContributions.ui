@@ -36,16 +36,6 @@
      </property>
      <item>
       <widget class="QTableWidget" name="tableWidget">
-       <row>
-        <property name="text">
-         <string>药品1</string>
-        </property>
-       </row>
-       <row>
-        <property name="text">
-         <string>药品2</string>
-        </property>
-       </row>
        <column>
         <property name="text">
          <string>药品名</string>
