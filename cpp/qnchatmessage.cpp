@@ -137,7 +137,7 @@ QSize QNChatMessage::getRealString(QString src)
             }
         }
     }
-    return QSize(nMaxWidth+m_spaceWid, (nCount + 1) * m_lineHeight+2*m_lineHeight);
+    return QSize(nMaxWidth+m_spaceWid+1, (nCount + 1) * m_lineHeight+2*m_lineHeight);
 }
 
 void QNChatMessage::paintEvent(QPaintEvent *event)

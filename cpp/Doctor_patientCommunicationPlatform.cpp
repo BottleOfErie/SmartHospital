@@ -78,7 +78,7 @@ void Doctor_patientCommunicationPlatform::on_pushButton_clicked()
 
 void Doctor_patientCommunicationPlatform::dealMessage(QNChatMessage *messageW, QListWidgetItem *item, QString text, QString time,  QNChatMessage::User_Type type)
 {
-    messageW->setFixedWidth(600);
+    messageW->setFixedWidth(this->width());
     QSize size = messageW->fontRect(text);
     item->setSizeHint(size);
     messageW->setText(text, time, size, type);

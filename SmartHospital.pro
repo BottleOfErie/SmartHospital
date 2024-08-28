@@ -88,4 +88,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     B_I.qrc \
-    fin.qrc
+    fin.qrc \
+    chatimg.qrc
