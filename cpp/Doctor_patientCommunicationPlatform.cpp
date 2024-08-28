@@ -10,7 +10,7 @@
 #include <QMessageBox>
 #include <net/ClientSocket.h>
 #include <QTimer>
-Doctor_patientCommunicationPlatform::Doctor_patientCommunicationPlatform(QWidget *parent) :
+Doctor_patientCommunicationPlatform::Doctor_patientCommunicationPlatform(QString iden,QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Doctor_patientCommunicationPlatform)
 {
@@ -21,6 +21,7 @@ Doctor_patientCommunicationPlatform::Doctor_patientCommunicationPlatform(QWidget
 
     waitTime=8000;
     patientId=doctorId=0;
+    identity=iden;
     timer=new QTimer(this);
     connect(timer,SIGNAL(timeout()),this,SLOT(timerOutGetMsg_slot()));
     timer->start(waitTime);

@@ -16,7 +16,7 @@ class Doctor_patientCommunicationPlatform : public QWidget
     Q_OBJECT
 
 public:
-    explicit Doctor_patientCommunicationPlatform(QWidget *parent = nullptr);
+    explicit Doctor_patientCommunicationPlatform(QString iden,QWidget *parent = nullptr);
     void paintEvent(QPaintEvent *e);
     QString identity;
     long waitTime;
