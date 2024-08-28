@@ -87,7 +87,7 @@ void EditRecipeAndPaymentOrder::submit(){
     closeWindow();
 }
 bool EditRecipeAndPaymentOrder::CheckEmpty(){
-    if (ui->comboBox->currentText()==""){
+    if (ui->comboBox->currentText()=="" || ui->tableWidget->rowCount()==0){
         return true;
     }
     for (int i = 0; i < ui->tableWidget->rowCount(); ++i) {

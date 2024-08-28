@@ -81,6 +81,8 @@ void EditMedicalRecord::paintEvent(QPaintEvent *e)
 }
 
 void EditMedicalRecord::getPatientName_slot(NetUtils::Appointment data){
+    if(data.state)
+        return;
     ClientSocket::getInstance().getPatientById(data.patientId);
     idToTime.insert(data.patientId,data.time);
 }
