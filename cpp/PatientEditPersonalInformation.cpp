@@ -4,6 +4,7 @@
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QMessageBox>
+#include<QDebug>
 #include "h/usernow.h"
 #include "net/ClientSocket.h"
 //信息是否被修改过
@@ -86,7 +87,7 @@ void PatientEditPersonalInformation::on_pushButton_3_clicked()
 }
 
 void PatientEditPersonalInformation::setPatientData_slot(NetUtils::PatientData data){
-    qDebug("fuck you");
+    qDebug()<<data.name;
     currentData=data;
     ui->name->setText(data.name);
     ui->age->setText(data.birthday);
