@@ -50,6 +50,7 @@ Doctor_patientCommunicationPlatform::~Doctor_patientCommunicationPlatform()
 void Doctor_patientCommunicationPlatform::on_pushButton_2_clicked()
 {
     this->close();
+    timer->stop();
     if(identity=="doctor"){
         auto doctor = new Doctor;
         doctor->show();
