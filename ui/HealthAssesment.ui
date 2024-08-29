@@ -125,27 +125,9 @@
           <number>40</number>
          </property>
          <item>
-          <widget class="QPushButton" name="pushButton">
-           <property name="text">
-            <string>更改</string>
-           </property>
-          </widget>
-         </item>
-         <item>
           <widget class="QPushButton" name="pushButton_4">
            <property name="text">
             <string>AI分析</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item row="8" column="1">
-        <layout class="QHBoxLayout" name="horizontalLayout_5">
-         <item>
-          <widget class="QPushButton" name="pushButton_2">
-           <property name="text">
-            <string>提交</string>
            </property>
           </widget>
          </item>
