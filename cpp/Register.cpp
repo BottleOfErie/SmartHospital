@@ -99,6 +99,7 @@ void Register::on_registerButton_clicked()
 }
 
 void Register::registerCallbackSlot(long long id){
+    disconnect(&ClientSocket::getInstance(),SIGNAL(register_callback(long long)),this,SLOT(registerCallbackSlot(long long)));
     if(id<=0){
         QMessageBox::warning(this,"ERROR","注册失败，请重试！！");
     }

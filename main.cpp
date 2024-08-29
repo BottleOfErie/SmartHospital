@@ -29,8 +29,8 @@ int main(int argc, char *argv[])
         qApp->setStyleSheet(styleSheet);
     }
 
-    bool launchServer=true;
-    bool launchClient=true;
+    bool launchServer=false;
+    bool launchClient=false;
 
     for(int i=0;i<argc;i++){
         auto arg=QString(argv[i]);
