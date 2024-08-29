@@ -67,6 +67,10 @@ void QwenClient::networkReply(QNetworkReply* reply){
         }
     }
     reply->deleteLater();
+    if(!hasReply){
+        qDebug("Wrong aiReply:%s",info.toStdString().data());
+        emit aiReply(QString("AI服务异常，请联系设备管理员"));
+    }
 }
 
 void QwenClient::ask(QString question){
