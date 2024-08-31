@@ -75,7 +75,7 @@ void ClientSocket::connected_slot(){
 void ClientSocket::disconnected_slot(){
     qDebug("ClientSocket:Disconnected\n");
     emit disconnected();
-    connectToIP("127.0.0.1",34569);
+    connectToIP(socketIp,socketPort);
 }
 
 void ClientSocket::error_slot(QAbstractSocket::SocketError socketError){

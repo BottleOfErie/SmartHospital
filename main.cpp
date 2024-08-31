@@ -30,7 +30,9 @@ int main(int argc, char *argv[])
     }
 
     bool launchServer=false;
-    bool launchClient=false;
+    bool launchClient=true;
+    QString ip="127.0.0.1";
+    int port=50678;
 
     for(int i=0;i<argc;i++){
         auto arg=QString(argv[i]);
@@ -40,8 +42,27 @@ int main(int argc, char *argv[])
             i++;
         }else if(arg.compare("-server")==0){
             launchServer=true;
+            launchClient=false;
         }else if(arg.compare("-client")==0){
             launchClient=true;
+            launchServer=false;
+        }else if(arg.compare("-ip")==0){
+            ip=QString(argv[i+1]);
+            qDebug("Taken Server Ip:%s",argv[i+1]);
+            i++;
+        }else if(arg.compare("-port")==0){
+            port=std::stoi(argv[i+1]);
+            qDebug("Taken Server Port:%s",argv[i+1]);
+            i++;
+        }else if(arg.compare("-help")==0){
+            printf("Args:\n");
+            printf("-ai <ApiKey> : set Qwen Ai API_KEY.Essential to Ai assistant stuff.\n");
+            printf("-server : launch as server side.\n");
+            printf("-client : launch as client side.Default option.\n");
+            printf("-ip : set remote server ip.Default '127.0.0.1'.\n");
+            printf("-port : set remote server port.Default '50678'.\n");
+            launchClient=false;
+            launchServer=false;
         }
     }
 
@@ -54,7 +75,7 @@ int main(int argc, char *argv[])
     }
     /*ClientSocket::getInstance().submitAppointment((NetUtils::Appointment){
 1,2,"2004-04-06",0});*/
-
-    return a.exec();
+    if(launchClient||launchServer)
+        return a.exec();
 
 }
