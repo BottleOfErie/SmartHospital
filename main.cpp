@@ -60,17 +60,17 @@ int main(int argc, char *argv[])
             printf("-server : launch as server side.\n");
             printf("-client : launch as client side.Default option.\n");
             printf("-ip : set remote server ip.Default '127.0.0.1'.\n");
-            printf("-port : set remote server port.Default '50678'.\n");
+            printf("-port : set server port.Default '50678'.\n");
             launchClient=false;
             launchServer=false;
         }
     }
 
     if(launchServer){
-        auto server = new ServerThread(34569);
+        auto server = new ServerThread(port);
     }
     if(launchClient){
-        ClientSocket::getInstance().connectToIP("127.0.0.1",34569);
+        ClientSocket::getInstance().connectToIP(ip,port);
         w.show();
     }
     /*ClientSocket::getInstance().submitAppointment((NetUtils::Appointment){
