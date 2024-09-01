@@ -17,12 +17,7 @@ Register::Register(QWidget *parent) :
     ui->radioButton->setChecked(false);
     ui->radioButton_2->setChecked(false);
 
-//    for (QObject* child: ui->formLayout_5->children()) {
-//        static_cast<QWidget*>(child)->hide();//->setHidden(true);
-//    }
-//    for (QObject* child: ui->formLayout_2->children()) {
-//        static_cast<QWidget*>(child)->hide();//->setHidden(true);
-//    }
+    connect(&ClientSocket::getInstance(),SIGNAL(register_callback(long long)),this,SLOT(registerCallbackSlot(long long)));
 }
 
 Register::~Register()
@@ -41,12 +36,6 @@ void Register::on_checkBox_toggled(bool checked)
 {
     if (checked) {
         ui->checkBox_2->setChecked(false);
-//        for (QObject* child: ui->formLayout_5->children()) {
-//            static_cast<QWidget*>(child)->setHidden(false);
-//        }
-//        for (QObject* child: ui->formLayout_2->children()) {
-//            static_cast<QWidget*>(child)->setHidden(true);
-//        }
     }
 }
 
@@ -54,12 +43,6 @@ void Register::on_checkBox_2_toggled(bool checked)
 {
     if (checked) {
         ui->checkBox->setChecked(false);
-//        for (QObject* child: ui->formLayout_5->children()) {
-//            static_cast<QWidget*>(child)->setHidden(true);
-//        }
-//        for (QObject* child: ui->formLayout_2->children()) {
-//            static_cast<QWidget*>(child)->setHidden(false);
-//        }
     }
 }
 
@@ -81,25 +64,45 @@ void Register::on_registerButton_clicked()
         if(ui->checkBox->isChecked()==false && ui->checkBox_2->isChecked()==false){
             QMessageBox::warning(this,"ERROR","请选择你是医生还是患者！！");
         }
-        else if (ui->checkBox->isChecked()==true){
-            if (ui->comboBox->currentText() == JOBTITLE_PLACEHOLDER)
-                QMessageBox::warning(this,"ERROR","请选择你的职称！！");
-            else if (ui->comboBox_2->currentText() == SECTION_PLACEHOLDER)
-                QMessageBox::warning(this,"ERROR","请选择你的科室！！");
-            else {
-                connect(&ClientSocket::getInstance(),SIGNAL(register_callback(long long)),this,SLOT(registerCallbackSlot(long long)));
-                ClientSocket::getInstance().registerAsDoctor(username,password);
+        else {
+            if (username.length() == 18) {
+                int i;
+                for (i = 0; i < 17 && username[i] >= '0' && username[i] <= '9'; i++);
+                if (i >= 17 && (username[17] >= '0' && username[17] <= '9' || username[17] == 'X')) {
+                    QString phone = ui->phone->text();
+                    if (phone.length() == 8 || phone.length() == 11 && phone[0] == '1') {
+                        for (i = 0; i < phone.length() && phone[i] >= '0' && phone[i] <= '9'; i++);
+                        if (i >= phone.length()) {
+                            if (ui->checkBox->isChecked() == true){
+                                if (ui->comboBox->currentText() == JOBTITLE_PLACEHOLDER_DOC)
+                                    QMessageBox::warning(this,"ERROR","请选择你的职称！！");
+                                else if (ui->comboBox_2->currentText() == SECTION_PLACEHOLDER_DOC)
+                                    QMessageBox::warning(this,"ERROR","请选择你的科室！！");
+                                else {
+                                    ClientSocket::getInstance().registerAsDoctor(username,password);
+                                }
+                            }
+                            else{
+                                ClientSocket::getInstance().registerAsPatient(username,password);
+                            }
+                        } else {
+                            QMessageBox::warning(this,"ERROR","请输入正确的联系电话！！");
+                        }
+                    } else {
+                        QMessageBox::warning(this,"ERROR","请输入正确的联系电话！！");
+                    }
+                } else {
+                    QMessageBox::warning(this,"ERROR","请输入正确的身份证号！！");
+                }
+            } else {
+                QMessageBox::warning(this,"ERROR","请输入正确的身份证号！！");
             }
-        }
-        else{
-            connect(&ClientSocket::getInstance(),SIGNAL(register_callback(long long)),this,SLOT(registerCallbackSlot(long long)));
-            ClientSocket::getInstance().registerAsPatient(username,password);
         }
     }
 }
 
 void Register::registerCallbackSlot(long long id){
-    disconnect(&ClientSocket::getInstance(),SIGNAL(register_callback(long long)),this,SLOT(registerCallbackSlot(long long)));
+    //disconnect(&ClientSocket::getInstance(),SIGNAL(register_callback(long long)),this,SLOT(registerCallbackSlot(long long)));
     if(id<=0){
         QMessageBox::warning(this,"ERROR","注册失败，请重试！！");
     }
@@ -143,6 +146,11 @@ void Register::paintEvent(QPaintEvent *e)
     style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
 }
 
+
+void Register::closeEvent(QCloseEvent *event)
+{
+    disconnect(&ClientSocket::getInstance(),SIGNAL(register_callback(long long)),this,SLOT(registerCallbackSlot(long long)));
+}
 
 void Register::on_radioButton_toggled(bool checked)
 {
