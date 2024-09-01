@@ -17,6 +17,9 @@ public:
     void paintEvent(QPaintEvent *e);
     ~Register();
 
+protected:
+    void closeEvent(QCloseEvent *event) override;
+
 private slots:
     void on_backButton_clicked();
 
