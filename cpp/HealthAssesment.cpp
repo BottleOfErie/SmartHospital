@@ -51,7 +51,9 @@ void HealthAssesment::setTestResult_slot(NetUtils::TestResult result){
 void HealthAssesment::on_pushButton_4_clicked()
 {
     QwenClient::getInstance().ask(QString("这是我的体检报告，他说我的身高为%1，体重为%2，心率为%3，血压高压为%4，血压低压%5，肺活量为%6。请你简短地分析我的身体健康状态。")
-                    .arg(result.height).arg(result.weight).arg(result.heartRate).arg(result.highBP).arg(result.lowBP).arg(result.vitalCapacity));
+                    .arg(ui->lineEdit->text()).arg(ui->lineEdit_2->text())
+                    .arg(ui->lineEdit_4->text()).arg(ui->lineEdit_5->text())
+                    .arg(ui->lineEdit_7->text()).arg(ui->lineEdit_3->text()));
 }
 
 void HealthAssesment::takeAiReply(QString reply){
