@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1698</width>
-    <height>963</height>
+    <height>965</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -253,7 +253,11 @@
           </widget>
          </item>
          <item row="0" column="1">
-          <widget class="QLineEdit" name="organization"/>
+          <widget class="QLineEdit" name="organization">
+           <property name="placeholderText">
+            <string>（仅医生）</string>
+           </property>
+          </widget>
          </item>
          <item row="1" column="0">
           <widget class="QLabel" name="label_10">
@@ -280,7 +284,7 @@
              </property>
              <item>
               <property name="text">
-               <string>请选择职称</string>
+               <string>请选择职称（仅医生）</string>
               </property>
              </item>
              <item>
@@ -341,7 +345,7 @@
             <widget class="QComboBox" name="comboBox_2">
              <item>
               <property name="text">
-               <string>请选择科室</string>
+               <string>请选择科室（仅医生）</string>
               </property>
              </item>
              <item>
@@ -413,7 +417,11 @@
           </layout>
          </item>
          <item row="2" column="1">
-          <widget class="QLineEdit" name="lineEdit_3"/>
+          <widget class="QLineEdit" name="lineEdit_3">
+           <property name="placeholderText">
+            <string>（仅医生）</string>
+           </property>
+          </widget>
          </item>
         </layout>
        </item>
@@ -433,7 +441,11 @@
           </widget>
          </item>
          <item row="0" column="1">
-          <widget class="QTextEdit" name="textEdit"/>
+          <widget class="QTextEdit" name="textEdit">
+           <property name="placeholderText">
+            <string>（仅患者）</string>
+           </property>
+          </widget>
          </item>
          <item row="1" column="0">
           <widget class="QLabel" name="label_15">
@@ -443,7 +455,11 @@
           </widget>
          </item>
          <item row="1" column="1">
-          <widget class="QTextEdit" name="textEdit_2"/>
+          <widget class="QTextEdit" name="textEdit_2">
+           <property name="placeholderText">
+            <string>（仅患者）</string>
+           </property>
+          </widget>
          </item>
         </layout>
        </item>
